@@ -1,67 +1,69 @@
 <div class="bg-image">
 
-    <app-navebar></app-navebar>
-  
-    <div class="container">
-      <div class="screen">
-        <div class="screen__content">
-              <form class="login">
-          <div class="login__field">
-            <i class="login__icon fas fa-user"></i>
-            <h1 class="mb-3">انشاء حساب</h1>
-  
-                      
-                  </div>
-                  <input type="text" class="login__input" placeholder=" الاسم الثاني ">
-                  <input type="text" class="login__input" placeholder=" الاسم الاول">
-                  <div class="login__field">
-            <i class="login__icon fas fa-lock"></i>
-                      <input type="email" class="login__input1" placeholder=" الالكتروني">
-                      <input type="text" class="login__input1" placeholder=" رقم التلفون">
-                      <label for="governorate">اختر المحافظة</label>
+  <app-navebar></app-navebar>
 
-                      <select class="login__input1" [(ngModel)]="selectedGovernorate" >
-                       
-                        @for (item of governorates; track $index) {
-                        <option ngValue=item>{{item}} </option>}
-                        <!-- <option ngValue=" قنا">قنا </option> -->
-                      </select>
-                      
-                      <label for="governorate">اختر المركز</label>
+  <div class="container">
+    <div class="screen">
+      <div class="screen__content">
+       <form class="login">
+        <div class="login__field">
+          <i class="login__icon fas fa-user"></i>
+          <h1 class="mb-3 ms-5">انشاء حساب</h1>
 
-                      <select class="login__input1" [(ngModel)]="selectedm" >
-                       
-                        @for (item of m; track $index) {
-                        <option ngValue=item>{{item}} </option>}
-                        <!-- <option ngValue=" قنا">قنا </option> -->
-                      </select>
-                      <input type="password" class="login__input1" placeholder="كلمة السر ">
-                      <input type="password" class="login__input1" placeholder="تأكيد  كلمة السر ">
-                      
-                  </div>
-                  
-                  <button class="button login__submit">
-            <span class="button__text">انشاء</span>
-                      <i class="button__icon fas fa-chevron-right"></i>
-                  </button>
-              </form>
-              <div class="social-login">
-          <h3></h3>
-          <div class="social-icons">
-            <a [routerLink]="['/login']" class="social-login__icon fab fa-instagram">لدي حساب </a>
-                     
-                  </div>
-              </div>
-          </div>
-          <div class="screen__background">
-        <span class="screen__background__shape screen__background__shape4"></span>
-              <span class="screen__background__shape screen__background__shape3"></span>
-              <span class="screen__background__shape screen__background__shape2"></span>
-              <span class="screen__background__shape screen__background__shape1"></span>
-          </div>
-      </div>
-  </div>
-  
-  </div>
-  
-  
+
+                </div>
+                <input type="text" class="login__input " placeholder=" الاسم الثاني " required>
+                <input type="text" class="login__input " placeholder=" الاسم الاول" required>
+                <div class="login__field">
+                    <i class="login__icon fas fa-lock"></i>
+                    <input type="email" class="login__input1" placeholder=" الالكتروني" required>
+                    <input type="text" class="login__input1" placeholder=" رقم التلفون" required>
+                    <label for="governorate">اختر المحافظة</label>
+
+                    <select class="login__input1" [(ngModel)]="selectedGovernorate" required>
+
+                      @for (item of governorates; track $index) {
+
+                      <option ngValue=item>{{item}} </option>}
+
+                      <!-- <option ngValue=" قنا">قنا </option> -->
+                    </select>
+
+
+                    <label for="governorate">اختر المركز</label>
+
+                    <select class="login__input1" [(ngModel)]="selectedm" >
+
+                      @for (item of m; track $index) {
+                      <option ngValue=item>{{item}} </option>}
+                      <!-- <option ngValue=" قنا">قنا </option> -->
+                    </select>
+                    <input type="password" class="login__input1" placeholder="كلمة السر " required >
+                    <input type="password" class="login__input1" placeholder="تأكيد  كلمة السر " required>
+
+                </div>
+
+                <button class="button login__submit">
+                    <span class="button__text">انشاء</span>
+                    <i class="button__icon fas fa-chevron-right"></i>
+                </button>
+      </form>
+            <div class="social-login">
+        <h3></h3>
+        <div class="social-icons">
+          <a href="#" class="social-login__icon fab fa-facebook" routerLink="/login">لدي حساب</a>
+
+         </div>
+            </div>
+        </div>
+        <div class="screen__background">
+      <span class="screen__background__shape screen__background__shape4"></span>
+            <span class="screen__background__shape screen__background__shape3"></span>
+            <span class="screen__background__shape screen__background__shape2"></span>
+            <span class="screen__background__shape screen__background__shape1"></span>
+        </div>
+    </div>
+</div>
+
+</div>
+
