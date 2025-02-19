@@ -1,0 +1,153 @@
+html
+<!-- <label class="my-1 ">{{title}} :</label>
+<select class="form-control" (change)="detectchanges($event)">
+    <option value="all" selected>All</option>
+    @for( option of data ;track option){
+    <option value="{{option}}">{{option}}</option>
+    }
+</select> -->
+<div class="d-flex align-items-center flex-column">
+    <h1 class="text-capitalize pt-3">{{title}}:</h1>
+    <button id="allbtns"  (click)="detectchanges($event)">
+        <button selected id="singelbtn" value="all">
+            <div><img src="../../../../assets/all.png" width="150px" alt=""></div>
+            All
+        </button>
+        @for(option of data ;track $index){
+        <button  value="{{option}}" id="singelbtn">
+            {{option}}
+        </button>
+        }
+    </button>
+</div>
+ts
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, input, Output } from '@angular/core';
+
+@Component({
+  selector: 'app-select',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './select.component.html',
+  styleUrl: './select.component.css',
+})
+export class SelectComponent {
+  @Input() title: string = '';
+  @Input() data: any[] = [];
+  @Output() selectedValue = new EventEmitter();
+  imagesofcategory: string[] = [
+    '../../../../1 (1).png',
+    '../../../../1 (2).png',
+    '../../../../1 (3).png',
+    '../../../../1 (4).png',
+  ];
+  detectchanges(event: any) {
+    this.selectedValue.emit(event);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+html
+<div class="d-flex align-items-center flex-column">
+    <h1 class="text-capitalize pt-3">{{title}}:</h1>
+    <div class="d-flex align-items-center" id="allbtns">
+        <!-- زر "All" محدد افتراضيًا -->
+        <div class="allbtndiv" (click)="detectchanges($event, 'all')">
+            <button value="all" (click)="detectchanges($event, 'all')"
+                    [ngClass]="{'active-button': selectedOption === 'all'}">
+                All
+            </button>
+        </div>
+
+        <!-- تكرار الأزرار بناءً على البيانات -->
+        <div *ngFor="let option of data; let i = index" class="catbtndiv" (click)="detectchanges($event, option)">
+            <button value="{{option}}" (click)="detectchanges($event, option)"
+                    [ngClass]="{'active-button': selectedOption === option}">
+                {{option}}
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+ts
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-buttons',
+  templateUrl: './buttons.component.html',
+  styleUrls: ['./buttons.component.css']
+})
+export class ButtonsComponent implements OnInit {
+  selectedOption: string = 'all'; // تعيين "All" كخيار افتراضي
+
+  // عند تحميل الصفحة يتم تحديد زر "All" افتراضيًا
+  ngOnInit() {
+    this.selectedOption = 'all';
+  }
+
+  // تحديث الخيار المحدد عند الضغط على زر
+  detectchanges(event: any, option: string) {
+    this.selectedOption = option; // تحديث المتغير بناءً على الزر المضغوط
+    console.log('Current selection:', this.selectedOption);
+
+    // المنطق الحالي الخاص بك للتعامل مع الحدث هنا
+  }
+}
+
+
+css
+.active-button {
+    background-color: #007bff; /* اللون الأزرق للزر المضغوط */
+    color: white;
+}
+
+button {
+    background-color: #f8f9fa;
+    color: black;
+    border: 1px solid #007bff;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+    color: white;
+}

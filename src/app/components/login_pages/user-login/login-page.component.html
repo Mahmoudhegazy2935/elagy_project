@@ -1,0 +1,64 @@
+<div class="bg-image">
+
+  <app-navebar></app-navebar>
+
+  <div class="container">
+    <div class="screen">
+      <div class="screen__content">
+			<form class="login">
+        <div class="login__field">
+          <i class="login__icon fas fa-user"></i>
+          <h1 class="mb-3">تسجيل الدخول </h1>
+
+          <div class="d-flex gap-3 mb-3">
+            <div class="text-center">
+              <input routerLink="/pharmacy_login" routerLinkActive="active" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" >
+              <label class="form-check-label d-block " for="flexRadioDefault1">
+                صيدلية
+              </label>
+            </div>
+            <div class="text-center">
+              <input routerLink="/admin_login" routerLinkActive="active" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+              <label class="form-check-label d-block " for="flexRadioDefault2">
+                مشرف
+              </label>
+            </div>
+            <div class="text-center">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+              <label class="form-check-label d-block " for="flexRadioDefault2">
+                مستخدم
+              </label>
+            </div>
+          </div>
+
+					<input type="text" class="login__input" placeholder="البريد الالكتروني">
+				</div>
+				<div class="login__field">
+          <i class="login__icon fas fa-lock"></i>
+					<input type="password" class="login__input" placeholder="كلمة السر">
+				</div>
+				<button class="button login__submit">
+          <span class="button__text">تسجيل</span>
+					<i class="button__icon fas fa-chevron-right"></i>
+				</button>
+			</form>
+			<div class="social-login">
+        <h3></h3>
+				<div class="social-icons">
+          <a href="#" class="social-login__icon fab fa-instagram" [routerLink]="['/forgot_the_password']">نسيت كلمة السر ؟</a>
+					<a href="#" class="social-login__icon fab fa-facebook" [routerLink]="['/register']">انشاء حساب</a>
+					<a href="#" class="social-login__icon fab fa-twitter">هل لديك صيدلية ؟</a>
+				</div>
+			</div>
+		</div>
+		<div class="screen__background">
+      <span class="screen__background__shape screen__background__shape4"></span>
+			<span class="screen__background__shape screen__background__shape3"></span>
+			<span class="screen__background__shape screen__background__shape2"></span>
+			<span class="screen__background__shape screen__background__shape1"></span>
+		</div>
+	</div>
+</div>
+
+</div>
+

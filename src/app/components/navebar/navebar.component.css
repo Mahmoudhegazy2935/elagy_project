@@ -1,0 +1,80 @@
+.mynavebar{
+  background-color: #2973B2;
+  direction: rtl;
+  text-align: right;
+}
+
+.navbar {
+  display: flex;
+  justify-content:start;
+  align-items: center;
+  direction: rtl;
+  text-align: right;
+  margin: 0;
+  padding: 0;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  background-color: #2973B2;
+
+
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px; /* Space between items */
+  padding: 0px 20px;
+}
+
+.navbar ul li {
+  display: inline;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 22px;
+  font-weight: 600;
+  padding: 10px 15px;
+  transition: 0.3s ease-in-out;
+}
+
+.navbar ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+}
+
+/* Responsive for Mobile */
+@media (max-width: 768px) {
+  .navbar ul {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+}
+
+.genral_logo{
+  display: flex;
+  justify-content:start;
+  align-items: center;
+  direction: rtl;
+  text-align: right;
+  background-color:#F2EFE7;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  padding: 5px;
+  padding-right: 150px;
+
+}
+.logo-image{
+  width: 56.51px; height: 55px;
+  background-image: url("../intro-page/Group18.png");
+  background-size: cover; /* Ensures full coverage */
+  background-repeat: no-repeat;
+
+}
+
+.logo{
+  color:#255EAF; font-size: 30px; font-family: Inter; font-style: italic; font-weight: 600; word-wrap: break-word
+
+}
