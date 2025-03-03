@@ -5,7 +5,7 @@
   <div class="container">
     <div class="screen">
       <div class="screen__content">
-			<form class="login">
+			<form class="login" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="login__field">
           <i class="login__icon fas fa-user"></i>
           <h1 class="mb-3">تسجيل الدخول </h1>
@@ -18,7 +18,7 @@
               </label>
             </div>
             <div class="text-center">
-              <input routerLink="/admin_login" routerLinkActive="active" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+              <input routerLink="/admin_login" routerLinkActive="active" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
               <label class="form-check-label d-block " for="flexRadioDefault2">
                 مشرف
               </label>
@@ -31,16 +31,27 @@
             </div>
           </div>
 
-					<input type="text" class="login__input" placeholder="البريد الالكتروني">
+					<input type="email" class="login__input" formControlName="email" placeholder="البريد الالكتروني">
+           @if (f['email'].touched && f['email'].invalid) {
+
+                  <small class="text-danger" >Valid email is required</small>
+                }
 				</div>
 				<div class="login__field">
           <i class="login__icon fas fa-lock"></i>
-					<input type="password" class="login__input" placeholder="كلمة السر">
+					<input type="password" class="login__input" formControlName="password" placeholder="كلمة السر">
+          @if (f['password'].touched && f['password'].invalid) {
+
+            <small class="text-danger" >Password must be at least 6 characters</small>
+          }
 				</div>
-				<button class="button login__submit">
+				<button type="submit" class="button login__submit" [disabled]="loginForm.invalid">
           <span class="button__text">تسجيل</span>
 					<i class="button__icon fas fa-chevron-right"></i>
 				</button>
+        @if (errorMessage) {
+          <div class="alert alert-danger mt-3">{{ errorMessage }}</div>
+        }
 			</form>
 			<div class="social-login">
         <h3></h3>

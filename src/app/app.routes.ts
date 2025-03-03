@@ -4,8 +4,9 @@ import { IntroPageComponent } from './components/intro-page/intro-page.component
 import { AdminLoginComponent } from './components/login_pages/admin-login/admin-login.component';
 import { PharmacyLoginComponent } from './components/login_pages/pharmacy-login/pharmacy-login.component';
 import { registerAppScopedDispatcher } from '@angular/core/primitives/event-dispatch';
-import { RegisterPageComponent } from './components/register-page/register-page.component';
+import { RegisterPageComponent } from './components/register/register-page.component';
 import { ForgotThePasswordComponent } from './components/login_pages/forgot_the_password/forgot-the-password/forgot-the-password.component';
+import { HomeComponent } from './components/home/home.component';
 
 export const routes: Routes = [
   //admin:pages
@@ -18,6 +19,7 @@ export const routes: Routes = [
   //user:pages
   //{ path: '', redirectTo: '/login', pathMatch: 'full' },
   {path:'',component: IntroPageComponent},
+  {path:'home', component: HomeComponent},
   {path:'intro', component: IntroPageComponent},
   {path:'admin_login', component: AdminLoginComponent},
   {path:'pharmacy_login', component: PharmacyLoginComponent},
