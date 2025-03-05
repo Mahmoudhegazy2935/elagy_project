@@ -31,10 +31,11 @@ body {
 }
 
 .screen {
+
 	background: linear-gradient(90deg, #2973B2, #4DA7F4);
 	position: relative;
   border-radius: 50px;
-	height: 650px;
+	height: 700px;
 	width: 450px;
 	box-shadow: 0px 0px 24px #2973B2;
 
@@ -45,7 +46,7 @@ body {
 	position: relative;
 	height: 100%;
 
-  padding-left: 80px;
+  padding-left: 65px;
 }
 
 .screen__background {
@@ -102,14 +103,15 @@ body {
 
 .login {
 
-	width: 320px;
+	width: 350px;
 	padding: 30px;
-	padding-top: 40px;
+	padding-top: 20px;
 
 }
 
 .login__field {
-	padding: 10px 0px;
+
+	padding: 10px 12px;
 	position: relative;
 }
 
@@ -157,6 +159,7 @@ body {
 	background: rgba(41, 115, 178, 1);
 	font-size: 25px;
 	margin-top: 10px;
+
 	padding: 10px 14px;
 	border-radius: 26px;
 	border: 1px solid #D4D3E8;
@@ -181,7 +184,7 @@ body {
 
 .button__icon {
 	font-size: 24px;
-	margin-left: auto;
+	/* margin-left: auto; */
 	color:#2973B2;
 }
 
