@@ -7,6 +7,7 @@ import { registerAppScopedDispatcher } from '@angular/core/primitives/event-disp
 import { RegisterPageComponent } from './components/register/register-page.component';
 import { ForgotThePasswordComponent } from './components/login_pages/forgot_the_password/forgot-the-password/forgot-the-password.component';
 import { HomeComponent } from './components/home/home.component';
+import { CartComponent } from './components/cart/cart.component';
 
 export const routes: Routes = [
   //admin:pages
@@ -26,4 +27,5 @@ export const routes: Routes = [
   { path: 'login', component: LoginPageComponent, title: 'login' },
   { path: 'register', component: RegisterPageComponent, title: 'register' },
   { path: 'forgot_the_password', component: ForgotThePasswordComponent, title: 'forgot_the_password' },
+  { path: 'cart', component: CartComponent, title: 'cart' },
 ];
