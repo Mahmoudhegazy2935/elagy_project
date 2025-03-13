@@ -1,0 +1,15 @@
+.vector{
+    width: 25px; height: 25px;
+    background-image: url("Vector.png");
+    background-size: cover; 
+}
+.material-symbols_autopause-rounded{
+    width: 25px; height: 25px;
+    background-image: url("material-symbols_autopause-rounded.jpg");
+    background-size: cover; 
+}
+.material-symbols_autoplay{
+    width: 25px; height: 25px;
+    background-image: url("material-symbols_autoplay.png");
+    background-size: cover; 
+}
