@@ -13,3 +13,7 @@
     background-image: url("material-symbols_autoplay.png");
     background-size: cover; 
 }
+a {
+    text-decoration: none; /* إزالة الخط */
+    color: inherit; /* جعل اللون نفس لون النص المحيط به */
+  }
