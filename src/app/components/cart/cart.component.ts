@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../../services/cart.service';
+import { CartService } from '../../services/cart.service/cart.service';
 import { Product } from '../../models/product';
 import { NavebarComponent } from "../navebar/navebar.component";
 import { RouterModule } from '@angular/router';
@@ -16,7 +16,7 @@ export class CartComponent implements OnInit {
   cart: Product[] = [];
   protected_price : number = 0;
   shipping: number=10;
- 
+
   constructor(private cartService: CartService) {}
 
   ngOnInit() {
@@ -36,5 +36,5 @@ export class CartComponent implements OnInit {
     this.cartService.removeItem(id);
   }
 
-  
+
 }

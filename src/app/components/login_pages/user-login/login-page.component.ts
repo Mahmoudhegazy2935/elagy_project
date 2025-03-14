@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { NavebarComponent } from "../../navebar/navebar.component";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../../services/auth.service/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 
 @Component({

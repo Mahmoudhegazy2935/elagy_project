@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavebarComponent } from "../navebar/navebar.component";
 import { Router, RouterModule } from '@angular/router';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service/auth.service';
 @Component({
   selector: 'app-register-page',
   standalone: true,
