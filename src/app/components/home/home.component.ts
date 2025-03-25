@@ -3,7 +3,9 @@ import { NavebarComponent } from "../navebar/navebar.component";
 import { Router, RouterModule } from '@angular/router';
 import { Product } from '../../models/product';
 import { ProductService } from '../../services/product.service/product.service';
-import Swal from 'sweetalert2';
+
+
+
 import { TruncatePipe } from '../../pipes/truncate.pipe';
 
 @Component({
