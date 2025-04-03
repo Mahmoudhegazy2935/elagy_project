@@ -9,6 +9,8 @@ import { ForgotThePasswordComponent } from './components/login_pages/forgot_the_
 import { HomeComponent } from './components/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProcessingCartComponent } from './components/processing_cart/processing-cart/processing-cart.component';
+import { PreviousOperationsComponent } from './components/previous-operations/previous-operations/previous-operations.component';
+import { HomeAdminComponent } from './components/admin/homeAdmin/home-admin/home-admin.component';
 
 export const routes: Routes = [
   //admin:pages
@@ -29,5 +31,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterPageComponent, title: 'register' },
   { path: 'forgot_the_password', component: ForgotThePasswordComponent, title: 'forgot_the_password' },
   { path: 'cart', component: CartComponent, title: 'cart' },
-  {path:'ProcessingCart', component: ProcessingCartComponent, title: 'Processing Cart'}
+  {path:'ProcessingCart', component: ProcessingCartComponent, title: 'Processing Cart'},
+  {path:'PreviousOperationsComponent', component: PreviousOperationsComponent, title: 'Previous Operations'},
+  {path:'HomeAdminComponent', component: HomeAdminComponent, title: 'Previous Operations'},
 ];

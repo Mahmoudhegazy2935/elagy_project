@@ -1,0 +1,19 @@
+.vector{
+    width: 25px; height: 25px;
+    background-image: url("Vector.png");
+    background-size: cover; 
+}
+.material-symbols_autopause-rounded{
+    width: 25px; height: 25px;
+    background-image: url("material-symbols_autopause-rounded.jpg");
+    background-size: cover; 
+}
+.material-symbols_autoplay{
+    width: 25px; height: 25px;
+    background-image: url("material-symbols_autoplay.png");
+    background-size: cover; 
+}
+a {
+    text-decoration: none; /* إزالة الخط */
+    color: inherit; /* جعل اللون نفس لون النص المحيط به */
+  }

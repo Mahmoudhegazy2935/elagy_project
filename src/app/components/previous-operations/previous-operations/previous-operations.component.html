@@ -33,45 +33,35 @@
       <div class="col-md-8 mx-auto ">
        
         <div class="card p-3 bg-primary-subtle">
-          @for (ProcessingCart of cart; track ProcessingCart.id) {
-          
-            <div class="d-flex align-items-center border-bottom pb-2 mb-2">
+          <h3 style="text-align: right;">العمليات المنتهيه </h3>
+          <hr>
+          @for (PreviousOperationsComponent of cart; track PreviousOperationsComponent.id) {
+           
+            <div >
+              
               <table><tr>
-               
-              <div class="d-flex align-items-center border-bottom pb-2 mb-2">
-                <td> <img [src]="ProcessingCart.image" class="img-fluid" width="100"></td>
+             
+                <td style="width: 100px;" > <img [src]="PreviousOperationsComponent.image" class="img-fluid" width="100px"></td>
                 <td><div class="ms-3 flex-grow-1">
-                  <h5 style="width: 150px;">{{ ProcessingCart.name }}</h5>
-                  <p class="text-muted">{{ ProcessingCart.price }} جنيه</p>
+                  <h5 style="width: 150px;">{{ PreviousOperationsComponent.name }}</h5>
+                  <p class="text-muted">{{ PreviousOperationsComponent.price }} جنيه</p>
                
                 </div> </td>
-              </div>
-              <div>
+              
+              
                 <td>
-              <h1 class="btn text-danger" style="text-align: right; width: 650px;" >{{ProcessingCart.state}}</h1></td></div></tr></table>
-              </div>  
+              <h1 class="fs-6 fw-light  text-danger" style="text-align: right; width: 300px;" >{{PreviousOperationsComponent.state}}</h1>
+              <h1 class="fs-6 fw-light text-danger" style="text-align: right; width: 300px; " >{{PreviousOperationsComponent.date}}</h1>
+              <h1 class="fs-6 fw-light text-danger" style="text-align: right; width: 300px;" >{{PreviousOperationsComponent.time}}</h1>
+             
+              
+            </td>
+          <td style="padding-left: 25px;"> <button class="btn btn-primary w-100 mt-3" >اعادة الطلب</button></td></tr></table></div>  
+              
           }
 
-          <div class="d-flex justify-content-between">
           
-            <h5>{{  protected_price }} جنيه</h5>
-            <h5>:سعر المنتج </h5>
-           
-            
-          </div>
-          <div class="d-flex justify-content-between">
-            <h5>{{shipping}} جنيه</h5>
-            <h5>:الشحن </h5>
-          </div>
-          <hr>
-          <div class="d-flex justify-content-between">
-            <h5>{{shipping +  protected_price}} جنيه</h5>
-            <h5>:الاجمالي </h5>
-          </div>
-          <button class="btn btn-primary w-100 mt-3">إتمام الشراء</button>
-        </div>
-      </div>
-    </div>
-  </div>
+        </div></div>   
+  </div></div>
   
   
