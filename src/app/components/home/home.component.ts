@@ -1,22 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { NavebarComponent } from "../navebar/navebar.component";
 import { Router, RouterModule } from '@angular/router';
 import { Product } from '../../models/product';
 import { ProductService } from '../../services/product.service/product.service';
 import Swal from 'sweetalert2';
 import { TruncatePipe } from '../../pipes/truncate.pipe';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
 
   selector: 'app-home,TruncatePipe',
   standalone: true,
-  imports: [NavebarComponent,RouterModule],
+  imports: [NavebarComponent,RouterModule,FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 
 })
 export class HomeComponent {
+  searchQuery: string = '';
+  product: any = null;  // Store only a single product
+  errorMessage: string = '';
   products: Product[] = [];
+  isVisible: boolean = false;
   constructor(
 
     private productsrvice: ProductService,
@@ -29,6 +35,33 @@ export class HomeComponent {
       Object.assign(item, { quantity: 1, total: item.price });
     });
   }
+
+  search() {
+    this.errorMessage = '';
+      // Reset previous result
+
+
+    if (this.searchQuery.trim()) {
+      this.productsrvice.searchProduct(this.searchQuery).subscribe({
+        next: (data) => {
+           if (data) {
+            this.products = data;  // Store the product
+          } else {
+            this.errorMessage = ` لا توجد نتائج ل ${this.searchQuery}`;
+          }
+        },
+        error: (err) => {
+          console.error('Error fetching product', err);
+          this.errorMessage = ` لا توجد نتائج ل ${this.searchQuery}`;
+        }
+      });
+    }
+  }
+
+  onSearch() {
+    this.isVisible = this.searchQuery.length > 0;
+  }
+
 
   getProducts() {
     this.productsrvice
