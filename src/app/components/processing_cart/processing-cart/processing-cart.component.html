@@ -1,27 +1,27 @@
 <app-navebar></app-navebar>
 
 <div class="container mt-5">
-  <div div class="d-flex justify-content-between " style="margin-left: 270px; margin-right: 270px;">
+   <div div class="d-flex justify-content-between " style="margin-left: 270px; margin-right: 270px;">
     <button class="btn btn-primary w-25 " style="height:40px;"> تابع التسوق</button>
     <h2 class="text-center" style="padding-left: 250px; ">سلة التسوق</h2>
        <hr> 
 </div>
 <hr style="margin-left: 290px; margin-right: 290px;;" class="border border-4 border-dark" >
 <div class="d-flex justify-content-between  ms-auto " style="width: 400px; margin-right: 290px;">
-  <a href="#" routerLink="/PreviousOperationsComponent" ><div class="  d-flex flex-column align-items-center" ><!-- عمليات سابقة -->
+  <a href="#"><div class="  d-flex flex-column align-items-center" ><!-- عمليات سابقة -->
   <div class="material-symbols_autoplay "></div>
 
   <div style="padding-top: 0px;">عمليات سابقة</div>
   
 </div></a><!-- عمليات سابقة -->
-<a href="#" routerLink="/ProcessingCart"><div class="  d-flex flex-column align-items-center"><!-- تتم المعالجة-->
+<a href="#"><div class="  d-flex flex-column align-items-center"><!-- تتم المعالجة-->
   <div class="vector">
-    <!-- <li><a href="#" [routerLink]="['/cart']"> كارت </a></li> -->
+   
   </div>
   <div >تتم المعالجة
   </div>
   </div><!-- تتم المعالجة--></a>
- <a href="#" > <div class="d-flex flex-column align-items-center"><!-- طلباتك الان -->
+ <a href="#"> <div class="d-flex flex-column align-items-center"><!-- طلباتك الان -->
   <div class="material-symbols_autopause-rounded"></div>
   
     <div style="padding-top: 0px;">طلباتك الان</div>
@@ -31,23 +31,27 @@
 <br>
     <div class="row  ">
       <div class="col-md-8 mx-auto ">
+       
         <div class="card p-3 bg-primary-subtle">
-          @for (product of cart; track product.id) {
+          @for (ProcessingCart of cart; track ProcessingCart.id) {
+          
             <div class="d-flex align-items-center border-bottom pb-2 mb-2">
-              <img [src]="product.image" class="img-fluid" width="100">
-              <div class="ms-3 flex-grow-1">
-                <h5>{{ product.name }}</h5>
-                <p class="text-muted">{{ product.price }} جنيه</p>
-                <div class="input-group w-50">
-                  <button class="btn btn-outline-secondary" (click)="updateQuantity(product, product.quantity - 1)">-</button>
-                  <input type="text" class="form-control text-center" [value]="product.quantity" readonly>
-                  <button class="btn btn-outline-secondary" (click)="updateQuantity(product, product.quantity + 1)">+</button>
-                </div>
+              <table><tr>
+               
+              <div class="d-flex align-items-center border-bottom pb-2 mb-2">
+                <td> <img [src]="ProcessingCart.image" class="img-fluid" width="100"></td>
+                <td><div class="ms-3 flex-grow-1">
+                  <h5 style="width: 150px;">{{ ProcessingCart.name }}</h5>
+                  <p class="text-muted">{{ ProcessingCart.price }} جنيه</p>
+               
+                </div> </td>
               </div>
-              <button class="btn btn-danger" (click)="removeItem(product.id)">🗑️</button>
-            </div>
+              <div>
+                <td>
+              <h1 class="btn text-danger" style="text-align: right; width: 650px;" >{{ProcessingCart.state}}</h1></td></div></tr></table>
+              </div>  
           }
-  
+
           <div class="d-flex justify-content-between">
           
             <h5>{{  protected_price }} جنيه</h5>
