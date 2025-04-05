@@ -78,3 +78,12 @@
   color:#255EAF; font-size: 30px; font-family: Inter; font-style: italic; font-weight: 600; word-wrap: break-word
 
 }
+
+.card{
+  width: 50px; height: 50px;
+  background-image: url("shoppingbasket_78385.png");
+  background-size: cover; 
+  border-radius: 50%; 
+  margin-right: 40px;
+  margin-top: 2px;
+}
