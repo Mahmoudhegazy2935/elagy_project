@@ -49,14 +49,16 @@
             <!-- Product Card -->
             <div class="col-md-3 cards" >
               <div class="card p-1">
+
                 <div class="contImg">
-                  <img src="{{product.image}}" class="card-img-top" width="150px" height="150px" alt="{{product.name}}">
+                  <img [src]="drugImages[$index]" class="card-img-top" width="150px" height="150px" alt="{{product.name}}">
                 </div>
+
                 <div class="card-body">
                   <p class="card-text">{{product.name}}</p>
-                  <p>{{ truncateText(product.description,40) }}</p>
+                  <!-- <p>{{ truncateText(product.description,40) }}</p> -->
                   <p>{{product.price}} جنيه</p>
-                  <button class="btn btn-danger">أضف إلى السلة</button>
+                  <button class="btn btn-danger" (click)="showAlert()">أضف إلى السلة</button>
                 </div>
               </div>
             </div>
@@ -81,13 +83,13 @@
             <div class="col-md-3 cards" >
               <div class="card p-1">
                 <div class="contImg">
-                  <img src="{{product.image}}" class="card-img-top" width="150px" height="150px" alt="{{product.name}}">
+                  <img [src]="panadolimages[$index]" class="card-img-top" width="150px" height="150px" alt="{{product.name}}">
                 </div>
                 <div class="card-body">
                   <p class="card-text">{{product.name}}</p>
-                  <p>{{ truncateText(product.description,40) }}</p>
+                  <!-- <p>{{ truncateText(product.description,40) }}</p> -->
                   <p>{{product.price}} جنيه</p>
-                  <button class="btn btn-danger">أضف إلى السلة</button>
+                  <button class="btn btn-danger" (click)="showAlert()">أضف إلى السلة</button>
                 </div>
               </div>
             </div>

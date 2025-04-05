@@ -10,8 +10,8 @@ export class ProductService {
 
   [x: string]: any;
   // private url = 'https://localhost:7074/api';
-  private apiUrl = 'https://fakestoreapi.com/products';
-  private apisear = 'https://localhost:7074/api/Product/search';
+  private apiUrl = 'http://localhost:5208/api/Product';
+  private apisear = 'http://localhost:5208/api/Product/search';
 
 
 

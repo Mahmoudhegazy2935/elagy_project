@@ -1,6 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   direction: rtl;
+  padding-top:70px;
 }
 .navbar {
   background-color: #007bff !important;
@@ -43,7 +44,7 @@ footer {
   justify-content:center;
   margin: auto;
 
-  width: 50%;
+  width: 200px;
 }
 
 .cards {
