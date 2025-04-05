@@ -1,57 +1,117 @@
 <app-navebar></app-navebar>
 <body>
 
-  <h1 class="text-center">mahmoud</h1>
 
-  <header class="midle">
-      <div class="container mmm">
+    <div class="input-box my-3">
+      <i class="uil uil-search"></i>
+      <input type="text" [(ngModel)]="searchQuery" (keyup)="search()"  placeholder="ابحث عن علاجك, ومنتجات علاجيه اخري">
+      <button class="button" (click)="search()">بحث</button>
+      <!-- <input type="text" [(ngModel)]="searchQuery" placeholder="Enter product name" />
+      <button (click)="search()">Search</button> -->
+      @if (errorMessage) {
+        <div  class="error-message ">
+          {{ errorMessage }}
+        </div>
+      }
+    </div>
+
+
+    @if (!searchQuery) {
+
+      <header class="midle">
+        <div class="container mmm">
           <div class="row align-items-center">
+
               <div class="col-md-6 my-5 divmidll">
                   <h1 class="text-light text1" [routerLink]="['/HomeAdminComponent']">علاجي</h1>
                   <p class="mt-5 ">موقع يقوم بخدمة العملاء للوصول للأدوية في كافة الصيدليات القريبة منك.</p>
                   <div class="d-flex">
 
-                    <button class="btn btn-primary">معرفة المزيد..</button>
-                    <button class="btn text-light btn btn-outline-secondary mx-3">تواصل معنا</button>
 
-                  </div>
+                <button class="btn btn-primary">معرفة المزيد..</button>
+                <button class="btn text-light btn btn-outline-secondary mx-3">تواصل معنا</button>
+
               </div>
-              <div class="col-md-6 ">
-                  <img src="assets/unsplash_ZLjLr9HwUGs.png" alt="Pharmacy" class="img-fluid">
-              </div>
+            </div>
+            <div class="col-md-6 ">
+              <img src="assets/unsplash_ZLjLr9HwUGs.png" alt="Pharmacy" class="img-fluid">
+            </div>
           </div>
-      </div>
-  </header>
+        </div>
+      </header>
 
-  <section class="container my-5">
-      <h2 class="mb-4">الأكثر استخداماً</h2>
-      <div class="row">
-        @for (product of products; track $index) {
 
-          <!-- Product Card -->
-          <div class="col-md-3 cards" >
+
+      <section class="container my-5">
+        <h2 class="mb-4">الأكثر استخداماً</h2>
+
+        <div class="row">
+          @for (product of products; track $index) {
+
+            <!-- Product Card -->
+            <div class="col-md-3 cards" >
               <div class="card p-1">
+
                 <div class="contImg">
-                   <img src="{{product.image}}" class="card-img-top" width="150px" height="150px" alt="{{product.name}}">
+                  <img [src]="drugImages[$index]" class="card-img-top" width="150px" height="150px" alt="{{product.name}}">
                 </div>
+
+                <div class="card-body">
+                  <p class="card-text">{{product.name}}</p>
+                  <!-- <p>{{ truncateText(product.description,40) }}</p> -->
+                  <p>{{product.price}} جنيه</p>
+                  <button class="btn btn-danger" (click)="showAlert()">أضف إلى السلة</button>
+                </div>
+
                   <div class="card-body">
                       <p class="card-text">{{product.name}}</p>
                       <p>{{ truncateText(product.description,40) }}</p>
                       <p>{{product.price}} جنيه</p>
                       <button class="btn btn-danger" >أضف إلى السلة</button>
                   </div>
-              </div>
-          </div>
-        }
-      </div>
-  </section>
 
-  <footer class="bg-secondary text-white text-center py-4">
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+
+    <footer class="bg-secondary text-white text-center py-4">
       <div class="container">
-          <p>copyright 2024</p>
+        <p>copyright 2024</p>
       </div>
-  </footer>
+    </footer>
+  }
+  @else{
+    @if (products && !errorMessage) {
+      <section class="container my-5">
+
+        <div class="row">
+          @for (product of products; track $index) {
+
+            <!-- Product Card -->
+            <div class="col-md-3 cards" >
+              <div class="card p-1">
+                <div class="contImg">
+                  <img [src]="panadolimages[$index]" class="card-img-top" width="150px" height="150px" alt="{{product.name}}">
+                </div>
+                <div class="card-body">
+                  <p class="card-text">{{product.name}}</p>
+                  <!-- <p>{{ truncateText(product.description,40) }}</p> -->
+                  <p>{{product.price}} جنيه</p>
+                  <button class="btn btn-danger" (click)="showAlert()">أضف إلى السلة</button>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+    }
+  }
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+<
+
+
 

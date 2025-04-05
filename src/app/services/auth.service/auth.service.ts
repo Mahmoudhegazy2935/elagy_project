@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-
-  private apiUrl = 'https://localhost:7074/Registration'; // Replace with your actual API URL
-  private apiUrl1 = 'https://localhost:7074/Login'; // Replace with your actual API URL
+  private apiurl0='http://localhost:5208';
+  private apiUrl = `${this.apiurl0}/Registration`; // Replace with your actual API URL
+  private apiUrl1 = `${this.apiurl0}/Login`; // Replace with your actual API URL
 
   constructor(private http: HttpClient) {}
 

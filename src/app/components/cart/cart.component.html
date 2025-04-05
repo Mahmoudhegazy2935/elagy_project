@@ -1,10 +1,10 @@
 <app-navebar></app-navebar>
 
-<div class="container mt-5">
+<div class="container mt-5 pt-5">
   <div div class="d-flex justify-content-between " style="margin-left: 270px; margin-right: 270px;">
     <button class="btn btn-primary w-25 " style="height:40px;"> تابع التسوق</button>
     <h2 class="text-center" style="padding-left: 250px; ">سلة التسوق</h2>
-       <hr> 
+       <hr>
 </div>
 <hr style="margin-left: 290px; margin-right: 290px;;" class="border border-4 border-dark" >
 <div class="d-flex justify-content-between  ms-auto " style="width: 400px; margin-right: 290px;">
@@ -12,7 +12,7 @@
   <div class="material-symbols_autoplay "></div>
 
   <div style="padding-top: 0px;">عمليات سابقة</div>
-  
+
 </div></a><!-- عمليات سابقة -->
 <a href="#" routerLink="/ProcessingCart"><div class="  d-flex flex-column align-items-center"><!-- تتم المعالجة-->
   <div class="vector">
@@ -23,9 +23,9 @@
   </div><!-- تتم المعالجة--></a>
  <a href="#" > <div class="d-flex flex-column align-items-center"><!-- طلباتك الان -->
   <div class="material-symbols_autopause-rounded"></div>
-  
+
     <div style="padding-top: 0px;">طلباتك الان</div>
-  
+
   </div><!-- طلباتك الان --></a>
 </div>
 <br>
@@ -47,13 +47,13 @@
               <button class="btn btn-danger" (click)="removeItem(product.id)">🗑️</button>
             </div>
           }
-  
+
           <div class="d-flex justify-content-between">
-          
+
             <h5>{{  protected_price }} جنيه</h5>
             <h5>:سعر المنتج </h5>
-           
-            
+
+
           </div>
           <div class="d-flex justify-content-between">
             <h5>{{shipping}} جنيه</h5>
@@ -69,5 +69,4 @@
       </div>
     </div>
   </div>
-  
-  
+
