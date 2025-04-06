@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, ElementRef, NgModule, ViewChild } from '@angular/core';
 import { NavebarComponent } from "../navebar/navebar.component";
 import { Router, RouterModule } from '@angular/router';
 import { Product } from '../../models/product';
@@ -21,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 })
 export class HomeComponent {
+  @ViewChild('scrollContainer', { static: true }) scrollContainer!: ElementRef;
   searchQuery: string = '';
   product: any = null;  // Store only a single product
   errorMessage: string = '';
@@ -59,6 +60,8 @@ export class HomeComponent {
     this.products.forEach((item: any) => {
       Object.assign(item, { quantity: 1, total: item.price });
     });
+
+    window.addEventListener('scroll', this.toggleScrollBtn);
   }
 
   search() {
@@ -120,4 +123,16 @@ export class HomeComponent {
   //     timer: 900,
   //   });
   // }
+
+  toggleScrollBtn = () => {
+    const btn = document.getElementById('scrollToTopBtn');
+    if (btn) {
+      btn.style.display = window.scrollY > 300 ? 'flex' : 'none';
+    }
+  };
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
 }

@@ -23,7 +23,7 @@
           <div class="row align-items-center">
 
               <div class="col-md-6 my-5 divmidll">
-                  <h1 class="text-light text1" [routerLink]="['/HomeAdminComponent']">علاجي</h1>
+                  <h1 class="text-light text1" [routerLink]="['/HomeAdminComponent']">مرحبا بك في علاجي</h1>
                   <p class="mt-5 ">موقع يقوم بخدمة العملاء للوصول للأدوية في كافة الصيدليات القريبة منك.</p>
                   <div class="d-flex">
 
@@ -38,8 +38,15 @@
             </div>
           </div>
         </div>
+         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#f3f4f5" fill-opacity="1"
+                d="M0,224L34.3,197.3C68.6,171,137,117,206,101.3C274.3,85,343,107,411,138.7C480,171,549,213,617,197.3C685.7,181,754,107,823,112C891.4,117,960,203,1029,224C1097.1,245,1166,203,1234,197.3C1302.9,192,1371,224,1406,240L1440,256L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z">
+            </path>
+        </svg>
       </header>
-
+      <button id="scrollToTopBtn" title="Go to top" (click)="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+      </button>
 
 
       <section class="container my-5">
@@ -63,12 +70,6 @@
                   <button class="btn btn-danger" (click)="showAlert()">أضف إلى السلة</button>
                 </div>
 
-                  <div class="card-body">
-                      <p class="card-text">{{product.name}}</p>
-                      <p>{{ truncateText(product.description,40) }}</p>
-                      <p>{{product.price}} جنيه</p>
-                      <button class="btn btn-danger" >أضف إلى السلة</button>
-                  </div>
 
               </div>
             </div>
@@ -86,7 +87,7 @@
     @if (products && !errorMessage) {
       <section class="container my-5">
 
-        <div class="row">
+        <div class="row ">
           @for (product of products; track $index) {
 
             <!-- Product Card -->
