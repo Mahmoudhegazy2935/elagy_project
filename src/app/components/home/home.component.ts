@@ -23,7 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
 export class HomeComponent {
   @ViewChild('scrollContainer', { static: true }) scrollContainer!: ElementRef;
   searchQuery: string = '';
-  product: any = null;  // Store only a single product
+    // Store only a single product
   errorMessage: string = '';
   products: Product[] = [];
   isVisible: boolean = false;
@@ -105,7 +105,8 @@ export class HomeComponent {
   }
 
 
-  showAlert() {
+  addToCart(product: any) {
+    console.log(product)
     Swal.fire({
       title: 'تم!',
       text: 'تمت الإضافة إلى السلة بنجاح',
@@ -134,5 +135,8 @@ export class HomeComponent {
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+
+
 
 }
