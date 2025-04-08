@@ -114,16 +114,7 @@ export class HomeComponent {
       confirmButtonText: 'حسناً'
     });
   }
-  // addToCart(product: any): void {
-  //   this.cartservice.addtocart(product);
-  //   Swal.fire({
-  //     icon: 'success',
-  //     title: 'Added to Cart',
-  //     text: 'The product has been successfully added to the cart.',
-  //     showConfirmButton: false,
-  //     timer: 900,
-  //   });
-  // }
+
 
   toggleScrollBtn = () => {
     const btn = document.getElementById('scrollToTopBtn');
