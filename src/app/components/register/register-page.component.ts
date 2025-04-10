@@ -18,8 +18,8 @@ export class RegisterPageComponent {
   errorMessage = '';
 
   registerForm: FormGroup<{
-    name: FormControl<string>;
-    last_Name: FormControl<string>;
+    firstName: FormControl<string>;
+    lastName: FormControl<string>;
     governorate: FormControl<string>;
     center: FormControl<string>;
     location: FormControl<string>;
@@ -31,8 +31,8 @@ export class RegisterPageComponent {
 
   constructor(private fb: FormBuilder, private authService: AuthService ,private router: Router) {
     this.registerForm = this.fb.nonNullable.group({
-      name: this.fb.nonNullable.control('', Validators.required),
-      last_Name: this.fb.nonNullable.control('', Validators.required),
+      firstName: this.fb.nonNullable.control('', Validators.required),
+      lastName: this.fb.nonNullable.control('', Validators.required),
       governorate: this.fb.nonNullable.control('', Validators.required),
       center: this.fb.nonNullable.control('', Validators.required),
       location: this.fb.nonNullable.control('', Validators.required),

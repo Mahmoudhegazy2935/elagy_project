@@ -23,7 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
 export class HomeComponent {
   @ViewChild('scrollContainer', { static: true }) scrollContainer!: ElementRef;
   searchQuery: string = '';
-  product: any = null;  // Store only a single product
+    // Store only a single product
   errorMessage: string = '';
   products: Product[] = [];
   CartProduct:any[]=[];
@@ -108,7 +108,8 @@ export class HomeComponent {
   }
 
 
-  showAlert() {
+  addToCart(product: any) {
+    console.log(product)
     Swal.fire({
       title: 'تم!',
       text: 'تمت الإضافة إلى السلة بنجاح',
@@ -116,6 +117,7 @@ export class HomeComponent {
       confirmButtonText: 'حسناً'
     });
   }
+
   addToCart(product:any){
     // console.log(product)
     // this.CartProduct=localStorage.getItem("cart")
@@ -160,6 +162,7 @@ export class HomeComponent {
   //   });
   // }
 
+
   toggleScrollBtn = () => {
     const btn = document.getElementById('scrollToTopBtn');
     if (btn) {
@@ -170,5 +173,8 @@ export class HomeComponent {
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+
+
 
 }
