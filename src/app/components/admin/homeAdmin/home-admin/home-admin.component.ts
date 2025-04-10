@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NavebarAdminComponent } from "../../../navebar-admin/navebar-admin/navebar-admin.component";
 import { RouterModule } from '@angular/router';
+import { NavebarAdminComponent } from '../../../navebar-admin/navebar-admin/navebar-admin.component';
 
 @Component({
   selector: 'app-home-admin',
