@@ -26,7 +26,10 @@ export class HomeComponent {
     // Store only a single product
   errorMessage: string = '';
   products: Product[] = [];
+  CartProduct:any[]=[];
   isVisible: boolean = false;
+  addButton:boolean=false;
+  amount:number=0;
   drugImages: string[] = [
     "https://tse4.mm.bing.net/th?id=OIP._hfjck2DY3y4rDCzHUEd7AHaHa&pid=Api", // Brufen
     "https://tse1.mm.bing.net/th?id=OIP.QdXEFdNXjT2grIdPA4A7xAHaHa&pid=Api", // Antinal
@@ -114,6 +117,50 @@ export class HomeComponent {
       confirmButtonText: 'حسناً'
     });
   }
+
+  addToCart(product:any){
+    // console.log(product)
+    // this.CartProduct=localStorage.getItem("cart")
+    
+    const productToAdd = {
+      ...product,
+      amount: product.amount || 1  // لو المستخدم مدخلش كمية، نحط 1 افتراضيًا
+    };
+  
+  
+    if("cart" in localStorage){
+      this.CartProduct=JSON.parse(localStorage.getItem("cart")!)
+      let exist=this.CartProduct.find(item => item.id == product.id)
+      if (exist){
+        Swal.fire({
+          title: 'المنتج مضاف في السله ',
+          text: 'تمت الإضافة إلى السلة سابقاً',
+          icon: 'success',
+          confirmButtonText: 'حسناً'
+        });
+      }else{
+        this.CartProduct.push(product)
+        localStorage.setItem("cart",JSON.stringify(this.CartProduct))
+      }
+      
+    }else{
+      this.CartProduct.push(product)
+      localStorage.setItem("cart",JSON.stringify(this.CartProduct))
+    }
+    // localStorage.setItem("cart",JSON.stringify(product))
+  }
+
+ 
+  // addToCart(product: any): void {
+  //   this.cartservice.addtocart(product);
+  //   Swal.fire({
+  //     icon: 'success',
+  //     title: 'Added to Cart',
+  //     text: 'The product has been successfully added to the cart.',
+  //     showConfirmButton: false,
+  //     timer: 900,
+  //   });
+  // }
 
 
   toggleScrollBtn = () => {

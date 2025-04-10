@@ -24,7 +24,6 @@ export const routes: Routes = [
   //{ path: '', redirectTo: '/login', pathMatch: 'full' },
   {path:'',component: IntroPageComponent},
   {path:'home', component: HomeComponent},
-  {path:'intro', component: IntroPageComponent},
   {path:'admin_login', component: AdminLoginComponent},
   {path:'pharmacy_login', component: PharmacyLoginComponent},
   { path: 'login', component: LoginPageComponent, title: 'login' },
@@ -34,4 +33,5 @@ export const routes: Routes = [
   {path:'ProcessingCart', component: ProcessingCartComponent, title: 'Processing Cart'},
   {path:'PreviousOperationsComponent', component: PreviousOperationsComponent, title: 'Previous Operations'},
   {path:'HomeAdminComponent', component: HomeAdminComponent, title: 'Previous Operations'},
+  
 ];
