@@ -4,7 +4,7 @@
     <h1 class="text-danger">Shopping Cart</h1>
   <div class="headCart">
     <p class="lead">You have <label class="text-danger ">{{cartProducts.length}}</label> item in your cart</p>
-    <span class="text-danger card-header" (click)="clearCart()">Clear Shopping Cart</span>
+    <span class="text-danger card-header" >Clear Shopping Cart</span>
   </div>
     <table class="table table-striped">
         <thead>
@@ -18,22 +18,21 @@
             </tr>
         </thead>
         <tbody>
-          
-            @for (item of cartProducts;let i = $index;  track cartProducts ) {
+            @for (item of cartProducts; track cartProducts) {
             <tr  >
-                <td><img src="panadolimages[$index]" alt=""></td>
-                <td>{{item.name}}</td>
-                <td>{{item.price}} L.E</td>
+                <td><img src="{{item.item.image}}" alt=""></td>
+                <td>{{item.item.title}}</td>
+                <td>{{item.item.price}} L.E</td>
                 <td>
                     <div class="quantity">
-                        <button class="btn btn-dark" (click)="addAmount(i)">+</button>
-                        <input class="form-control"  type="number" (change)="detectChange()" [(ngModel)]="item.amount" min="1">
-                        <button class="btn btn-dark" (click)="minsAmount(i)" >-</button>
+                        <button class="btn btn-dark" >+</button>
+                        <input class="form-control"  type="number" >
+                        <button class="btn btn-dark"  >-</button>
                     </div>
                 </td>
-                <td>{{item.price * item.amount}} L.E</td>
+                <td>{{item.item.price * item.quantity}} L.E</td>
                 <td>
-                    <button class="btn btn-danger" (click)="deleteProduct(i)" >Delete</button>
+                    <button class="btn btn-danger"  >Delete</button>
                 </td>
             </tr>}
         </tbody> 
@@ -44,11 +43,10 @@
                 <th></th>
                 <th></th>
                 <th>Total : {{total}} LE</th>
-                <th><button class="btn btn-success" (click)="addCart()">Order Now</button></th>
+                <th><button class="btn btn-success" >Order Now</button></th>
             </tr>
         </tfoot>
     </table>
     
 </div>
-@if (success) {
-<div class="alert alert-success" role="alert" ><strong>Well done!</strong> Your Order is Successfully Send</div>}
+<div class="alert alert-success" role="alert" ><strong>Well done!</strong> Your Order is Successfully Send</div>

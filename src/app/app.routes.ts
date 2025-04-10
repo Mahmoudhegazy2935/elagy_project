@@ -11,6 +11,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { ProcessingCartComponent } from './components/processing_cart/processing-cart/processing-cart.component';
 import { PreviousOperationsComponent } from './components/previous-operations/previous-operations/previous-operations.component';
 import { HomeAdminComponent } from './components/admin/homeAdmin/home-admin/home-admin.component';
+import { Cart2Component } from './components/cart2/cart2/cart2.component';
 
 export const routes: Routes = [
   //admin:pages
@@ -24,7 +25,6 @@ export const routes: Routes = [
   //{ path: '', redirectTo: '/login', pathMatch: 'full' },
   {path:'',component: IntroPageComponent},
   {path:'home', component: HomeComponent},
-  {path:'intro', component: IntroPageComponent},
   {path:'admin_login', component: AdminLoginComponent},
   {path:'pharmacy_login', component: PharmacyLoginComponent},
   { path: 'login', component: LoginPageComponent, title: 'login' },
@@ -34,4 +34,5 @@ export const routes: Routes = [
   {path:'ProcessingCart', component: ProcessingCartComponent, title: 'Processing Cart'},
   {path:'PreviousOperationsComponent', component: PreviousOperationsComponent, title: 'Previous Operations'},
   {path:'HomeAdminComponent', component: HomeAdminComponent, title: 'Previous Operations'},
+  {path:'cart2',component:Cart2Component,title:'cart2'}
 ];

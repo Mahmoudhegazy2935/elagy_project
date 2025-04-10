@@ -67,8 +67,15 @@
                   <p class="card-text">{{product.name}}</p>
                   <!-- <p>{{ truncateText(product.description,40) }}</p> -->
                   <p>{{product.price}} جنيه</p>
-                  <button class="btn btn-danger" (click)="showAlert()">أضف إلى السلة</button>
+                  @if (!addButton) {
+                  <button class="btn btn-danger"  (click)="addButton=true" >أضف إلى السلة</button>}
+                  @if (addButton) {
+                  <div class="d-flex w-75" >
+                    <input type="number" class="form-control" [(ngModel)]="product.amount">
+                    <button class="btn btn-danger" (click)="showAlert();addToCart(product)">Add</button>
+                </div>}
                 </div>
+
 
 
               </div>
@@ -100,7 +107,13 @@
                   <p class="card-text">{{product.name}}</p>
                   <!-- <p>{{ truncateText(product.description,40) }}</p> -->
                   <p>{{product.price}} جنيه</p>
-                  <button class="btn btn-danger" (click)="showAlert()">أضف إلى السلة</button>
+                  @if (!addButton) {
+                    <button class="btn btn-danger"  (click)="addButton=true" >أضف إلى السلة</button>}
+                    @if (addButton) {
+                    <div class="d-flex w-75" >
+                      <input type="number" class="form-control" [(ngModel)]="product.amount">
+                      <button class="btn btn-danger" (click)="showAlert();addToCart(product);addButton=false">Add</button>
+                  </div>}
                 </div>
               </div>
             </div>
