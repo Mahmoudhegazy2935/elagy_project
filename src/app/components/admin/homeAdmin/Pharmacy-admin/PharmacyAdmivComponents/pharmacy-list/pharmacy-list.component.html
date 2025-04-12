@@ -1,0 +1,51 @@
+
+<app-navebar-admin></app-navebar-admin>
+<br>
+<div class="container">
+    <h3 class="mb-4">الصيدليات المنضمة</h3>
+  
+    <ng-container>
+      
+      <div class="row">
+        @for (pharmacy of pharmacies(); track pharmacy.id) {
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <div class="card__border"></div>
+              <div class="card_title__container">
+                <div class="img_icon">
+                </div>
+                <span class="card_title">{{ pharmacy.pharmacyName }}</span>
+              </div>
+      
+              <table style="color: antiquewhite;">
+                <tr>
+                  <th>اسم المدير</th>
+                  <td>{{pharmacy.managerName}}</td>
+                </tr>
+                <tr>
+                  <th>تليفون المدير</th>
+                  <td>{{pharmacy.managerPhone}}</td>
+                </tr>
+                <tr>
+                  <th>تليفون الصيدلية</th>
+                  <td>{{pharmacy.pharmacyPhone}}</td>
+                </tr>
+                <tr>
+                  <th>موقع التوصيل</th>
+                  <td>{{pharmacy.deliveryArea}}</td>
+                </tr>
+                <tr>
+                  <th>مواعيد العمل</th>
+                  <td>{{pharmacy.workingHours}}</td>
+                </tr>
+              </table>
+      
+              <button class="button" (click)="deletePharmacy(pharmacy.id)">إزالة الحساب</button>
+            </div>
+          </div>
+        }
+      </div>
+      
+    </ng-container>
+  </div>
+  

@@ -11,6 +11,8 @@ import { CartComponent } from './components/cart/cart.component';
 import { ProcessingCartComponent } from './components/processing_cart/processing-cart/processing-cart.component';
 import { PreviousOperationsComponent } from './components/previous-operations/previous-operations/previous-operations.component';
 import { HomeAdminComponent } from './components/admin/homeAdmin/home-admin/home-admin.component';
+import { PharmacyListComponent } from './components/admin/homeAdmin/Pharmacy-admin/PharmacyAdmivComponents/pharmacy-list/pharmacy-list.component';
+
 
 export const routes: Routes = [
   //admin:pages
@@ -33,5 +35,5 @@ export const routes: Routes = [
   {path:'ProcessingCart', component: ProcessingCartComponent, title: 'Processing Cart'},
   {path:'PreviousOperationsComponent', component: PreviousOperationsComponent, title: 'Previous Operations'},
   {path:'HomeAdminComponent', component: HomeAdminComponent, title: 'Previous Operations'},
-  
+  {path:'PharmacyListComponent',component:PharmacyListComponent,title:'PharmacyList'}
 ];
