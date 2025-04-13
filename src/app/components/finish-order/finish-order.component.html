@@ -1,0 +1,66 @@
+<h1>mmmmmmmmmmmmm</h1>
+<app-navebar></app-navebar>
+
+<div class="container mt-4" dir="rtl">
+  <h1 class="text-success mb-4">إتمام الطلب</h1>
+
+  <!-- ✅ User Info Form -->
+  <div class="card p-4 shadow-sm mb-4">
+    <h4 class="text-primary mb-3">معلومات العميل</h4>
+
+    <div class="mb-3">
+      <label for="name" class="form-label">الاسم الكامل:</label>
+      <input type="text" id="name" class="form-control" [(ngModel)]="userName" placeholder="ادخل اسمك">
+    </div>
+
+    <div class="mb-3">
+      <label for="address" class="form-label">العنوان:</label>
+      <input type="text" id="address" class="form-control" [(ngModel)]="userAddress" placeholder="ادخل عنوان التوصيل">
+    </div>
+
+    <div class="mb-3">
+      <label for="phone" class="form-label">رقم الهاتف:</label>
+      <input type="text" id="phone" class="form-control" [(ngModel)]="phoneNumber" placeholder="ادخل رقم الهاتف">
+    </div>
+  </div>
+
+  <!-- ✅ Product Summary Table -->
+  <div class="card shadow-sm p-3">
+    <h4 class="text-primary mb-3">تفاصيل الطلب</h4>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>اسم المنتج</th>
+          <th>الكمية</th>
+          <th>السعر</th>
+          <th>الإجمالي</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of cartProducts; track $index) {
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>{{ item.amount }}</td>
+          <td>{{ item.price }} جنيه</td>
+          <td>{{ item.amount * item.price }} جنيه</td>
+        </tr>}
+      </tbody>
+      <tfoot>
+
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- ✅ Submit Button -->
+  <div class="text-end mt-3">
+    <button class="btn btn-success" (click)="submitOrder()">تأكيد الطلب</button>
+  </div>
+
+  <!-- ✅ Success Message -->
+  @if (success) {
+    <div class="alert alert-success mt-3" role="alert">
+      <strong>تم بنجاح!</strong> تم إرسال طلبك إلى الخادم.
+    </div>
+  }
+</div>

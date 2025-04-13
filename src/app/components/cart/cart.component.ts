@@ -20,16 +20,21 @@ export class CartComponent implements OnInit {
   cartProducts:any[] = [];
   total:number = 0;
   success:boolean = false
-  
+
   ngOnInit(): void {
     this.getCartProducts()
   }
-  
+
   getCartProducts() {
-    
+
     if("cart" in localStorage){
       this.cartProducts=JSON.parse(localStorage.getItem("cart")!)
-      
+
+      this.cartProducts = this.cartProducts.map(item => ({
+        ...item,
+        amount: Number(item.amount) || 1
+      }));
+
    }
    this.getCartTotal()
   }
@@ -37,10 +42,15 @@ export class CartComponent implements OnInit {
   getCartTotal() {
     this.total = 0;
     for (let x of this.cartProducts) {
-      this.total += x.price * x.amount;
+      const price = Number(x.price);
+      const amount = Number(x.amount);
+      if (!isNaN(price) && !isNaN(amount)) {
+        this.total += price * amount;
+      }
     }
+
   }
-  
+
 
 
   addAmount(index:number) {
@@ -48,17 +58,19 @@ export class CartComponent implements OnInit {
     this.getCartTotal()
     localStorage.setItem("cart" , JSON.stringify(this.cartProducts))
   }
-  minsAmount(index:number) {
-    this.cartProducts[index].amount--
-    this.getCartTotal()
-    localStorage.setItem("cart" , JSON.stringify(this.cartProducts))
+  minsAmount(index: number) {
+    if (this.cartProducts[index].amount > 1) {
+      this.cartProducts[index].amount--;
+      this.getCartTotal();
+      localStorage.setItem("cart", JSON.stringify(this.cartProducts));
+    }
   }
   detectChange() {
     this.getCartTotal()
     localStorage.setItem("cart" , JSON.stringify(this.cartProducts))
   }
 
-  
+
   deleteProduct(index:number) {
     this.cartProducts.splice(index , 1)
     this.getCartTotal()
@@ -76,31 +88,17 @@ export class CartComponent implements OnInit {
       console.warn("سلة الشراء فارغة!");  // تأكد من أن السلة مش فارغة
       return;
     }
-  
+
     // تحويل بيانات المنتجات إلى شكل مناسب
     let products = this.cartProducts.map(item => {
       return { productId: item.id, quantity: item.amount };  // استخدم `id` و `amount` بدلاً من `item.item.id`
     });
-  
+
     // بناء نموذج الطلب
-    let Model = {
-      userId: 5,  // هنا بتبعت معرف المستخدم
-      date: new Date().toISOString(),  // استخدم .toISOString() لتنسيق التاريخ بشكل عالمي
-      products: products
-    };
-  
+
+
     // استدعاء الـ API
-    this.cart2Service.createNewCart(Model).subscribe(res => {
-        this.success = true;  // في حالة نجاح الطلب
-        console.log("تم إضافة السلة بنجاح", res);
-      },
-      error => {
-        this.success = false;  // في حالة فشل الطلب
-        console.error("حدث خطأ أثناء إضافة السلة", error);
-      }
-    );
-  
-    console.log("نموذج السلة:", Model);  // طباعة الموديل في الـ console لمراجعة البيانات
+
   }
-  
+
 }

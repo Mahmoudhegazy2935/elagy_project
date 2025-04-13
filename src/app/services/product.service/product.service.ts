@@ -19,6 +19,13 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) {}
 
+  getProductByName(name: string): Observable<Product[]> {
+    return this.httpClient.get<Product[]>(this.apisear, {
+      params: { name }
+    });
+  }
+
+
 
   //search products
   searchProduct(name: string): Observable<any> {
