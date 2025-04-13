@@ -10,7 +10,7 @@ export class ProductService {
 
   [x: string]: any;
   // private url = 'https://localhost:7074/api';
-  private apiUrl = 'https://fakestoreapi.com/products';
+  private apiUrl = 'http://localhost:5208/api/Product';
   private apisear = 'http://localhost:5208/api/Product/search';
 
 
@@ -18,6 +18,13 @@ export class ProductService {
 
 
   constructor(private httpClient: HttpClient) {}
+
+  getProductByName(name: string): Observable<Product[]> {
+    return this.httpClient.get<Product[]>(this.apisear, {
+      params: { name }
+    });
+  }
+
 
 
   //search products

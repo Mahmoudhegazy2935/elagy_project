@@ -8,9 +8,10 @@ import { RegisterPageComponent } from './components/register/register-page.compo
 import { ForgotThePasswordComponent } from './components/login_pages/forgot_the_password/forgot-the-password/forgot-the-password.component';
 import { HomeComponent } from './components/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
-import { ProcessingCartComponent } from './components/processing_cart/processing-cart/processing-cart.component';
-import { PreviousOperationsComponent } from './components/previous-operations/previous-operations/previous-operations.component';
+
 import { HomeAdminComponent } from './components/admin/homeAdmin/home-admin/home-admin.component';
+import { FinishOrderComponent } from './components/finish-order/finish-order.component';
+import { SinglProductComponent } from './components/singl-product/singl-product.component';
 
 export const routes: Routes = [
   //admin:pages
@@ -24,14 +25,16 @@ export const routes: Routes = [
   //{ path: '', redirectTo: '/login', pathMatch: 'full' },
   {path:'',component: IntroPageComponent},
   {path:'home', component: HomeComponent},
+  { path: 'userhome/:id', component: SinglProductComponent },
+  { path: 'product/:name', component: SinglProductComponent },
   {path:'admin_login', component: AdminLoginComponent},
   {path:'pharmacy_login', component: PharmacyLoginComponent},
   { path: 'login', component: LoginPageComponent, title: 'login' },
   { path: 'register', component: RegisterPageComponent, title: 'register' },
   { path: 'forgot_the_password', component: ForgotThePasswordComponent, title: 'forgot_the_password' },
   { path: 'cart', component: CartComponent, title: 'cart' },
-  {path:'ProcessingCart', component: ProcessingCartComponent, title: 'Processing Cart'},
-  {path:'PreviousOperationsComponent', component: PreviousOperationsComponent, title: 'Previous Operations'},
   {path:'HomeAdminComponent', component: HomeAdminComponent, title: 'Previous Operations'},
-  
+  {path:'finsh_ordre', component: FinishOrderComponent, title: 'finsh_ordre'},
+
+
 ];

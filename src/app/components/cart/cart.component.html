@@ -1,54 +1,72 @@
 <h1>xgggggggn</h1>
 <app-navebar></app-navebar>
-<div class="cartBox">
-    <h1 class="text-danger">Shopping Cart</h1>
+<div class="cartBox" dir="rtl">
+    <h1 class="text-danger">عربة التسوق</h1>
   <div class="headCart">
-    <p class="lead">You have <label class="text-danger ">{{cartProducts.length}}</label> item in your cart</p>
-    <span class="text-danger card-header" (click)="clearCart()">Clear Shopping Cart</span>
+    <p class="lead">لديك <label class="text-danger ">{{cartProducts.length}}</label> من المنتجات في عربة التسوق</p>
+    <span class="text-danger card-header" (click)="clearCart()">حذف الجميع</span>
   </div>
+  @if (cartProducts.length>0) {
     <table class="table table-striped">
         <thead>
             <tr>
                 <th></th>
-                <th>Name</th>
-                <th>Price</th>
-                <th style="width: 25%;">Quantity</th>
-                <th>Totle</th>
+                <th>الاسم</th>
+                <th style="width: 25%;">السعر</th>
+                <th style="width: 25%;">الكمية</th>
+                <th>السعر الكلي</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-          
-            @for (item of cartProducts;let i = $index;  track cartProducts ) {
+            @for (item of cartProducts; track $index ) {
             <tr  >
                 <td><img src="panadolimages[$index]" alt=""></td>
                 <td>{{item.name}}</td>
-                <td>{{item.price}} L.E</td>
+                <td>{{item.price}} جنيه</td>
                 <td>
                     <div class="quantity">
-                        <button class="btn btn-dark" (click)="addAmount(i)">+</button>
+                        <button class="btn btn-dark" (click)="addAmount($index)">+</button>
                         <input class="form-control"  type="number" (change)="detectChange()" [(ngModel)]="item.amount" min="1">
-                        <button class="btn btn-dark" (click)="minsAmount(i)" >-</button>
+                        <button class="btn btn-dark" (click)="minsAmount($index)" >-</button>
                     </div>
                 </td>
-                <td>{{item.price * item.amount}} L.E</td>
+                <td>{{item.price * item.amount}} جنية</td>
                 <td>
-                    <button class="btn btn-danger" (click)="deleteProduct(i)" >Delete</button>
+                    <button class="btn btn-danger" (click)="deleteProduct($index)" >حذف</button>
                 </td>
             </tr>}
-        </tbody> 
-        <tfoot>
+
+          </tbody>
+          <tfoot>
             <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>Total : {{total}} LE</th>
-                <th><button class="btn btn-success" (click)="addCart()">Order Now</button></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th>السعر الكلي : {{total}} جنية</th>
+              <!-- <th><button class="btn btn-success" (click)="addCart()">اتمام الطلب</button></th> -->
+              @if (cartProducts.length > 0) {
+                <th><button class="btn btn-success" [routerLink]="['/finsh_ordre']" (click)="addCart()">اكمال الطلب</button></th>
+              }@else {
+                <th><button class="btn btn-success" [routerLink]="['/home']">اذهب لتتسوق</button></th>
+              }
+
             </tr>
-        </tfoot>
-    </table>
-    
+          </tfoot>
+        </table>
+      }@else {
+        <div class="empty-cart-wrapper" >
+          <div class="empty-cart text-center">
+            <div class="empty-content">
+              <img src="https://cdn.chefaa.com/filters:format(webp)/public/assets/app/images/empty-cart-icon.png" width="120" height="120" alt="empty-icon">
+              <h2>سلة التسوق فارغة</h2>
+              <button class="btn btn-primary mb-3" [routerLink]="['/home']">اذهب لتتسوق</button>
+            </div>
+          </div>
+        </div>
+      }
+
 </div>
 @if (success) {
 <div class="alert alert-success" role="alert" ><strong>Well done!</strong> Your Order is Successfully Send</div>}

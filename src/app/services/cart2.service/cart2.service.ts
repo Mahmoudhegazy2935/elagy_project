@@ -9,7 +9,7 @@ export class Cart2Service {
 
   constructor(private http:HttpClient) { }
 
-  createNewCart(model:any) {
-    return this.http.post(environment.baseApi + 'carts' , model )
+  createNewCart(orderModel:any) {
+    return this.http.post(environment.baseApi + 'carts' , orderModel )
   }
 }

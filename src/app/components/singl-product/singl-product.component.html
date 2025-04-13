@@ -1,0 +1,70 @@
+<app-navebar class="p-5"></app-navebar>
+@if(product){
+<div class="contall  ">
+  <div id="contall2">
+      <div id="textdetails" dir="rtl">
+          <h1>{{product.name}}</h1>
+          <h3>
+            بروفين (بالإنجليزية: Brufen) دواءُ يحتوي على الإيبوبروفين (بالإنجليزية: Ibuprofen)، وهو من مضادات الالتهاب غير الستيروئيدية (بالإنجليزية: Nonsteroidal Anti-Inflammatory Drug, NSAID)، ويعمل كخافضٍ للحرارة، ومضاد للالتهاب، ومسكن للألم.
+          </h3>
+          <section class="product-info-box my-3">
+
+
+
+            <p class="info-line">
+              <span class="label">زمن التوصيل:</span>
+              <span class="value">خلال اقل من ساعة</span>
+            </p>
+            <hr>
+            <p class="info-line">
+              <span class="label">يباع بواسطة:</span>
+              <span class="value">اقرب صيدلية</span>
+            </p>
+          </section>
+
+
+          <p id="price">{{product.price}}L.E</p>
+          <div id="btn" class="btn text-capitalize" (click)="showAlert();addToCart(product)">
+              add to cart
+              <img src="../../../../assets/e-commerce.png" id="imgcart" alt="">
+          </div>
+      </div>
+      <div id="imgview">
+          <div class="circleimg">
+              <img [src]="panadolimages" id="imgproduct" alt="">
+          </div>
+      </div>
+  </div>
+</div>
+<div dir="rtl" class="split">
+
+  <h2 class="section-title">نظرة عامة عن المنتج :</h2>
+  <hr>
+</div>
+<p id="description">روفين (بالإنجليزية: Brufen) دواءُ يحتوي على الإيبوبروفين (بالإنجليزية: Ibuprofen)، وهو من مضادات الالتهاب غير الستيروئيدية (بالإنجليزية: Nonsteroidal Anti-Inflammatory Drug, NSAID)، ويعمل كخافضٍ للحرارة، ومضاد للالتهاب، ومسكن للألم. [1]
+
+
+
+ 
+
+  يتوفر دواء بروفين بالأشكال الدوائية الآتية: [1]
+
+  بروفين شراب للأطفال: بتركيز 100 ملغ/5 مل.
+  بروفين حبيبات: بتركيز 600 ملغ/ كيس، ويمكن حلّه بالماء بسهولة، وهو مناسب للأشخاص الذين يجدون صعوبة في بلع الأقراص أو الكبسولات.
+  بروفين أقراص وكبسولات: بتركيز 400 ملغ، 600 ملغ، 800 ملغ. 
+  يُعطى بروفين للدورة و آلام عسر الطمث، كما يساعد هذا الدواء على تسكين الآلام المختلفة، مثل الصداع وآلام الظهر وآلام المفاصل، ويمكن استخدام بروفين للأسنان، فهو يُخفف الألم والتورم الناجم عن مشكلات الأسنان واللثة. [1]
+
+   
+
+  متى يبدأ مفعول بروفين 600؟ يبدأ مفعوله خلال 30 دقيقة عند تناوله. [1]
+
+  :اقرا المزيد من خلال موقع الطبي
+
+  https://altibbi.com/%D8%A7%D9%84%D8%A7%D8%AF%D9%88%D9%8A%D8%A9/%D8%A8%D8%B1%D9%88%D9%81%D9%8A%D9%86</p>
+}
+
+<footer class="bg-secondary text-white text-center py-4">
+  <div class="container">
+    <p>copyright 2024</p>
+  </div>
+</footer>

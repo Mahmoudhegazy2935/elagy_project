@@ -1,0 +1,190 @@
+#textdetails {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  padding: 35px;
+}
+
+#description {
+  direction: rtl;
+  font-size: 16px;
+  width: 60%;
+  margin: auto;
+}
+#name {
+font-size: 30px;
+width: 60%;
+}
+
+.contall {
+  display: flex;
+  align-items: center;
+  padding-block: 50px;
+}
+
+p {
+  font-size: 20px;
+}
+
+#btn {
+  font-size: 20px;
+  width: 40%;
+  color: white;
+  background-color: #4094F7;
+}
+
+#btn:hover {
+  transform: scale(1.1);
+  background-color: #8ab9ef;
+  color: aliceblue;
+}
+
+#imgcart {
+  width: 40px;
+  margin-left: 20px;
+}
+
+#imgview {
+  display: flex;
+
+  align-items: center;
+  width: 50%;
+
+}
+
+#imgproduct {
+  width: 200px;
+}
+
+.circleimg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 400px;
+  background-color: white;
+  box-shadow: 0px 0px 12px rgb(198, 198, 198);
+  border-radius: 1000px;
+}
+
+#contall2 {
+  display: flex;
+  width: 100%;
+}
+
+
+.split{
+  direction: rtl;
+  width: 60%;
+  margin: auto;
+}
+
+
+
+.section-title {
+  width: 312px;
+  text-align: right;
+  color: #000AFF;
+  font-size: 33px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+
+.product-info-box {
+  width: 612px;
+  height: 172px;
+  background: transparent;
+  border-radius: 10px;
+  border: 1px solid black;
+  padding: 10px;
+  position: relative;
+}
+
+.icon-box {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.icon-box.small {
+  width: 35px;
+  height: 35px;
+}
+
+.icon-box.large {
+  width: 40px;
+  height: 40px;
+}
+
+.inner-square {
+  position: absolute;
+  background: #000AFF;
+}
+
+.icon-box.small .inner-square {
+  width: 30.62px;
+  height: 30.62px;
+  top: 2.19px;
+  left: 2.19px;
+}
+
+.icon-box.large .inner-square {
+  width: 30px;
+  height: 30px;
+  top: 5px;
+  left: 5px;
+}
+
+.horizontal-line {
+  width: 529px;
+  border: none;
+  outline: 1px solid black;
+  outline-offset: -0.5px;
+  transform: rotate(180deg);
+  transform-origin: top left;
+  margin: 10px 0;
+}
+
+.info-line {
+  text-align: right;
+  font-family: 'Inter', sans-serif;
+  margin: 5px 0;
+}
+
+.label {
+  font-size: 20px;
+  font-weight: 400;
+  color: black;
+}
+
+.value {
+  font-size: 23px;
+  font-weight: 700;
+  color: black;
+  margin-right: 5px;
+}
+
+
+
+
+@media(max-width:768px) {
+  #textdetails {
+      display: flex;
+      width: 100%;
+  }
+
+  #contall2 {
+      width: 100%;
+      display: flex;
+      flex-direction: column-reverse;
+  }
+
+  #imgview {
+      width: 100%;
+  }
+
+  #btn {
+      width: 100%;
+  }
+}

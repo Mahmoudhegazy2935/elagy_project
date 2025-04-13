@@ -18,7 +18,7 @@
   top: 0;
   width: 100%;
   z-index: 1000;
-  
+
 
 }
 
@@ -47,15 +47,41 @@
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 8px;
 }
+.hamburger {
+  display: none;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: 20px;
+}
 
-/* Responsive for Mobile */
 @media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
   .navbar ul {
+    display: none;
     flex-direction: column;
-    gap: 15px;
-    text-align: center;
+    background-color: #2973B2;
+    width: 100%;
+    position: absolute;
+    top: 80px;
+    right: 0;
+    padding: 10px 0;
+  }
+
+  .navbar ul.open {
+    display: flex;
   }
 }
+
+
+/* Responsive for Mobile */
+
+
 
 .genral_logo{
   display: flex;
@@ -86,8 +112,49 @@
 .card{
   width: 50px; height: 50px;
   background-image: url("shoppingbasket_78385.png");
-  background-size: cover; 
-  border-radius: 50%; 
+  background-size: cover;
+  border-radius: 50%;
   margin-right: 40px;
   margin-top: 2px;
+}
+
+
+.cart-container {
+  position: relative;
+  cursor: pointer;
+  list-style: none;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+
+  text-decoration: none;
+  color: white;
+  font-size: 22px;
+  font-weight: 600;
+  transition: 0.3s ease-in-out;
+
+}
+
+.cart-icon-wrapper {
+  position: relative;
+  margin-right: 8px;
+  font-size: 24px;
+  color: #ffffff;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background: linear-gradient(to right, #c471f5, #fa71cd);
+  color: white;
+  font-size: 12px;
+  border-radius: 50%;
+  padding: 4px 7px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
 }
