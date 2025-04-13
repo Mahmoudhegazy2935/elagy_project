@@ -1,0 +1,27 @@
+<app-navebar-admin></app-navebar-admin>
+<br>
+<div class="container">
+  <h3 class="mb-4">العملاء المنضمة</h3>
+
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let item of usieadmin(); let i = index; trackBy: trackByIndex">
+      <div class="card h-100" style="width: 380px;">
+        <div class="card__border"></div>
+        <table style="color: antiquewhite;">
+          <tr>
+            <th>اسم المستخدم</th>
+            <td>{{ item.name }}</td>
+          </tr>
+          <tr>
+            <th>تليفون المستخدم</th>
+            <td>{{ item.phoneNumber }}</td>
+          </tr>
+          <tr>
+            <th> ايميل المستخدم</th>
+            <td>{{ item.email }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

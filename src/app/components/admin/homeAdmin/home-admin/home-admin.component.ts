@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { NavebarAdminComponent } from '../../../navebar-admin/navebar-admin/navebar-admin.component';
 import { PharmacyAdminServicesService } from '../Pharmacy-admin/PharmacyAdminServices/pharmacy-admin-services.service';
 import { CommonModule } from '@angular/common';
+import { UsirAdminServicesService } from '../usirAdmin/UsirAdminServices/usir-admin-services.service';
 
 @Component({
   selector: 'app-home-admin',
@@ -13,13 +14,18 @@ import { CommonModule } from '@angular/common';
 })
 export class HomeAdminComponent implements OnInit {
     pharmacyCount: number = 0;
-  
-    constructor(private pharmacyAdminServicesService: PharmacyAdminServicesService) {}
+    usircoint:number=0
+    constructor(private pharmacyAdminServicesService: PharmacyAdminServicesService , private usirAdminServicesService:UsirAdminServicesService) {}
   
     ngOnInit(): void {
       this.pharmacyAdminServicesService.getPharmacies().subscribe(pharmacies => {
         this.pharmacyCount = pharmacies.length;
       });
+
+      this.usirAdminServicesService.getuser().subscribe(data => {
+        this.usircoint=data.length});
+
+      
     }
   }
 
