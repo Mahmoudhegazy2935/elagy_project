@@ -16,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
   selector: 'app-home,TruncatePipe',
   standalone: true,
   imports: [NavebarComponent,RouterModule,FormsModule],
-  templateUrl: './home.component.html',
+  templateUrl:'./home.component.html',
   styleUrl: './home.component.css',
 
 })
@@ -108,7 +108,11 @@ export class HomeComponent {
   }
 
 
+
+    
+
   showAlert() {
+
 
     Swal.fire({
       title: 'تم!',
@@ -126,8 +130,6 @@ export class HomeComponent {
       ...product,
       amount: 1  // لو المستخدم مدخلش كمية، نحط 1 افتراضيًا
     };
-
-
     if("cart" in localStorage){
       this.CartProduct=JSON.parse(localStorage.getItem("cart")!)
       let exist=this.CartProduct.find(item => item.id == product.id)
@@ -151,16 +153,7 @@ export class HomeComponent {
   }
 
 
-  // addToCart(product: any): void {
-  //   this.cartservice.addtocart(product);
-  //   Swal.fire({
-  //     icon: 'success',
-  //     title: 'Added to Cart',
-  //     text: 'The product has been successfully added to the cart.',
-  //     showConfirmButton: false,
-  //     timer: 900,
-  //   });
-  // }
+
 
 
   toggleScrollBtn = () => {
@@ -173,7 +166,6 @@ export class HomeComponent {
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
 
 
 

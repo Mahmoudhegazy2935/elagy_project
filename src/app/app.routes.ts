@@ -10,8 +10,14 @@ import { HomeComponent } from './components/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
 
 import { HomeAdminComponent } from './components/admin/homeAdmin/home-admin/home-admin.component';
+
+import { PharmacyListComponent } from './components/admin/homeAdmin/Pharmacy-admin/PharmacyAdmivComponents/pharmacy-list/pharmacy-list.component';
+import { UsirAdminComponentComponent } from './components/admin/homeAdmin/usirAdmin/usirAdminComponent/usir-admin-component/usir-admin-component.component';
+
+
 import { FinishOrderComponent } from './components/finish-order/finish-order.component';
 import { SinglProductComponent } from './components/singl-product/singl-product.component';
+
 
 export const routes: Routes = [
   //admin:pages
@@ -34,7 +40,12 @@ export const routes: Routes = [
   { path: 'forgot_the_password', component: ForgotThePasswordComponent, title: 'forgot_the_password' },
   { path: 'cart', component: CartComponent, title: 'cart' },
   {path:'HomeAdminComponent', component: HomeAdminComponent, title: 'Previous Operations'},
+
+  {path:'PharmacyListComponent',component:PharmacyListComponent,title:'PharmacyList'},
+  {path:'UsirAdmin',component:UsirAdminComponentComponent,title:'usar admin'}
+
   {path:'finsh_ordre', component: FinishOrderComponent, title: 'finsh_ordre'},
+
 
 
 ];
