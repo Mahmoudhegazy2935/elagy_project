@@ -88,7 +88,7 @@ submitOrder() {
                 <p>شكرًا لطلبك 🎉</p>
               `,
             text: 'شكرًا لطلبك 🎉',
-            confirmButtonText: 'تم'
+            confirmButtonText: 'الذهاب الي الصفحة الرئيسية'
           }).then(() => {
             this.router.navigate(['/home']); // 👈 Redirect to homepage
           });
