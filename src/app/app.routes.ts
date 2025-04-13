@@ -42,7 +42,7 @@ export const routes: Routes = [
   {path:'HomeAdminComponent', component: HomeAdminComponent, title: 'Previous Operations'},
 
   {path:'PharmacyListComponent',component:PharmacyListComponent,title:'PharmacyList'},
-  {path:'UsirAdmin',component:UsirAdminComponentComponent,title:'usar admin'}
+  {path:'UsirAdmin',component:UsirAdminComponentComponent,title:'usar admin'},
 
   {path:'finsh_ordre', component: FinishOrderComponent, title: 'finsh_ordre'},
 
