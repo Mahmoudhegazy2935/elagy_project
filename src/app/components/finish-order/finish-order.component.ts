@@ -118,11 +118,13 @@ clearCart() {
 
 getCartTotal() {
   this.total = 0;
+  
   for (let x of this.cartProducts) {
     const price = Number(x.price);
     const amount = Number(x.amount);
     if (!isNaN(price) && !isNaN(amount)) {
       this.total += price * amount;
+      console.log("jh")
     }
   }
 

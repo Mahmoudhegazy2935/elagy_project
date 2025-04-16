@@ -16,11 +16,12 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
+  amount: any;
   constructor(private cart2Service:Cart2Service) { }
   cartProducts:any[] = [];
   total:number = 0;
   success:boolean = false
-
+  
   ngOnInit(): void {
     this.getCartProducts()
   }
@@ -29,11 +30,12 @@ export class CartComponent implements OnInit {
 
     if("cart" in localStorage){
       this.cartProducts=JSON.parse(localStorage.getItem("cart")!)
-
+      
       this.cartProducts = this.cartProducts.map(item => ({
         ...item,
         amount: Number(item.amount) || 1
       }));
+      
 
    }
    this.getCartTotal()
@@ -41,6 +43,7 @@ export class CartComponent implements OnInit {
 
   getCartTotal() {
     this.total = 0;
+    
     for (let x of this.cartProducts) {
       const price = Number(x.price);
       const amount = Number(x.amount);
