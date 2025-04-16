@@ -8,4 +8,3 @@ export interface Product {
     amount?: number; // الكمية اللي المستخدم بيحددها
   showAddButton?: boolean; // الحالة بتاعت الزرار
   }
- 

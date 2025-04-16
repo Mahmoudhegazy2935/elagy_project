@@ -30,6 +30,8 @@ export const routes: Routes = [
   //user:pages
   //{ path: '', redirectTo: '/login', pathMatch: 'full' },
   {path:'',component: IntroPageComponent},
+  {path:'intro',component: IntroPageComponent},
+
   {path:'home', component: HomeComponent},
   { path: 'userhome/:id', component: SinglProductComponent },
   { path: 'product/:name', component: SinglProductComponent },
