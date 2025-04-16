@@ -18,9 +18,9 @@ export class AuthService {
   }
 
   RegistrationAsPharmacy(userData: any): Observable<any> {
-    return this.http.post(this.apiUrl2, userData); // بدون responseType أو خليه 'json'
+    return this.http.post(this.apiUrl2, userData);
   }
-  
+
 
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(this.apiUrl1, credentials,{ responseType: 'text' });
