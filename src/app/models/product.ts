@@ -5,7 +5,7 @@ export interface Product {
     price: number;
     image: string;
     quantity: number;
-    amount?: number; // الكمية اللي المستخدم بيحددها
+    amount: number; // الكمية اللي المستخدم بيحددها
   showAddButton?: boolean; // الحالة بتاعت الزرار
   }
  

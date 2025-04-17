@@ -17,6 +17,7 @@ import { UsirAdminComponentComponent } from './components/admin/homeAdmin/usirAd
 
 import { FinishOrderComponent } from './components/finish-order/finish-order.component';
 import { SinglProductComponent } from './components/singl-product/singl-product.component';
+import { PharmacyRegistrationComponent } from './components/login_pages/pharmacy-registration/pharmacy-registration/pharmacy-registration.component';
 
 
 export const routes: Routes = [
@@ -42,10 +43,10 @@ export const routes: Routes = [
   {path:'HomeAdminComponent', component: HomeAdminComponent, title: 'Previous Operations'},
 
   {path:'PharmacyListComponent',component:PharmacyListComponent,title:'PharmacyList'},
-  {path:'UsirAdmin',component:UsirAdminComponentComponent,title:'usar admin'}
+  {path:'UsirAdmin',component:UsirAdminComponentComponent,title:'usar admin'},
 
   {path:'finsh_ordre', component: FinishOrderComponent, title: 'finsh_ordre'},
 
-
+  {path:'PharmacyRegistration',component:PharmacyRegistrationComponent,title:'Pharmacy-Registration'}
 
 ];

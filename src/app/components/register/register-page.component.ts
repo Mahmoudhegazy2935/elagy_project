@@ -64,7 +64,7 @@ export class RegisterPageComponent {
       return;
     }
 
-    this.authService.register(this.registerForm.value).subscribe({
+    this.authService.RegistrationAsPharmacy(this.registerForm.value).subscribe({
       next: (response) => {
 
         console.log('Response:', response);
