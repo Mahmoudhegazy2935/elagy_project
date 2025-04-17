@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -17,10 +17,15 @@ export class AuthService {
     return this.http.post(this.apiUrl, userData, { responseType: 'text' });
   }
 
-  RegistrationAsPharmacy(userData: any): Observable<any> {
-    return this.http.post(this.apiUrl2, userData); // بدون responseType أو خليه 'json'
-  }
-  
+ RegistrationAsPharmacy(userData: any): Observable<any> {
+  return this.http.post(this.apiUrl2, userData); // بدون responseType أو خليه 'json'
+}
+
+// RegistrationAsPharmacy(userData: any): Observable<HttpResponse<any>> {
+//   return this.http.post<any>(this.apiUrl2, userData, { observe: 'response' });
+// }
+
+
 
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(this.apiUrl1, credentials,{ responseType: 'text' });

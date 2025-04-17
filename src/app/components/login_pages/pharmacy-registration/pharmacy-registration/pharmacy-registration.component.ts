@@ -32,8 +32,8 @@ export class PharmacyRegistrationComponent {
     managerName: FormControl<string>;
     managerPhone: FormControl<string>;
   }>;
- 
-   
+  
+  
   constructor(private fb: FormBuilder, private authService: AuthService ,private router: Router) {
     this.registrationForm = this.fb.nonNullable.group({
       pharmacyName: this.fb.nonNullable.control('', Validators.required),
