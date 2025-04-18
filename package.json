@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
     "bootstrap": "^5.3.3",
+    "jwt-decode": "^4.0.0",
     "ng-angular-popup": "^0.6.2",
     "ngx-toaster": "^1.0.1",
     "ngx-toastr": "^19.0.0",
