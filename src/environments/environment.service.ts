@@ -1,4 +1,4 @@
 export const environment = {
-  baseApi:"https://fakestoreapi.com/",
+  baseApi:"http://localhost:5208/api/",
   production: false
 };

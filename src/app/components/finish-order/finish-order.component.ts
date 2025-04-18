@@ -19,6 +19,7 @@ export class FinishOrderComponent {
   cartProducts: any[] = [];
   userName: string = '';
   userAddress: string = '';
+  speicalLocation:string='';
   phoneNumber: string = '';
   success:boolean = false;
   total:number = 0;
@@ -45,9 +46,10 @@ submitOrder() {
 
   let products = this.cartProducts.map(item => {
     return {
-      productId: item.id,
-      productName: item.name,
+      id: item.id,
+      name: item.name,
       quantity: item.amount,
+      description:item.description,
       price: item.price
     };
   });
@@ -55,6 +57,7 @@ submitOrder() {
   let orderModel = {
     userName: this.userName,
     address: this.userAddress,
+    speicalLocation:this.speicalLocation,
     phoneNumber: this.phoneNumber,
     date: new Date().toISOString(),
     products: products
@@ -103,6 +106,7 @@ submitOrder() {
             confirmButtonText: 'موافق'
           });
           this.success = false;
+          console.log(err)
         }
       );
 
@@ -118,7 +122,7 @@ clearCart() {
 
 getCartTotal() {
   this.total = 0;
-  
+
   for (let x of this.cartProducts) {
     const price = Number(x.price);
     const amount = Number(x.amount);

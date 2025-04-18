@@ -98,7 +98,7 @@ export class HomeComponent {
     this.productsrvice
       .getAllProducts()
       .subscribe((data) => (this.products = data));
-      console.log(this.products)
+
 
   }
 
@@ -123,7 +123,7 @@ export class HomeComponent {
   }
 
   addToCart(product:any){
-    console.log(product)
+
     // this.CartProduct=localStorage.getItem("cart")
 
     const productToAdd = {
