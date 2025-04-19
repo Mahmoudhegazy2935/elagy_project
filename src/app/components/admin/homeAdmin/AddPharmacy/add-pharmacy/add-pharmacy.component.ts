@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
-import { NavebarComponent } from "../navebar/navebar.component";
 import { Router, RouterModule } from '@angular/router';
+import { NavebarAdminComponent } from "../../../../navebar-admin/navebar-admin/navebar-admin.component";
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service/auth.service';
+import { AuthService } from '../../../../../services/auth.service/auth.service';
+
 @Component({
-  selector: 'app-register-page',
+  selector: 'app-add-pharmacy',
   standalone: true,
-  imports: [RouterModule, NavebarComponent,FormsModule,ReactiveFormsModule],
-  templateUrl: './register-page.component.html',
-  styleUrl: './register-page.component.css'
+  imports: [RouterModule, NavebarAdminComponent,FormsModule,ReactiveFormsModule],
+  templateUrl: './add-pharmacy.component.html',
+  styleUrl: './add-pharmacy.component.css'
 })
-export class RegisterPageComponent {
+export class AddPharmacyComponent {
 
 
   submitted = false;
@@ -64,7 +65,7 @@ export class RegisterPageComponent {
       return;
     }
 
-    this.authService.register(this.registerForm.value).subscribe({
+    this.authService.addpharmacy(this.registerForm.value).subscribe({
       next: (response) => {
 
         console.log('Response:', response);
@@ -82,11 +83,7 @@ export class RegisterPageComponent {
         console.error('Error:', error);
       }
     });
-  }
-
-
-
-
+}
 
 
 
