@@ -12,6 +12,7 @@ export class NavebarComponent {
   menuOpen = false;
   cartProducts: any[] = [];
 cartCount: number = 0;
+userName = localStorage.getItem('userName');
 
 ngOnInit() {
   this.getCartProducts();

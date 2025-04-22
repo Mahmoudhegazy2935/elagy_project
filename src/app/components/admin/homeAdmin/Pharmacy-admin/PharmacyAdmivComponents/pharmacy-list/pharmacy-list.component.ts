@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { PharmacyAdminModels } from '../../PharmacyAdminModels/pharmacy-admin-models';
 import { PharmacyAdminServicesService } from '../../PharmacyAdminServices/pharmacy-admin-services.service';
 import { RouterModule } from '@angular/router';
-import { NavebarAdminComponent } from "../../../../../navebar-admin/navebar-admin/navebar-admin.component";
+import { NavebarAdminComponent } from '../../../../navebar-admin/navebar-admin/navebar-admin.component';
 
 @Component({
   selector: 'app-pharmacy-list',

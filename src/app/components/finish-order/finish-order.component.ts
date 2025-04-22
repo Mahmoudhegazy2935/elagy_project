@@ -44,13 +44,10 @@ submitOrder() {
     return;
   }
 
-  let products = this.cartProducts.map(item => {
+  let items = this.cartProducts.map(item => {
     return {
-      id: item.id,
-      name: item.name,
+      productId: item.id,
       quantity: item.amount,
-      description:item.description,
-      price: item.price
     };
   });
 
@@ -60,7 +57,8 @@ submitOrder() {
     speicalLocation:this.speicalLocation,
     phoneNumber: this.phoneNumber,
     date: new Date().toISOString(),
-    products: products
+    status:"OnProcessing",
+    items: items
   };
 
   // Show confirmation popup before sending
@@ -72,7 +70,7 @@ submitOrder() {
         <li><b>الاسم:</b> ${this.userName}</li>
         <li><b>العنوان:</b> ${this.userAddress}</li>
         <li><b>رقم الهاتف:</b> ${this.phoneNumber}</li>
-        <li><b>عدد المنتجات:</b> ${products.length}</li>
+        <li><b>عدد المنتجات:</b> ${items.length}</li>
       </ul>
     `,
     icon: 'question',

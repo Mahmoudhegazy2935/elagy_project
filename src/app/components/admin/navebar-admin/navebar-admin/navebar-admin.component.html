@@ -7,12 +7,16 @@
         <h1 class="logo">علاجي</h1>
       </div>
       </a>
-    <ul >
-  
+      <div class="hamburger" (click)="toggleMenu()">
+        &#9776;
+      </div>
+    <ul [class.open]="menuOpen">
+
       <li><a href="#" routerLink="/UsirAdmin" routerLinkActive="active">العملاء المنضمين</a></li>
       <li><a href="#" routerLink="/PharmacyListComponent"> الصيدليات</a></li>
       <li><a href="#"> الطلبات المنتهية</a></li>
-   
+      <span style="display: inline-block; width: 2px; height: 40px; background-color: rgb(199, 199, 199); vertical-align: middle;"></span>
+      <li><a style="font-size: 15px; width: 10px;" class="mt-5">مرحبا ,{{userName}}</a></li>
+
     </ul>
   </nav>
-  

@@ -1,51 +1,53 @@
-
 <app-navebar-admin></app-navebar-admin>
-<br>
+<br />
 <div class="container">
-    <h3 class="mb-4">الصيدليات المنضمة</h3>
-  
-    <ng-container>
-      
-      <div class="row">
-        @for (pharmacy of pharmacies(); track pharmacy.id) {
-          <div class="col-md-4 mb-4">
-            <div class="card h-100">
-              <div class="card__border"></div>
-              <div class="card_title__container">
-                <div class="img_icon">
-                </div>
-                <span class="card_title">{{ pharmacy.pharmacyName }}</span>
-              </div>
-      
-              <table style="color: antiquewhite;">
-                <tr>
-                  <th>اسم المدير</th>
-                  <td>{{pharmacy.managerName}}</td>
-                </tr>
-                <tr>
-                  <th>تليفون المدير</th>
-                  <td>{{pharmacy.managerPhone}}</td>
-                </tr>
-                <tr>
-                  <th>تليفون الصيدلية</th>
-                  <td>{{pharmacy.pharmacyPhone}}</td>
-                </tr>
-                <tr>
-                  <th>موقع التوصيل</th>
-                  <td>{{pharmacy.deliveryArea}}</td>
-                </tr>
-                <tr>
-                  <th>مواعيد العمل</th>
-                  <td>{{pharmacy.workingHours}}</td>
-                </tr>
-              </table>
-      
-              <button class="button" (click)="deletePharmacy(pharmacy.id)">إزالة الحساب</button>
+  <h3 class="mb-4 text-center">الصيدليات المنضمة</h3>
+  <hr>
+
+  <ng-container>
+    <div class=" row justify-content-center g-4">
+      @for (pharmacy of pharmacies(); track pharmacy.id) {
+        <div class="col-md-4">
+          <div class="card h-100 p-3">
+            <div class="card__border"></div>
+
+            <div class="card_title__container d-flex align-items-center mb-3">
+              <img [src]="'http://localhost:5208/' + pharmacy.pharmacyLicense" class="img_icon img_iconimg1 me-2">
+
+              <span class="card_title fs-5">{{ pharmacy.pharmacyName }}</span>
             </div>
+
+            <table class="table table-bordered table-sm text-white">
+              <tbody>
+                <tr>
+                  <th scope="row">اسم المدير</th>
+                  <td>{{ pharmacy.managerName }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">تليفون المدير</th>
+                  <td>{{ pharmacy.managerPhone }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">تليفون الصيدلية</th>
+                  <td>{{ pharmacy.pharmacyPhone }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">موقع التوصيل</th>
+                  <td>{{ pharmacy.deliveryArea }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">مواعيد العمل</th>
+                  <td>{{ pharmacy.workingHours }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <button class="btn btn-danger button mt-2" (click)="deletePharmacy(pharmacy.id)">
+              إزالة الحساب
+            </button>
           </div>
-        }
-      </div>
-      
-    </ng-container>
-  </div>
-  
+        </div>
+      }
+    </div>
+  </ng-container>
+</div>

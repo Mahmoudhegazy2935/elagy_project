@@ -52,7 +52,7 @@
       <section class="container my-5">
         <h2 class="mb-4">الأكثر استخداماً</h2>
 
-        <div class="row">
+        <div class="row justify-content-center">
           @for (product of products; track $index) {
 
             <!-- Product Card -->
@@ -61,7 +61,7 @@
 
                 <a href="" [routerLink]="['/userhome/', product.id]">
                   <div class="contImg" >
-                    <img [src]="drugImages[$index]" class="card-img-top" width="150px" height="150px" alt="{{product.name}}">
+                    <img [src]="'http://localhost:5208/' + product.imagePath"  class="card-img-top" width="150px" height="150px" alt="{{product.name}}">
                   </div>
                 </a>
 
@@ -106,7 +106,7 @@
 
                 <a href="" [routerLink]="['/product/', product.name]">
                   <div class="contImg" >
-                    <img [src]="panadolimages[$index]" class="card-img-top" width="150px" height="150px" alt="{{product.name}}">
+                    <img [src]="'http://localhost:5208/' + product.image" class="card-img-top" width="150px" height="150px" alt="{{product.name}}">
                   </div>
                 </a>
 

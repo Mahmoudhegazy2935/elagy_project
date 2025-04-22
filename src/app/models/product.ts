@@ -3,7 +3,8 @@ export interface Product {
     name: string;
     description?: string;
     price: number;
-    image: string;
+    imagePath: string;
+    image?: string;
     quantity: number;
     amount: number; // الكمية اللي المستخدم بيحددها
   showAddButton?: boolean; // الحالة بتاعت الزرار

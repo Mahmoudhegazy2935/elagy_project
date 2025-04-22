@@ -52,13 +52,13 @@ export class LoginPageComponent {
         const decoded: any = jwtDecode(token);
 
 
-        const nameArray = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
-        const role = Array.isArray(nameArray) ? nameArray[0] : 'unknown';
+        const role = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] || 'unknown';
+
         localStorage.setItem('role', role);
-        console.log('role:',role)
+        console.log('role:', role);
 
         // Redirect based on role
-        switch (role.toLowerCase()) {
+        switch (role) {
           case 'Pharmacy':
             this.router.navigate(['/cart']);
             break;

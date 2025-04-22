@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { UsirAdminModels } from '../../UsirAdminModels/usir-admin-models';
 import { UsirAdminServicesService } from '../../UsirAdminServices/usir-admin-services.service';
-import { NavebarAdminComponent } from "../../../../../navebar-admin/navebar-admin/navebar-admin.component";
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NavebarAdminComponent } from '../../../../navebar-admin/navebar-admin/navebar-admin.component';
 
 @Component({
   selector: 'app-usir-admin-component',

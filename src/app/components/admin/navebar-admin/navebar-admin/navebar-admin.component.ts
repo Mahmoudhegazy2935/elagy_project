@@ -9,5 +9,11 @@ import { RouterModule } from '@angular/router';
   styleUrl: './navebar-admin.component.css'
 })
 export class NavebarAdminComponent {
+  userName = localStorage.getItem('userName');
+  menuOpen = false;
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
 
 }

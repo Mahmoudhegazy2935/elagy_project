@@ -21,7 +21,7 @@ export class CartComponent implements OnInit {
   cartProducts:any[] = [];
   total:number = 0;
   success:boolean = false
-  
+
   ngOnInit(): void {
     this.getCartProducts()
   }
@@ -30,12 +30,12 @@ export class CartComponent implements OnInit {
 
     if("cart" in localStorage){
       this.cartProducts=JSON.parse(localStorage.getItem("cart")!)
-      
+
       this.cartProducts = this.cartProducts.map(item => ({
         ...item,
         amount: Number(item.amount) || 1
       }));
-      
+
 
    }
    this.getCartTotal()
@@ -43,7 +43,7 @@ export class CartComponent implements OnInit {
 
   getCartTotal() {
     this.total = 0;
-    
+
     for (let x of this.cartProducts) {
       const price = Number(x.price);
       const amount = Number(x.amount);
@@ -97,10 +97,6 @@ export class CartComponent implements OnInit {
       return { productId: item.id, quantity: item.amount };  // استخدم `id` و `amount` بدلاً من `item.item.id`
     });
 
-    // بناء نموذج الطلب
-
-
-    // استدعاء الـ API
 
   }
 
