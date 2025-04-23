@@ -1,1 +1,48 @@
-<p>pharmacy-home works!</p>
+<div class="d-flex justify-content-center mt-3">
+  <div class="orders-container col-lg-8 col-md-10 col-sm-12">
+    <div class="row justify-content-start align-items-center mb-3">
+      <h3>صيدلية : الحسن والحسين </h3>
+      <h5>لصاحبها : د/ حسين عباس حسن</h5>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-start align-items-center mb-1">
+      <div class="btn btn-outline-dark ms-3">الطلبات الجديدة</div>
+      <div class="btn btn-outline-success">الطلبات السابة</div>
+    </div>
+    @for (order of orders; track $index) {
+      <div class="card mb-4 shadow-sm p-4 rounded">
+        <div class="card-body">
+          <div class="mb-3">
+            <h4 class="card-title text-dark">الاسم : {{ order.userName }}</h4>
+            <p class="mb-1">رقم الهاتف 📞 : <strong>{{ order.phoneNumber }}</strong></p>
+            <p class="mb-1">العنوان 🏠 : {{ order.address }}</p>
+            <p class="mb-1">🕒 {{ order.date | date: 'short' }}</p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center ">
+            <button class="btn btn-outline-info mb-2" (click)="toggleOrderItems(order.id)">
+              {{ expandedOrderIds.includes(order.id) ? 'إخفاء المنتجات' : 'عرض المنتجات' }}
+            </button>
+            @if (order.status=="تم القبول") {
+              <p class="mb-0 status-tag">📌 الحالة: <strong>{{ order.status }}</strong></p>
+            }@else {
+              <button class="btn btn-primary" (click)="acceptOrder(order.id)">✅ قبول الطلب</button>
+            }
+          </div>
+
+
+
+          @if (expandedOrderIds.includes(order.id)) {
+            <ul class="list-group list-group-flush mb-3">
+              @for (item of order.items; track $index) {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  🧾 {{ item.productName }}
+                  <span>الكمية: {{ item.quantity }} | السعر: {{ item.priceProduct }} جنيه</span>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>

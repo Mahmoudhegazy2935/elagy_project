@@ -25,7 +25,7 @@
         </thead>
         <tbody>
             @for (item of cartProducts; track $index ) {
-            <tr  >
+            <tr>
                 <td><img [src]="'http://localhost:5208/' + item.imagePath"  alt=""></td>
                 <td>{{item.name}}</td>
                 <td>{{item.price}} جنيه</td>

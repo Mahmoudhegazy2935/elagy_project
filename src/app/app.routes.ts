@@ -17,19 +17,13 @@ import { FinishOrderComponent } from './components/finish-order/finish-order.com
 import { SinglProductComponent } from './components/singl-product/singl-product.component';
 import { PharmacyRegistrationComponent } from './components/login_pages/pharmacy-registration/pharmacy-registration/pharmacy-registration.component';
 import { HomeAdminComponent } from './components/admin/home-admin/home-admin.component';
+import { PharmacyHomeComponent } from './components/Pharmacy-pages/pharmacy-home/pharmacy-home.component';
 
 
 export const routes: Routes = [
-  //admin:pages
-  // { path: '', redirectTo: '/login', pathMatch: 'full' },
-  // { path: 'login', component: UserLoginComponent, title: 'login' },
-  // { path: 'aboutus', component: AboutUSComponent, title: 'aboutus' },
-  // { path: 'contactus', component: ContactUSComponent, title: 'contactus' },
-  // { path: '**', component: NotfoundComponent },
 
-  //user:pages
-  //{ path: '', redirectTo: '/login', pathMatch: 'full' },
-  {path:'',component: IntroPageComponent},
+  // {path:'',component: IntroPageComponent},
+  {path:'',component: PharmacyHomeComponent},
   {path:'intro',component: IntroPageComponent},
 
   {path:'home', component: HomeComponent},
