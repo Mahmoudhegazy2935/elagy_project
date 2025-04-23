@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { NavebarAdminComponent } from "../../../../navebar-admin/navebar-admin/navebar-admin.component";
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from '../../../../../services/auth.service/auth.service';
+import { NavebarAdminComponent } from '../../../navebar-admin/navebar-admin/navebar-admin.component';
 
 @Component({
   selector: 'app-add-pharmacy',
