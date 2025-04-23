@@ -1,0 +1,118 @@
+<app-navebar-admin></app-navebar-admin>
+
+<div class="bg-image pt-5">
+
+    <div class="container">
+      <div class="screen">
+        <div class="screen__content ">
+         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="login">
+          <div class="login__field">
+            <i class="login__icon fas fa-user"></i>
+            <h1 class="mb-3 ms-5">انشاء حساب</h1>
+  
+  
+                  </div>
+                  <input type="text" class="login__input " formControlName="lastName" placeholder=" الاسم الثاني " >
+                  <!-- @if (f.last_Name.touched && f.last_Name.invalid) {
+  
+                    <small class="text-danger" >Last Name is required</small>
+                  } -->
+  
+                  <input type="text" class="login__input " formControlName="firstName" placeholder=" الاسم الاول" >
+                  <!-- @if (f.name.touched && f.name.invalid) {
+  
+                    <small class="text-danger" >Name is required</small>
+                  } -->
+                  <div class="login__field">
+                      <i class="login__icon fas fa-lock"></i>
+                      <input type="email" class="login__input1" formControlName="email" placeholder=" الالكتروني" >
+                      <!-- @if (f.email.touched && f.email.invalid) {
+  
+                        <small class="text-danger" >Valid email is required</small>
+                      } -->
+  
+  
+                      <input type="text" class="login__input1" formControlName="phoneNumber" placeholder=" رقم التلفون" >
+                      <!-- @if (f.phoneNumber.touched && f.phoneNumber.invalid) {
+  
+                        <small class="text-danger" >Valid phone Number is required</small>
+                      } -->
+  
+                      <!-- Governorate Selection -->
+                        <div class="mb-3">
+                          <label for="governorate">اختر المحافظة</label>
+                          <select class="form-control" formControlName="governorate">
+                            @for (item of governorates; track $index) {
+                              <option  [value]="item">
+                                {{ item }}
+                              </option>
+                            }
+  
+                          </select>
+                        </div>
+  
+                        <!-- Center Selection -->
+                        <div class="mb-3">
+                          <label for="center">اختر المركز</label>
+  
+                          <select class="form-control" formControlName="center">
+                            @for (item of m; track $index) {
+                              <option  [value]="item">
+                                {{ item }}
+                              </option>
+                            }
+                          </select>
+                        </div>
+                      <input type="text" class="login__input1 " formControlName="location"  placeholder=" العنوان" required>
+                      <!-- @if (f.location.touched && f.location.invalid) {
+                      <small class="text-danger" >Valid location is required</small>
+                      } -->
+  
+                      <input type="password" class="login__input1" formControlName="password" placeholder="كلمة السر "  >
+                       @if (f.password.touched && f.password.invalid) {
+                      <small class="text-danger" >Password must be at least 6 characters</small>
+                      <small class="text-danger" >contain '(!,#,$,%,^,&,*)'</small>
+                      <small class="text-danger" >contain both captal and small liters</small>
+                      }
+  
+  
+                      <input type="password" class="login__input1" formControlName="confirmPassword" placeholder="تأكيد  كلمة السر " >
+                       @if (registerForm.errors?.['mismatch']) {
+                      <small class="text-danger" >Passwords must match</small>
+                      }
+  
+                  </div>
+  
+                  <button type="submit"   class="button login__submit">
+                     انشاء
+                  </button>
+                  @if (successMessage) {
+  
+                    <div class="alert alert-success mt-3 text-center">{{ successMessage }}</div>
+                  }
+                  @if (errorMessage) {
+  
+                    <div  class="alert alert-danger mt-3 text-center">{{ errorMessage }}</div>
+                  }
+  
+        </form>
+              <div class="social-login">
+          <h3></h3>
+          <div class="social-icons">
+            <a href="#" class="social-login__icon fab fa-facebook" routerLink="/login">لدي حساب</a>
+  
+           </div>
+              </div>
+          </div>
+          <div class="screen__background">
+        <span class="screen__background__shape screen__background__shape4"></span>
+              <span class="screen__background__shape screen__background__shape3"></span>
+              <span class="screen__background__shape screen__background__shape2"></span>
+              <span class="screen__background__shape screen__background__shape1"></span>
+          </div>
+      </div>
+  </div>
+  
+  </div>
+  
+  
