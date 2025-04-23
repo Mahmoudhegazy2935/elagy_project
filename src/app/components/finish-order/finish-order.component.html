@@ -15,8 +15,14 @@
 
     <div class="mb-3">
       <label for="speicalLocation" class="form-label">العنوان العام:</label>
-      <input type="text" id="address" class="form-control" [(ngModel)]="speicalLocation" placeholder="مثال : المركز">
+      <select id="speicalLocation" class="form-select" [(ngModel)]="speicalLocation">
+        <option disabled selected value="">اختر العنوان</option>
+       @for (location of locations; track $index) {
+         <option  [value]="location">{{ location }}</option>
+        }
+      </select>
     </div>
+
 
     <div class="mb-3">
       <label for="address" class="form-label">العنوان بالتفصيل:</label>
