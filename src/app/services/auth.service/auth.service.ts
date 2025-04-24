@@ -42,17 +42,34 @@ export class AuthService {
   }
 
 
-  login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(this.apiUrl1, credentials,{ responseType: 'text' });
-  }
+  // login(credentials: { email: string; password: string }): Observable<any> {
+  //   return this.http.post(this.apiUrl1, credentials,{ responseType: 'text' });
+  // }
 
+  // logout() {
+  //   localStorage.removeItem('authToken');
+  // }
+
+  // isLoggedIn(): boolean {
+  //   return !!localStorage.getItem('authToken');
+  // }
+
+  login(credentials: { email: string; password: string }): Observable<any> {
+    return this.http.post(this.apiUrl1, credentials, { responseType: 'text' });
+  }
+  
   logout() {
     localStorage.removeItem('authToken');
   }
 
+  logout1() {
+    localStorage.clear(); // يمسح كل حاجة في localStorage
+  }
+  
   isLoggedIn(): boolean {
     return !!localStorage.getItem('authToken');
   }
+  
 }
 
 

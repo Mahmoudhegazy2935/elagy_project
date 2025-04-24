@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service/auth.service';
 
 @Component({
   selector: 'app-navebar',
@@ -16,6 +17,24 @@ userName = localStorage.getItem('userName');
 
 ngOnInit() {
   this.getCartProducts();
+}
+
+constructor(
+  private authService: AuthService,
+  private router: Router
+) {}
+
+handleClick() {
+  if (this.authService.isLoggedIn()) {
+    this.authService.logout1();
+    this.router.navigate(['/home']); // بعد تسجيل الخروج
+  } else {
+    this.router.navigate(['/login']); // صفحة تسجيل الدخول
+  }
+}
+
+get buttonLabel(): string {
+  return this.authService.isLoggedIn() ? 'تسجيل الخروج' : 'تسجيل الدخول';
 }
 
 getCartProducts() {
@@ -40,5 +59,7 @@ updateCartCount() {
 toggleMenu() {
   this.menuOpen = !this.menuOpen;
 }
+
+
 
 }

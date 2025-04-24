@@ -14,8 +14,11 @@
 
     <li><a href="#" routerLink="/home" routerLinkActive="active">الرئيسيه</a></li>
     <li><a href="#">حول الموقع</a></li>
-    <li><a href="#">تواصل معنا</a></li>
-    <li><a href="#" routerLink="/login" routerLinkActive="active">تسجيل الدخول</a></li>
+    <li><a href="https://wa.me/201099777627">تواصل معنا</a></li>
+    <li><a (click)="handleClick()">
+      {{ buttonLabel }}
+    </a>
+  </li>
     <li class="cart-container" routerLink="/cart">
       السلة
       <span class="cart-icon-wrapper">
