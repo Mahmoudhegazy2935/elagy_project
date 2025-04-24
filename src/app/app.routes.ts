@@ -23,8 +23,8 @@ import { AddPharmacyComponent } from './components/admin/homeAdmin/AddPharmacy/a
 
 export const routes: Routes = [
 
-  // {path:'',component: IntroPageComponent},
-  {path:'',component: PharmacyHomeComponent},
+  {path:'',component: IntroPageComponent},
+  // {path:'',component: PharmacyHomeComponent},
   {path:'intro',component: IntroPageComponent},
 
   {path:'home', component: HomeComponent},

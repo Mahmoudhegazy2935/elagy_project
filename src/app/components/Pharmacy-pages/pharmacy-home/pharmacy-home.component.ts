@@ -90,9 +90,9 @@ ngOnInit(): void {
   formatRelativeDate(dateStr: string): string {
     const date = new Date(dateStr);
     if (this.isToday(dateStr)) {
-      return 'Today';
+      return 'اليوم';
     } else if (this.isYesterday(dateStr)) {
-      return 'Yesterday';
+      return 'أمس';
     } else {
       return new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).format(date);
     }
