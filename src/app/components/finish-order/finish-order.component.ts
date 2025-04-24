@@ -23,6 +23,8 @@ export class FinishOrderComponent {
   phoneNumber: string = '';
   success:boolean = false;
   total:number = 0;
+  locations: string[] = ['نجع حمادي', 'قنا', 'دشنا', 'اولاد عمرو', 'الوقف'];
+
 
 ngOnInit() {
   // Option 1: If using localStorage
