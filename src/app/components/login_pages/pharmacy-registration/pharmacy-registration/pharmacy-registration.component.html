@@ -29,7 +29,7 @@
 
                       <small class="text-danger" >Valid email is required</small>
                     } -->
-
+                    
 
                     <input type="text" class="login__input1" formControlName="pharmacyName" placeholder="اسم الصيدلية" >
 
@@ -57,6 +57,23 @@
                     <!-- @if (f.location.touched && f.location.invalid) {
                     <small class="text-danger" >Valid location is required</small>
                     } -->
+                    <div class="mb-3">
+                      <label for="formFile" class="form-label">رخصة تجارية</label>
+                      <input class="form-control" type="file" id="tradeLicenseFile"
+                             (change)="onFileChange($event, 'TradeLicense')" >
+                    </div>
+                    
+                    <div class="mb-3">
+                      <label for="formFile" class="form-label">بطاقة ضريبية</label>
+                      <input class="form-control" type="file" id="TaxCard"
+                             (change)="onFileChange($event, 'TaxCard')" >
+                    </div>
+                    
+                    <div class="mb-3">
+                      <label for="formFile" class="form-label">ترخيص صيدلية</label>
+                      <input class="form-control" type="file" id="PharmacyLicense"
+                             (change)="onFileChange($event, 'PharmacyLicense')" >
+                    </div>
 
                     <input type="password" class="login__input1" formControlName="password" placeholder="كلمة السر "  >
                      @if (f.password.touched && f.password.invalid) {
