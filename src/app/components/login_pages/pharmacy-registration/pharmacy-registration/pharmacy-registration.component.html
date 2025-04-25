@@ -29,7 +29,7 @@
 
                       <small class="text-danger" >Valid email is required</small>
                     } -->
-                    
+
 
                     <input type="text" class="login__input1" formControlName="pharmacyName" placeholder="اسم الصيدلية" >
 
@@ -43,7 +43,7 @@
 
                       <!-- Center Selection -->
                       <div class="mb-3">
-                        <label for="center">اختر المركز</label>
+                        <label for="center">منطقة التوصيل</label>
 
                         <select class="form-control" formControlName="deliveryArea">
                           @for (item of m; track $index) {
@@ -62,13 +62,13 @@
                       <input class="form-control" type="file" id="tradeLicenseFile"
                              (change)="onFileChange($event, 'TradeLicense')" >
                     </div>
-                    
+
                     <div class="mb-3">
                       <label for="formFile" class="form-label">بطاقة ضريبية</label>
                       <input class="form-control" type="file" id="TaxCard"
                              (change)="onFileChange($event, 'TaxCard')" >
                     </div>
-                    
+
                     <div class="mb-3">
                       <label for="formFile" class="form-label">ترخيص صيدلية</label>
                       <input class="form-control" type="file" id="PharmacyLicense"

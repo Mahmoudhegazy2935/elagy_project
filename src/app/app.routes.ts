@@ -20,6 +20,7 @@ import { HomeAdminComponent } from './components/admin/home-admin/home-admin.com
 import { PharmacyHomeComponent } from './components/Pharmacy-pages/pharmacy-home/pharmacy-home.component';
 import { AddPharmacyComponent } from './components/admin/homeAdmin/AddPharmacy/add-pharmacy/add-pharmacy.component';
 import { OrderDoneComponent } from './components/cart_user/order-done/order-done.component';
+import { OrdersAdminComponent } from './components/admin/homeAdmin/orders-admin/orders-admin.component';
 
 
 export const routes: Routes = [
@@ -46,7 +47,9 @@ export const routes: Routes = [
   {path:'PharmacyRegistration',component:PharmacyRegistrationComponent,title:'Pharmacy-Registration'},
   {path:'AddPharmacy',component:AddPharmacyComponent,title:'AddPharmacy'},
   {path:'pharmacy_home',component:PharmacyHomeComponent,title:'pharmacy_home'},
-  {path:'order_done',component:OrderDoneComponent}
+  {path:'order_done',component:OrderDoneComponent},
+  {path:'orders_admin',component:OrdersAdminComponent},
+
 
 
 

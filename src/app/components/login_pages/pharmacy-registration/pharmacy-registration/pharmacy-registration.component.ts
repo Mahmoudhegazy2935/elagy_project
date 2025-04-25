@@ -33,9 +33,9 @@ export class PharmacyRegistrationComponent {
     workingHours: FormControl<string>;
     deliveryArea: FormControl<string>;
     managerName: FormControl<string>;
-    TradeLicense : FormControl<File | null>; 
-    TaxCard : FormControl<File | null>; 
-    PharmacyLicense : FormControl<File | null>; 
+    TradeLicense : FormControl<File | null>;
+    TaxCard : FormControl<File | null>;
+    PharmacyLicense : FormControl<File | null>;
     managerPhone: FormControl<string>;
   }>;
 
@@ -64,7 +64,7 @@ export class PharmacyRegistrationComponent {
   get f() {
     return this.registrationForm.controls;
   }
- 
+
   onFileChange(event: any, controlName: string) {
     const file = event.target.files[0];
     if (file) {
@@ -101,7 +101,7 @@ export class PharmacyRegistrationComponent {
   //   });
   // }
   onSubmit() {
-    console.log(this.registrationForm.value);  // اطبع القيم قبل الإرسال
+      // اطبع القيم قبل الإرسال
     const formData = new FormData();
     Object.entries(this.registrationForm.value).forEach(([key, value]) => {
       formData.append(key, value as any);
@@ -113,7 +113,7 @@ export class PharmacyRegistrationComponent {
         this.successMessage = 'تم التسجيل بنجاح!';
         this.registrationForm.reset();
         this.submitted = false;
-  
+
         // عند النجاح، عرض التنبيه
         this.showAlert();
       },
@@ -123,8 +123,8 @@ export class PharmacyRegistrationComponent {
       }
     });
   }
-  
-  
+
+
 
   [x: string]: any;
 
@@ -140,26 +140,26 @@ export class PharmacyRegistrationComponent {
     return this.selectedm ? `المركز المختارة: ${this.selectedm}` : 'لم يتم اختيار مركز';
   }
 
- 
+
   showAlert() {
     Swal.fire({
       title: 'تم التسجيل',
       text: '     يتم مراجعة بيناتك من قبل المسؤول',
       icon: 'info',  // يمكن تغيير الأيقونة إلى "info" أو أي نوع آخر مثل "success"
-      showConfirmButton: false,  // إخفاء زر التأكيد
       html: `
         <div>
           <i class="fa fa-spinner fa-spin" style="font-size: 50px;"></i>  <!-- ساعة رملية -->
         </div>
-    <p> يتم مراجعة بيناتك من قبل المسؤول</p>
-        <p>انتظر قليلاً...</p>
+    <p>  يتم مراجعة بيناتك من قبل المسؤول وسيتم التواصم معكم</p>
+        <p>شكراً لانضمامك ...</p>
       `,
-      timer: 2000,  // تحديد مدة الانتظار قبل إغلاق التنبيه تلقائياً (مثال: 2000ms = 2 ثواني)
-      timerProgressBar: true  // عرض شريط تقدم مع التوقيت
+      timerProgressBar: true,  // عرض شريط تقدم مع التوقيت
+      confirmButtonText:"حسناً"
+    }).then(() => {
+      this.router.navigate(['/intro']);
     });
   }
-  
+
 
  }
 
- 

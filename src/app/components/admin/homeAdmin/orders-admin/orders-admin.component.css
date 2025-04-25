@@ -1,0 +1,26 @@
+.orders-container {
+  direction: rtl;
+  padding: 30px;
+  background-color: rgba(209, 233, 246, 1);
+  border-radius: 12px;
+  margin-top: 80px;
+}
+
+.card {
+  background-color: rgba(154, 203, 208, 1);
+  border: 1px solid #000000;
+  border-right: 20px solid  rgba(72, 166, 167, 1);
+  border-left: 20px solid rgba(72, 166, 167, 1);
+
+}
+
+.status-tag {
+  font-weight: bold;
+  color: #28a745;
+}
+
+.items{
+  background-color: rgba(72, 166, 167, 1);
+  border-radius: 12px;
+  font-weight: bold;
+}

@@ -1,0 +1,57 @@
+<app-navebar-admin></app-navebar-admin>
+<div class="d-flex justify-content-center mt-3">
+  <div class="orders-container col-lg-8 col-md-10 col-sm-12">
+    <div class="row justify-content-start align-items-center mb-3">
+      <h3>سجل الطلبات السابقة</h3>
+    </div>
+
+    <div class="mb-3">
+      <label for="datePicker" class="form-label">اختر التاريخ:</label>
+      <input id="datePicker" type="date" class="form-control"
+             [(ngModel)]="selectedDate" (change)="filterOrdersByDate()">
+    </div>
+
+    <hr>
+
+    @if (filteredOrders.length === 0) {
+      <p class="text-center">لا توجد طلبات في هذا التاريخ.</p>
+    } @else {
+      @for (order of filteredOrders; track $index) {
+        <div class="card mb-4 shadow-sm rounded">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h4 class="card-title text-dark">الاسم : {{ order.userName }}</h4>
+                <p class="mb-1">رقم الهاتف 📞 : <strong>{{ order.phoneNumber }}</strong></p>
+                <p class="mb-1">العنوان 🏠 : {{ order.address }}</p>
+              </div>
+              <div>
+                <p class="mb-1 w-75 text-center me-auto">{{ formatRelativeDate(order.date) }}</p>
+                <p class="mb-1 w-75 text-center me-auto">{{ order.date | date: 'medium' }}</p>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end align-items-center">
+              <p class="mb-0 status-tag">📌 الحالة: <strong>{{ order.status }}</strong></p>
+            </div>
+
+            @if (expandedOrderIds.includes(order.id)) {
+              <ul class="items list-group list-group-flush mb-3">
+                @for (item of order.items; track $index) {
+                  <li class="items list-group-item d-flex justify-content-between align-items-center">
+                    🧾 {{ item.productName }}
+                    <span>الكمية: {{ item.quantity }} | السعر: {{ item.priceProduct }} جنيه</span>
+                  </li>
+                }
+              </ul>
+            }
+
+            <button class="btn btn-outline-dark dropdown-toggle" (click)="toggleOrderItems(order.id)">
+              {{ expandedOrderIds.includes(order.id) ? 'إخفاء المنتجات' : 'عرض المنتجات' }}
+            </button>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>

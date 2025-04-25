@@ -14,6 +14,7 @@ import { Order } from '../../../models/order.model';
 })
 export class PharmacyHomeComponent {
   deliveryArea: string = 'قنا'; // e.g., passed from parent pharmacy home
+  pharmacy_name=localStorage.getItem('userName');
   orders: Order[] = [];
   expandedOrderIds: number[] = [];
   acceptedOrders: Order[] = [];

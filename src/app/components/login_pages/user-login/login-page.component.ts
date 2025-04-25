@@ -55,6 +55,11 @@ export class LoginPageComponent {
 
         localStorage.setItem('userName', name);
 
+        const nameArray3 = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
+        const email = Array.isArray(nameArray3) ? nameArray3.join(' ') : nameArray3;
+
+        localStorage.setItem('email', email);
+
 
         const nameArray = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
         const role = Array.isArray(nameArray) ? nameArray.join(' ') : nameArray;
@@ -65,7 +70,7 @@ export class LoginPageComponent {
         // Redirect based on role
         switch (role) {
           case 'Pharmacy':
-            this.router.navigate(['/cart']);
+            this.router.navigate(['/pharmacy_home']);
             break;
           case 'Admin':
             this.router.navigate(['/HomeAdminComponent']);
