@@ -6,20 +6,32 @@
     </div>
     <hr>
     <div class="d-flex justify-content-start align-items-center mb-1">
-      <div class="btn btn-outline-dark ms-3">الطلبات الجديدة</div>
-      <div class="btn btn-outline-success">الطلبات السابة</div>
+
+        <button  class="btn ms-3" [ngClass]="showAccepted ? 'btn-outline-dark' : 'btn-dark'"(click)="showAccepted = false">
+          الطلبات الجديدة
+        </button>
+
+        <button  class="btn" [ngClass]="showAccepted ? 'btn-dark' : 'btn-outline-dark'" (click)="showAccepted = true">
+        الطلبات التي تم قبولها
+        </button>
+
     </div>
-    @for (order of orders; track $index) {
-      <div class="card mb-4 shadow-sm p-4 rounded">
+    @for (order of showAccepted ? acceptedOrders : orders; track $index) {
+      <div class="card mb-4 shadow-sm  rounded">
         <div class="card-body">
-          <div class="mb-3">
-            <h4 class="card-title text-dark">الاسم : {{ order.userName }}</h4>
-            <p class="mb-1">رقم الهاتف 📞 : <strong>{{ order.phoneNumber }}</strong></p>
-            <p class="mb-1">العنوان 🏠 : {{ order.address }}</p>
-            <p class="mb-1">🕒 {{ order.date | date: 'short' }}</p>
+          <div class="d-flex justify-content-between align-items-center  mb-3">
+            <div>
+              <h4 class="card-title text-dark">الاسم : {{ order.userName }}</h4>
+              <p class="mb-1">رقم الهاتف 📞 : <strong>{{ order.phoneNumber }}</strong></p>
+              <p class="mb-1">العنوان 🏠 : {{ order.address }}</p>
+            </div>
+            <div>
+              <p class="mb-1 w-75 text-center me-auto">{{ formatRelativeDate(order.date) }}</p>
+              <p class="mb-1 w-75 text-center me-auto">{{ order.date | date: 'medium' }}</p>
+            </div>
           </div>
           <div class="d-flex justify-content-between align-items-center ">
-            <button class="btn btn-outline-info mb-2" (click)="toggleOrderItems(order.id)">
+            <button class="btn btn-outline-dark dropdown-toggle mb-2" (click)="toggleOrderItems(order.id)">
               {{ expandedOrderIds.includes(order.id) ? 'إخفاء المنتجات' : 'عرض المنتجات' }}
             </button>
             @if (order.status=="تم القبول") {
@@ -32,9 +44,9 @@
 
 
           @if (expandedOrderIds.includes(order.id)) {
-            <ul class="list-group list-group-flush mb-3">
+            <ul class="items list-group list-group-flush mb-3">
               @for (item of order.items; track $index) {
-                <li class="list-group-item d-flex justify-content-between align-items-center">
+                <li class="items list-group-item d-flex justify-content-between align-items-center">
                   🧾 {{ item.productName }}
                   <span>الكمية: {{ item.quantity }} | السعر: {{ item.priceProduct }} جنيه</span>
                 </li>
