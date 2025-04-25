@@ -1,0 +1,60 @@
+<app-navebar></app-navebar>
+<div class="content-with-navbar container  p-4 rounded border w-50" style="margin-top: 80px; border: 1px; direction: rtl;">
+  <div class="text-center mb-3">
+    <img src="../../../../assets/🦆 illustration _Order Confirmed_.png"  alt="">
+  </div>
+  <h2 class="text-center mb-2">تم استلام طلبك بنجاح</h2>
+  <h4 class="text-center mb-4">انتظر قبول طلبك</h4>
+  <hr>
+
+  <div class="d-flex justify-content-end mb-4">
+    <button class="btn btn-primary" [routerLink]="['/home']">تـابـع التـسوق</button>
+  </div>
+
+
+  <div class="row justify-content-center">
+    <!-- Nearby Pharmacies -->
+    <div class="col-md-4 mb-4">
+      <div class="card p-3 shadow-sm">
+        <h5 class="mb- text-center">الصيدليات القريبة منك</h5>
+        <hr>
+        @for (pharmacy of nearbyPharmacies; track $index) {
+          <div style="font-size: 20px;" class="btn btn-outline-primary w-100 mb-2">
+            {{ pharmacy.pharmacyName }}
+            <p style="color: black; font-size: 15px;">العنوان : {{pharmacy.deliveryArea}}</p>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Orders Display -->
+    <div class="col-md-8">
+      @for (order of orders; track $index) {
+        <div class="card mb-4 p-3 shadow rounded" style="background-color: #f9f9f9;">
+          <h5 class="mb-2">🚚 يتم التوصيل الى:</h5>
+          <p class="mb-3">{{ userAddress }}</p>
+
+          <hr>
+          <h6>📦 منتجات الشحنة</h6>
+
+          <div class="row">
+            @for (item of order.items; track $index) {
+              <div class="col-md-6 mb-3">
+                <div class="border p-2 h-100 rounded bg-light">
+                  <p class="mb-1 fw-bold">{{ item.productName }}</p>
+                  <p class="mb-1">الكمية: {{ item.quantity }}</p>
+                  <p class="mb-1">السعر: {{ item.priceProduct }} جنيه</p>
+                </div>
+              </div>
+            }
+          </div>
+
+          <hr>
+          <p><b>💰 السعر الإجمالي:</b> {{ getTotal(order.items) }} جنيه</p>
+          <p><b>🚚 سعر الشحن:</b>  حتي 20 جنيه </p>
+          <p><b>📌 الحالة:</b> {{ order.status }} - سيتم التواصل معك</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>

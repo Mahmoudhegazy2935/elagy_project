@@ -1,6 +1,6 @@
 
 
-<nav class="navbar">
+<nav class="navbar ">
   <a href="#" class="text-decoration-none" routerLink="/intro">
       <div class="genral_logo" routerLink="/intro">
       <div class="logo-image ms-3"></div>
@@ -15,10 +15,6 @@
     <li><a href="#" routerLink="/home" routerLinkActive="active">الرئيسيه</a></li>
     <li><a href="#">حول الموقع</a></li>
     <li><a href="https://wa.me/201099777627">تواصل معنا</a></li>
-    <li><a (click)="handleClick()">
-      {{ buttonLabel }}
-    </a>
-  </li>
     <li class="cart-container" routerLink="/cart">
       السلة
       <span class="cart-icon-wrapper">
@@ -27,6 +23,22 @@
       </span>
     </li>
     <span style="display: inline-block; width: 2px; height: 40px; background-color: rgb(199, 199, 199); vertical-align: middle;"></span>
-    <li><a style="font-size: 15px; width: 10px;">مرحبا ,{{userName}}</a></li>
+    <li class="dropdown" style="position: relative;">
+      <a (click)="toggleDropdown()"
+         style="cursor: pointer; font-size: 15px; display: flex; flex-direction: column; align-items: start;">
+        <span style="font-size: 14px;">مرحبا ,{{ userName }}</span>
+        <div class="dropdown-toggle" style="font-weight: 600; font-size: 20px;">حسابي</div>
+      </a>
+
+      <!-- Dropdown -->
+       @if (showDropdown) {
+         <div
+         class="dropdown-menu show"
+         style="display: block; position: absolute; top: 100%; right: 0; z-index: 1000;">
+         <a href="#" style="color: black; font-size: 15px;" class="dropdown-item" (click)="handleClick()">{{ buttonLabel }}</a>
+        </div>
+      }
+    </li>
+
   </ul>
 </nav>

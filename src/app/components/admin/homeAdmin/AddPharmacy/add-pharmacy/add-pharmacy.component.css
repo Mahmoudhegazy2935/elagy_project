@@ -19,6 +19,7 @@
 
 body {
 	background: linear-gradient(90deg, #2973B2, #4DA7F4);
+
 }
 
 .container {
@@ -29,6 +30,8 @@ body {
 	min-height: 100vh;
   margin-left:auto ;
   margin-right: auto;
+  margin-top: 80px;
+
 }
 
 .screen {

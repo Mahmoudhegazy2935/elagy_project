@@ -6,15 +6,18 @@
 
   .navbar {
     display: flex;
-    justify-content:start;
-    align-items: center;
-    direction: rtl;
-    text-align: right;
-    margin: 0;
-    padding: 0;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    background-color: #2973B2;
+  justify-content:start;
+  align-items: center;
+  direction: rtl;
+  text-align: right;
 
+  padding: 0;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  background-color: #2973B2;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 
   }
 

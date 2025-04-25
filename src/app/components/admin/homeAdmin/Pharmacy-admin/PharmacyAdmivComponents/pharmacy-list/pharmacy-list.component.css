@@ -6,6 +6,7 @@
 .container {
   background-color:rgba(209, 233, 246, 1);
   padding: 20px;
+  margin-top: 80px;
   border-radius: 12px;
 }
 

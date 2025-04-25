@@ -50,9 +50,14 @@ export class LoginPageComponent {
         localStorage.setItem('authToken', token);
 
         const decoded: any = jwtDecode(token);
+        const nameArray2 = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+        const name = Array.isArray(nameArray2) ? nameArray2.join(' ') : nameArray2;
+
+        localStorage.setItem('userName', name);
 
 
-        const role = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] || 'unknown';
+        const nameArray = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+        const role = Array.isArray(nameArray) ? nameArray.join(' ') : nameArray;
 
         localStorage.setItem('role', role);
         console.log('role:', role);

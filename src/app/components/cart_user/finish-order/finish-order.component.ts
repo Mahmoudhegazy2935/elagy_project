@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NavebarComponent } from "../navebar/navebar.component";
-import { Cart2Service } from '../../services/cart2.service/cart2.service';
+import { NavebarComponent } from "../../navebar/navebar.component";
+import { Cart2Service } from '../../../services/cart2.service/cart2.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
@@ -59,7 +59,7 @@ submitOrder() {
     speicalLocation:this.speicalLocation,
     phoneNumber: this.phoneNumber,
     date: new Date().toISOString(),
-    status:"OnProcessing",
+    status:"قيد المعالجة",
     items: items
   };
 
@@ -83,6 +83,12 @@ submitOrder() {
     if (result.isConfirmed) {
       this.cart2Service.createNewCart(orderModel).subscribe(
         res => {
+          localStorage.setItem('userInfo', JSON.stringify({
+            userName: this.userName,
+            userAddress: this.userAddress,
+            phoneNumber: this.phoneNumber,
+            speicalLocation: this.speicalLocation
+          }));
           Swal.fire({
             icon: 'success',
             title: 'تم إرسال الطلب بنجاح!',
@@ -91,9 +97,9 @@ submitOrder() {
                 <p>شكرًا لطلبك 🎉</p>
               `,
             text: 'شكرًا لطلبك 🎉',
-            confirmButtonText: 'الذهاب الي الصفحة الرئيسية'
+            confirmButtonText: 'تابع طلبك'
           }).then(() => {
-            this.router.navigate(['/home']); // 👈 Redirect to homepage
+            this.router.navigate(['/order_done']);
           });
           this.clearCart();
           this.success = true;

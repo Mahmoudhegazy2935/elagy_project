@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Product } from '../../models/product';
-import { NavebarComponent } from "../navebar/navebar.component";
+import { Product } from '../../../models/product';
+import { NavebarComponent } from "../../navebar/navebar.component";
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Cart2Service } from '../../services/cart2.service/cart2.service';
+import { Cart2Service } from '../../../services/cart2.service/cart2.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({

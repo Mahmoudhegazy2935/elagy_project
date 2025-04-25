@@ -6,19 +6,20 @@ import { registerAppScopedDispatcher } from '@angular/core/primitives/event-disp
 import { RegisterPageComponent } from './components/register/register-page.component';
 import { ForgotThePasswordComponent } from './components/login_pages/forgot_the_password/forgot-the-password/forgot-the-password.component';
 import { HomeComponent } from './components/home/home.component';
-import { CartComponent } from './components/cart/cart.component';
+import { CartComponent } from './components/cart_user/cart/cart.component';
 
 
 import { PharmacyListComponent } from './components/admin/homeAdmin/Pharmacy-admin/PharmacyAdmivComponents/pharmacy-list/pharmacy-list.component';
 import { UsirAdminComponentComponent } from './components/admin/homeAdmin/usirAdmin/usirAdminComponent/usir-admin-component/usir-admin-component.component';
 
 
-import { FinishOrderComponent } from './components/finish-order/finish-order.component';
+import { FinishOrderComponent } from './components/cart_user/finish-order/finish-order.component';
 import { SinglProductComponent } from './components/singl-product/singl-product.component';
 import { PharmacyRegistrationComponent } from './components/login_pages/pharmacy-registration/pharmacy-registration/pharmacy-registration.component';
 import { HomeAdminComponent } from './components/admin/home-admin/home-admin.component';
 import { PharmacyHomeComponent } from './components/Pharmacy-pages/pharmacy-home/pharmacy-home.component';
 import { AddPharmacyComponent } from './components/admin/homeAdmin/AddPharmacy/add-pharmacy/add-pharmacy.component';
+import { OrderDoneComponent } from './components/cart_user/order-done/order-done.component';
 
 
 export const routes: Routes = [
@@ -43,6 +44,10 @@ export const routes: Routes = [
   {path:'finsh_ordre', component: FinishOrderComponent, title: 'finsh_ordre'},
 
   {path:'PharmacyRegistration',component:PharmacyRegistrationComponent,title:'Pharmacy-Registration'},
-  {path:'AddPharmacy',component:AddPharmacyComponent,title:'AddPharmacy'}
+  {path:'AddPharmacy',component:AddPharmacyComponent,title:'AddPharmacy'},
+  {path:'pharmacy_home',component:PharmacyHomeComponent,title:'pharmacy_home'},
+  {path:'order_done',component:OrderDoneComponent}
+
+
 
 ];

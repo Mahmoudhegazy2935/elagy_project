@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
@@ -34,11 +34,13 @@ export class AuthService {
   register(userData: any): Observable<any> {
     return this.http.post(this.apiUrl, userData, { responseType: 'text' });
   }
-  addpharmacy(userData: any): Observable<any> {
-    return this.http.post(this.apiUrl3, userData, { responseType: 'text' });
+  addpharmacy(userData2: any): Observable<any> {
+    const token = localStorage.getItem('authToken');
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(this.apiUrl3, userData2,{ headers ,responseType: 'text'  });
   }
   RegistrationAsPharmacy(userData: any): Observable<any> {
-    return this.http.post(this.apiUrl2, userData);
+    return this.http.post(this.apiUrl2, userData , { responseType: 'text' });
   }
 
 
@@ -57,7 +59,7 @@ export class AuthService {
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(this.apiUrl1, credentials, { responseType: 'text' });
   }
-  
+
   logout() {
     localStorage.removeItem('authToken');
   }
@@ -65,11 +67,11 @@ export class AuthService {
   logout1() {
     localStorage.clear(); // يمسح كل حاجة في localStorage
   }
-  
+
   isLoggedIn(): boolean {
     return !!localStorage.getItem('authToken');
   }
-  
+
 }
 
 

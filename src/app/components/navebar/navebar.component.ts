@@ -14,6 +14,7 @@ export class NavebarComponent {
   cartProducts: any[] = [];
 cartCount: number = 0;
 userName = localStorage.getItem('userName');
+showDropdown = false;
 
 ngOnInit() {
   this.getCartProducts();
@@ -27,7 +28,7 @@ constructor(
 handleClick() {
   if (this.authService.isLoggedIn()) {
     this.authService.logout1();
-    this.router.navigate(['/home']); // بعد تسجيل الخروج
+    this.router.navigate(['/login']); // بعد تسجيل الخروج
   } else {
     this.router.navigate(['/login']); // صفحة تسجيل الدخول
   }
@@ -60,6 +61,8 @@ toggleMenu() {
   this.menuOpen = !this.menuOpen;
 }
 
-
+toggleDropdown() {
+  this.showDropdown = !this.showDropdown;
+}
 
 }

@@ -10,7 +10,7 @@
   align-items: center;
   direction: rtl;
   text-align: right;
-  margin: 0;
+
   padding: 0;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   background-color: #2973B2;
@@ -20,14 +20,17 @@
   z-index: 1000;
 
 
+
 }
 
 .navbar ul {
   list-style: none;
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 30px; /* Space between items */
   padding: 0px 20px;
+  margin-bottom: 0;
 }
 
 .navbar ul li {
@@ -39,7 +42,7 @@
   color: white;
   font-size: 22px;
   font-weight: 600;
-  padding: 10px 15px;
+  padding: 5px 15px;
   transition: 0.3s ease-in-out;
 }
 
