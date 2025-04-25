@@ -28,13 +28,23 @@
                   <div class="d-flex">
 
 
-                <button class="btn btn-primary">معرفة المزيد..</button>
-                <button class="btn text-light btn btn-outline-secondary mx-3">تواصل معنا</button>
+                <button class="btn btn-primary"  (click)="showVideo = true">معرفة المزيد..</button>
+                <a href="https://wa.me/201099777627"><button class="btn text-light btn btn-outline-secondary mx-3">تواصل معنا</button></a>
 
               </div>
             </div>
             <div class="col-md-6 ">
-              <img src="assets/unsplash_ZLjLr9HwUGs.png" alt="Pharmacy" class="img-fluid">
+              
+            @if (showVideo) {
+              <div>
+                
+                <video width="640" height="360" controls autoplay  (click)="showVideo = false">
+                  <source src="assets/mm.mp4" type="video/mp4">
+                  المتصفح لا يدعم تشغيل الفيديو.
+                </video>
+              </div>}@else {
+
+              <img src="assets/unsplash_ZLjLr9HwUGs.png" alt="Pharmacy" class="img-fluid">}
             </div>
           </div>
         </div>
