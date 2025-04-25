@@ -74,7 +74,7 @@ export class RegisterPageComponent {
         this.registerForm.reset();
         this.submitted = false;
 
-        this.router.navigate(['/home']);
+        this.router.navigate(['/login']);
 
       },
       error: (error) => {
