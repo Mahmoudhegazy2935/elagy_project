@@ -30,6 +30,7 @@ export class HomeComponent {
   isVisible: boolean = false;
   addButton:boolean=false;
   amount:number=0;
+  showVideo = false;
   drugImages: string[] = [
     "https://tse4.mm.bing.net/th?id=OIP._hfjck2DY3y4rDCzHUEd7AHaHa&pid=Api", // Brufen
     "https://tse1.mm.bing.net/th?id=OIP.QdXEFdNXjT2grIdPA4A7xAHaHa&pid=Api", // Antinal
@@ -122,6 +123,7 @@ export class HomeComponent {
     });
   }
 
+
   addToCart(product:any){
 
     // this.CartProduct=localStorage.getItem("cart")
@@ -167,6 +169,8 @@ export class HomeComponent {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+
+ 
 
 
 }
