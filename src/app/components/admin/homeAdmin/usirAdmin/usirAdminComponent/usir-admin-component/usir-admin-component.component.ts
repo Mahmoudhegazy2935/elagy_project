@@ -9,7 +9,7 @@ import { NavebarAdminComponent } from '../../../../navebar-admin/navebar-admin/n
   selector: 'app-usir-admin-component',
   standalone: true,
   imports: [NavebarAdminComponent, RouterModule,CommonModule],
-  templateUrl: './usir-admin-component.component.html',
+  templateUrl:'./usir-admin-component.component.html',
   styleUrl: './usir-admin-component.component.css'
 })
 export class UsirAdminComponentComponent {
@@ -29,4 +29,13 @@ export class UsirAdminComponentComponent {
   trackByIndex(index: number, item: UsirAdminModels): number {
     return index;
   }
+
+  deleteuser(id: string) {
+    if (confirm("هل أنت متأكد من إزالة هذا الحساب؟")) {
+      this.usirAdminServicesService.deleteuser(id).subscribe(() => {
+        this.usieadmin.update(prev => prev.filter(ph => ph.id !== id));
+      });
+    }
+  }
+  
 }

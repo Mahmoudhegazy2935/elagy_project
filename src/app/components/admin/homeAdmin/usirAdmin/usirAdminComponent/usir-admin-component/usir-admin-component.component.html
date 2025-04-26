@@ -1,27 +1,45 @@
 <app-navebar-admin></app-navebar-admin>
-<br>
-<div class="container">
-  <h3 class="mb-4">العملاء المنضمة</h3>
+<br />
+<div class="content-with-navbar container">
+  <h3 class="mb-4 text-center"> العملاء المنضمين</h3>
+  <hr>
 
-  <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let item of usieadmin(); let i = index; trackBy: trackByIndex">
-      <div class="card h-100" style="width: 380px;">
-        <div class="card__border"></div>
-        <table style="color: antiquewhite;">
-          <tr>
-            <th>اسم المستخدم</th>
-            <td>{{ item.name }}</td>
-          </tr>
-          <tr>
-            <th>تليفون المستخدم</th>
-            <td>{{ item.phoneNumber }}</td>
-          </tr>
-          <tr>
-            <th> ايميل المستخدم</th>
-            <td>{{ item.email }}</td>
-          </tr>
-        </table>
-      </div>
+  <ng-container>
+    <div class=" row justify-content-center g-4">
+      @for (usieadmin of usieadmin(); track usieadmin.id) {
+        <div class="col-md-4">
+          <div class="card h-100 p-3">
+            <div class="card__border"></div>
+
+
+            <table class="table table-bordered table-sm text-white">
+              <tbody>
+                <tr>
+                  <th scope="row">اسم </th>
+                  <td>{{ usieadmin.name }}</td>
+                </tr>
+                <tr>
+                  <th scope="row"> البريد الالكتروني</th>
+                  <td>{{ usieadmin.email }}</td>
+                </tr>
+                <tr>
+                  <th scope="row"> العنوان</th>
+                  <td>{{ usieadmin.location }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">رقم الفون </th>
+                  <td>{{ usieadmin.phoneNumber }}</td>
+                </tr>
+                
+              </tbody>
+            </table>
+
+            <button class="btn btn-danger button mt-2" (click)="deleteuser(usieadmin.id)">
+              إزالة الحساب
+            </button>
+          </div>
+        </div>
+      }
     </div>
-  </div>
+  </ng-container>
 </div>
