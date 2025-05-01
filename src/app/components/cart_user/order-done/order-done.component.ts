@@ -26,25 +26,42 @@ export class OrderDoneComponent implements OnInit{
   userAddress = this.savedInfo.userAddress || '';
   phoneNumber = this.savedInfo.phoneNumber || '';
   speicalLocation = this.savedInfo.speicalLocation || '';
+  today = new Date().toISOString().split('T')[0]; // Example: '2025-04-28'
+
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
+
     this.loadOrders();
     this.loadNearbyPharmacies();
   }
 
   loadOrders() {
+    const today = new Date();
+
+
     this.http.get<Order[]>('http://localhost:5208/api/Cart').subscribe(data => {
-      this.orders = data.filter(order =>
-        order.userName === this.userName &&
-        order.address === this.userAddress &&
-        order.phoneNumber === this.phoneNumber &&
-        order.speicalLocation === this.speicalLocation
-      );
+
+
+      this.orders = data.filter(order => {
+        const orderDate = new Date(order.date);
+
+
+        return order.userName.trim() === this.userName.trim() &&
+               order.address.trim() === this.userAddress.trim() &&
+               order.phoneNumber.trim() === this.phoneNumber.trim() &&
+               order.speicalLocation.trim() === this.speicalLocation.trim() &&
+               orderDate.getFullYear() === today.getFullYear() &&
+             orderDate.getMonth() === today.getMonth() &&
+             orderDate.getDate() === today.getDate();
+      });
+
       console.log('Filtered orders:', this.orders);
     });
   }
+
+
 
   loadNearbyPharmacies() {
     const addressEncoded = encodeURIComponent(this.speicalLocation);

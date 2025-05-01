@@ -25,6 +25,7 @@ export class PharmacyHomeComponent {
 
 
 ngOnInit(): void {
+
   this.http.get<Order[]>('http://localhost:5208/api/Cart').subscribe(data => {
     this.orders = data.filter(order =>
       order.speicalLocation === this.deliveryArea &&

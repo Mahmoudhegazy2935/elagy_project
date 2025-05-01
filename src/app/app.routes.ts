@@ -33,11 +33,11 @@ export const routes: Routes = [
   { path: 'userhome/:id', component: SinglProductComponent },
   { path: 'product/:name', component: SinglProductComponent },
   {path:'pharmacy_login', component: PharmacyLoginComponent},
-  { path: 'login', component: LoginPageComponent, title: 'login' },
-  { path: 'register', component: RegisterPageComponent, title: 'register' },
+  { path: 'login', component: LoginPageComponent},
+  { path: 'register', component: RegisterPageComponent},
   { path: 'forgot_the_password', component: ForgotThePasswordComponent, title: 'forgot_the_password' },
-  { path: 'cart', component: CartComponent, title: 'cart' },
-  {path:'HomeAdminComponent', component: HomeAdminComponent, title: 'Previous Operations'},
+  { path: 'cart', component: CartComponent },
+  {path:'HomeAdminComponent', component: HomeAdminComponent, title: 'admin'},
 
   {path:'PharmacyListComponent',component:PharmacyListComponent,title:'PharmacyList'},
   {path:'UsirAdmin',component:UsirAdminComponentComponent,title:'usar admin'},
@@ -45,8 +45,8 @@ export const routes: Routes = [
   {path:'finsh_ordre', component: FinishOrderComponent, title: 'finsh_ordre'},
 
   {path:'PharmacyRegistration',component:PharmacyRegistrationComponent,title:'Pharmacy-Registration'},
-  {path:'AddPharmacy',component:AddPharmacyComponent,title:'AddPharmacy'},
-  {path:'pharmacy_home',component:PharmacyHomeComponent,title:'pharmacy_home'},
+  {path:'AddPharmacy',component:AddPharmacyComponent},
+  {path:'pharmacy_home',component:PharmacyHomeComponent},
   {path:'order_done',component:OrderDoneComponent},
   {path:'orders_admin',component:OrdersAdminComponent},
 

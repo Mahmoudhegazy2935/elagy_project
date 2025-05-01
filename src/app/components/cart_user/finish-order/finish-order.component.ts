@@ -5,6 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
+import { HttpClient } from '@angular/common/http';
+
+interface Pharmacy {
+  pharmacyName: string;
+  deliveryArea: string;
+}
 
 @Component({
   selector: 'app-finish-order',
@@ -15,7 +21,7 @@ import Swal from 'sweetalert2';
 })
 export class FinishOrderComponent {
 
-   constructor(private cart2Service:Cart2Service,private router: Router) { }
+   constructor(private cart2Service:Cart2Service,private router: Router,private http: HttpClient) { }
   cartProducts: any[] = [];
   userName: string = '';
   userAddress: string = '';
@@ -24,11 +30,12 @@ export class FinishOrderComponent {
   success:boolean = false;
   total:number = 0;
   locations: string[] = ['نجع حمادي', 'قنا', 'دشنا', 'اولاد عمرو', 'الوقف'];
-
+  nearbyPharmacies: Pharmacy[] = [];
 
 ngOnInit() {
   // Option 1: If using localStorage
   this.cartProducts = JSON.parse(localStorage.getItem('cart')!) || [];
+  this.loadNearbyPharmacies();
 
 
 }
@@ -89,6 +96,7 @@ submitOrder() {
             phoneNumber: this.phoneNumber,
             speicalLocation: this.speicalLocation
           }));
+          if(this.nearbyPharmacies.length > 0){
           Swal.fire({
             icon: 'success',
             title: 'تم إرسال الطلب بنجاح!',
@@ -103,6 +111,19 @@ submitOrder() {
           });
           this.clearCart();
           this.success = true;
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: 'نأسف , لاتوجد صيدليات قريبه ',
+            html: `
+                <p>وسيتم اخذ العنوان والتعامل مع صيدليات في منطقتك</p>
+              `,
+            text: 'شكرًا لطلبك ',
+            confirmButtonText: 'الذهاب للصفحة الرئيسيه '
+          }).then(() => {
+            this.router.navigate(['/home']);
+          });
+        }
         },
         err => {
           Swal.fire({
@@ -140,7 +161,14 @@ getCartTotal() {
 
 }
 
-
+loadNearbyPharmacies() {
+  const addressEncoded = encodeURIComponent(this.speicalLocation);
+  this.http.get<Pharmacy[]>(`http://localhost:5208/api/Pharmacy/Nearby?Address=${addressEncoded}`)
+    .subscribe(data => {
+      this.nearbyPharmacies = data;
+      console.log('Nearby Pharmacies:', this.nearbyPharmacies);
+    });
+}
 
 }
 

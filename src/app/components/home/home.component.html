@@ -34,10 +34,10 @@
               </div>
             </div>
             <div class="col-md-6 ">
-              
+
             @if (showVideo) {
               <div>
-                
+
                 <video width="640" height="360" controls autoplay  (click)="showVideo = false">
                   <source src="assets/mm.mp4" type="video/mp4">
                   المتصفح لا يدعم تشغيل الفيديو.
@@ -61,9 +61,9 @@
 
       <section class="container my-5">
         <h2 class="mb-4">الأكثر استخداماً</h2>
-
+        <div class="scroll-box">
         <div class="row justify-content-center">
-          @for (product of products; track $index) {
+          @for (product of products.slice(0, 10); track $index) {
 
             <!-- Product Card -->
             <div class="col-md-3 cards">
@@ -94,6 +94,7 @@
               </div>
             </div>
           }
+        </div>
         </div>
       </section>
 

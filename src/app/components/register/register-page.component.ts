@@ -93,7 +93,7 @@ export class RegisterPageComponent {
 [x: string]: any;
 
  // قائمة المحافظات
- governorates: string[] = ['القاهرة', 'الإسكندرية', 'الجيزة', 'الدقهلية', 'قنا'];
+ governorates: string[] = ['قنا'];
 
  // المتغير الذي سيحمل القيمة المختارة
  selectedGovernorate: string = ''; // يتم تحديثه عندما يختار المستخدم محافظة
