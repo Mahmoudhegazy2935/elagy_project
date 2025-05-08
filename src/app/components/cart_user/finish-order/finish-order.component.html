@@ -15,7 +15,7 @@
 
     <div class="mb-3">
       <label for="speicalLocation" class="form-label">العنوان العام:</label>
-      <select id="speicalLocation" class="form-select" [(ngModel)]="speicalLocation">
+      <select id="speicalLocation" class="form-select" [(ngModel)]="speicalLocation" (change)="loadNearbyPharmacies()">
         <option disabled selected value="">اختر العنوان</option>
        @for (location of locations; track $index) {
          <option  [value]="location">{{ location }}</option>

@@ -4,6 +4,7 @@ export interface PharmacyAdminModels {
   pharmacyPhone: string;
   workingHours: string;
   deliveryArea: string;
+  password:string;
   managerName: string;
   managerPhone: string;
   tradeLicense :string;
