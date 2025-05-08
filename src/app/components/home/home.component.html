@@ -1,19 +1,40 @@
 <app-navebar></app-navebar>
 <body>
 
-
-    <div class="input-box my-3">
-      <i class="uil uil-search"></i>
-      <input type="text" [(ngModel)]="searchQuery" (keyup)="search()"  placeholder="ابحث عن علاجك, ومنتجات علاجيه اخري">
-      <button class="button" (click)="search()">بحث</button>
-      <!-- <input type="text" [(ngModel)]="searchQuery" placeholder="Enter product name" />
-      <button (click)="search()">Search</button> -->
-      @if (errorMessage) {
-        <div  class="error-message ">
-          {{ errorMessage }}
+  <div class="container">
+    <div class="row justify-content-center align-items-center flex-column">
+      <div class="col-12 col-md-8">
+        <div class="input-box my-3 w-100">
+          <i class="uil uil-search"></i>
+          <input
+            type="text"
+            [(ngModel)]="searchQuery"
+            (keyup)="search()"
+            placeholder="ابحث عن علاجك, ومنتجات علاجيه اخري"
+          />
+          <button class="button" (click)="search()">بحث</button>
         </div>
-      }
+      </div>
+
+      <div class="roshta col-12 col-md-4 d-flex flex-column flex-md-row justify-content-between align-items-center mb-3 w-50 ">
+        <div>
+          <h3 style="color: #002E70;font-weight: bold;">اطلب بالروشتة</h3>
+          <h5 style="color: #002E70;;">توصيل فوري وآمن من الصيدلية</h5>
+
+          <button class=" btn btn-primary mb-2 mb-md-0" [routerLink]="['/roshta']" style="color: white;" >
+            <img src="assets/Vector.png" style="width: 20px; color: white;" alt="">
+            ارفع
+          </button>
+        </div>
+        <img
+          src="../../../assets/one-time-prescription-logo.svg"
+          style="max-width: 100px; height: auto;"
+          alt="Prescription"
+        />
+      </div>
     </div>
+  </div>
+
 
 
     @if (!searchQuery) {
@@ -61,42 +82,39 @@
 
       <section class="container my-5">
         <h2 class="mb-4">الأكثر استخداماً</h2>
-        <div class="scroll-box">
-        <div class="row justify-content-center">
-          @for (product of products.slice(0, 10); track $index) {
 
-            <!-- Product Card -->
-            <div class="col-md-3 cards">
-              <div class="card p-1">
+        <div class="position-relative">
 
-                <a href="" [routerLink]="['/userhome/', product.id]">
-                  <div class="contImg" >
-                    <img [src]="'http://localhost:5208/' + product.imagePath"  class="card-img-top" width="150px" height="150px" alt="{{product.name}}">
+          <!-- Left Arrow -->
+          <button class="scroll-btn left" (click)="scrollLeft()">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+
+          <!-- Scrollable Row -->
+          <div #scrollContainer class="scroll-row d-flex overflow-auto">
+            @for (product of products.slice(0, 10); track $index) {
+              <div class="card mx-2" style="min-width: 220px; flex: 0 0 auto;">
+                <a [routerLink]="['/userhome/', product.id]">
+                  <div class="contImg">
+                    <img [src]="'http://localhost:5208/' + product.imagePath" class="card-img-top" height="150" alt="{{product.name}}">
                   </div>
                 </a>
-
-                <div class="card-body">
+                <div class="card-body text-center">
                   <p class="card-text">{{product.name}}</p>
-                  <!-- <p>{{ truncateText(product.description,40) }}</p> -->
                   <p>{{product.price}} جنيه</p>
-
-
-                  <div class="d-flex w-75" >
-
-                    <button class="btn btn-danger" (click)="showAlert();addToCart(product)">أضف الي السلة</button>
+                  <button class="btn btn-danger btn-sm" (click)="showAlert();addToCart(product)">أضف الي السلة</button>
                 </div>
-
-
-                </div>
-
-
-
               </div>
-            </div>
-          }
-        </div>
+            }
+          </div>
+
+          <!-- Right Arrow -->
+          <button class="scroll-btn right" (click)="scrollRight()">
+            <i class="fas fa-chevron-right"></i>
+          </button>
         </div>
       </section>
+
 
     <footer class="bg-secondary text-white text-center py-4">
       <div class="container">
@@ -105,38 +123,45 @@
     </footer>
   }
   @else{
-    @if (products && !errorMessage) {
-      <section class="container my-5">
+    @if (errorMessage) {
+      <div class="error-message">
+        {{ errorMessage }}
+      </div>
+    }@else {
 
-        <div class="row ">
-          @for (product of products; track $index) {
+      @if (products && !errorMessage) {
+        <section class="container my-5">
 
-            <!-- Product Card -->
-            <div class="col-md-3 cards" >
-              <div class="card p-1">
+          <div class="row ">
+            @for (product of products; track $index) {
 
-                <a href="" [routerLink]="['/product/', product.name]">
-                  <div class="contImg" >
-                    <img [src]="'http://localhost:5208/' + product.image" class="card-img-top" width="150px" height="150px" alt="{{product.name}}">
+              <!-- Product Card -->
+              <div class="col-md-3 cards" style="min-width: 220px; flex: 0 0 auto;">
+                <div class="card p-1">
+
+                  <a href="" [routerLink]="['/product/', product.name]">
+                    <div class="contImg" >
+                      <img [src]="'http://localhost:5208/' + product.image" class="card-img-top" width="150px" height="150px" alt="{{product.name}}">
+                    </div>
+                  </a>
+
+
+                  <div class="card-body">
+                    <p class="card-text">{{product.name}}</p>
+                    <!-- <p>{{ truncateText(product.description,40) }}</p> -->
+                    <p>{{product.price}} جنيه</p>
+
+                    <div class="d-flex w-75" >
+                      <button class="btn btn-danger" (click)="showAlert();addToCart(product)">أضف الي السلة</button>
                   </div>
-                </a>
 
-
-                <div class="card-body">
-                  <p class="card-text">{{product.name}}</p>
-                  <!-- <p>{{ truncateText(product.description,40) }}</p> -->
-                  <p>{{product.price}} جنيه</p>
-
-                  <div class="d-flex w-75" >
-                    <button class="btn btn-danger" (click)="showAlert();addToCart(product)">أضف الي السلة</button>
-                </div>
-
+                  </div>
                 </div>
               </div>
-            </div>
-          }
-        </div>
-      </section>
+            }
+          </div>
+        </section>
+    }
     }
   }
 

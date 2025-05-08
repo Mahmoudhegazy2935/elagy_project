@@ -4,12 +4,14 @@
 
 
 
-<div class="cartBox" dir="rtl">
+<div class="cartBox w-75 mx-auto" dir="rtl">
     <h1 class="text-danger">عربة التسوق</h1>
 
   <div class="headCart">
     <p class="lead">لديك <label class="text-danger ">{{cartProducts.length}}</label> من المنتجات في عربة التسوق</p>
+    @if (cartProducts.length>0) {
     <span class="text-danger card-header" (click)="clearCart()">حذف الجميع</span>
+    }
   </div>
   @if (cartProducts.length>0) {
     <table class="table table-striped">
@@ -64,7 +66,7 @@
         <div class="empty-cart-wrapper" >
           <div class="empty-cart text-center">
             <div class="empty-content">
-              <img src="https://cdn.chefaa.com/filters:format(webp)/public/assets/app/images/empty-cart-icon.png" width="120" height="120" alt="empty-icon">
+              <img src="assets/empty-cart-icon.png" width="120" height="120" alt="empty-icon">
               <h2>سلة التسوق فارغة</h2>
               <button class="btn btn-primary mb-3" [routerLink]="['/home']">اذهب لتتسوق</button>
             </div>

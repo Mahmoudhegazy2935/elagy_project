@@ -11,6 +11,7 @@ import { TruncatePipe } from '../../pipes/truncate.pipe';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @Component({
 
   selector: 'app-home,TruncatePipe',
@@ -21,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 })
 export class HomeComponent {
-  @ViewChild('scrollContainer', { static: true }) scrollContainer!: ElementRef;
+  @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   searchQuery: string = '';
     // Store only a single product
   errorMessage: string = '';
@@ -170,7 +171,18 @@ export class HomeComponent {
   }
 
 
- 
+
+  // for scrolling products
+
+
+scrollLeft() {
+  this.scrollContainer.nativeElement.scrollLeft -= 300;
+}
+
+scrollRight() {
+  this.scrollContainer.nativeElement.scrollLeft += 300;
+}
+
 
 
 }

@@ -1,0 +1,119 @@
+<app-navebar></app-navebar>
+""<!-- prescription-page.component.html -->
+
+<div class="container mt-5 mx-auto">
+  <div class="instructions">
+    <div class="step">
+      <span class="step-number">1</span>
+      <div class="step-content">
+        <h3>ارفع الروشتة</h3>
+        <p>قم برفع صورة من الروشتة أو قم بكتابة طلبك أو اسم المنتج الذي تحتاجه من الصيدلية</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-number">2</span>
+      <div class="step-content">
+        <h3>ادخل البيانات</h3>
+        <p>قم بأدخال البيانات المطلوبه مثل الاسم و العنوان , العنوان العام , ورقم الهاتف , ثم قم بأرسال الطلب</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-number">3</span>
+      <div class="step-content">
+        <h3>البحث</h3>
+        <p>يقوم موقع علاجي بالبحث في الصيدليات القريبة من عنوانك ويتم توصيل الدواء حتى باب البيت (حال توفر خدمة توصيل لدى الصيدلية)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="upload-section">
+    <h2>الروشتة</h2>
+    <div class="upload-input flex-column">
+
+
+      <input hidden type="file" id="file-upload" (change)="onFileSelected($event)"/>
+      <label  for="file-upload" class="p-5">أضف صورة واضحة للمنتج او الروشتة <img src="assets/🦆 icon _image_.png" alt="upload icon"></label>
+
+      @if (roshtaFileName) {
+        <div class="mt-2 d-flex justify-content-between  flex-wrap bg-light p-2 rounded shadow-sm w-100">
+
+          <!-- Delete icon -->
+          <img
+            src="assets/delete.png"
+            alt="حذف"
+            (click)="deleteRoshta()"
+            title="حذف الروشتة"
+            style="width: 32px; height: 32px; cursor: pointer;"
+          />
+
+          <!-- File name and image preview -->
+          <div>
+            <p class="mb-2 text-dark fw-bold">
+
+               {{ roshtaFileName }}:
+              <!-- @if (roshtaFileBase64) {
+                <img
+                  [src]="roshtaFileBase64"
+                  alt="روشتة"
+                  class="img-thumbnail shadow-sm"
+                  style="max-height: 200px;"
+                />
+              } -->
+            </p>
+
+          </div>
+
+        </div>
+      }
+
+      </div>
+    <!-- <button>إتمام الطلب</button> -->
+  </div>
+</div>
+
+<div class="mt-4 px-4 w-100" dir="rtl">
+  <h1 class="text-success mb-4">إتمام الطلب</h1>
+
+  <!-- ✅ User Info Form -->
+  <div class="card p-4 shadow-sm mb-4">
+    <h4 class="text-primary mb-3">معلومات العميل</h4>
+
+    <div class="mb-3">
+      <label for="name" class="form-label">الاسم الكامل:</label>
+      <input type="text" id="name" class="form-control" [(ngModel)]="userName" placeholder="ادخل اسمك">
+    </div>
+
+    <div class="mb-3">
+      <label for="speicalLocation" class="form-label">العنوان العام:</label>
+      <select id="speicalLocation" class="form-select" [(ngModel)]="speicalLocation" (change)="loadNearbyPharmacies()">
+        <option disabled selected value="">اختر العنوان</option>
+        @for (location of locations; track $index) {
+          <option [value]="location">{{ location }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="address" class="form-label">العنوان بالتفصيل:</label>
+      <input type="text" id="address" class="form-control" [(ngModel)]="userAddress" placeholder="مثال : المساكن/شارع التأمين /بجوار قهوة المونديال">
+    </div>
+
+    <div class="mb-3">
+      <label for="phone" class="form-label">رقم الهاتف:</label>
+      <input type="text" id="phone" class="form-control" [(ngModel)]="phoneNumber" placeholder="ادخل رقم الهاتف">
+    </div>
+  </div>
+
+  <!-- ✅ Submit Button -->
+  <div class="text-end mt-3">
+    <button class="btn btn-success mb-5" (click)="submitOrder()">تأكيد الطلب</button>
+  </div>
+
+  <!-- ✅ Success Message -->
+  @if (success) {
+    <div class="alert alert-success mt-3" role="alert">
+      <strong>تم بنجاح!</strong> تم إرسال طلبك إلى الخادم.
+    </div>
+  }
+</div>
+
