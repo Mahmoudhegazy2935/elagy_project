@@ -13,6 +13,8 @@
     <span class="text-danger card-header" (click)="clearCart()">حذف الجميع</span>
     }
   </div>
+  <button class="btn btn-primary mb-3" [routerLink]="['/order_done']">تابع طلبك </button>
+
   @if (cartProducts.length>0) {
     <table class="table table-striped">
         <thead>

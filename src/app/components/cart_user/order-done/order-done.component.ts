@@ -41,52 +41,34 @@ export class OrderDoneComponent implements OnInit{
     this.loadOrders();
     this.loadNearbyPharmacies();
   }
-
   loadOrders() {
     const today = new Date();
-
-
     this.http.get<Order[]>('http://localhost:5208/api/Cart').subscribe(data => {
-
-
       this.orders = data.filter(order => {
         const orderDate = new Date(order.date);
-
-
         return order.userName.trim() === this.userName.trim() &&
                order.address.trim() === this.userAddress.trim() &&
                order.phoneNumber.trim() === this.phoneNumber.trim() &&
                order.speicalLocation.trim() === this.speicalLocation.trim() &&
-               orderDate.getFullYear() === today.getFullYear() &&
-             orderDate.getMonth() === today.getMonth() &&
-             orderDate.getDate() === today.getDate();
+               orderDate.toDateString() === today.toDateString();
       });
-      this.orders_apper=true
-
     });
   }
-
+  
   loadRoshtas() {
-
     const today = new Date();
-
     this.http.get<Roshta[]>('http://localhost:5208/api/Roshta').subscribe(data => {
-
       this.roshtas = data.filter(roshta => {
         const roshtaDate = new Date(roshta.date);
-
         return roshta.userName.trim() === this.userName.trim() &&
                roshta.address.trim() === this.userAddress.trim() &&
                roshta.phoneNumber.trim() === this.phoneNumber.trim() &&
                roshta.speicalLocation.trim() === this.speicalLocation.trim() &&
-               roshtaDate.getFullYear() === today.getFullYear() &&
-               roshtaDate.getMonth() === today.getMonth() &&
-               roshtaDate.getDate() === today.getDate();
+               roshtaDate.toDateString() === today.toDateString();
       });
-      this.orders_apper=false;
-      console.log('Filtered roshtas:', this.roshtas);
     });
   }
+  
 
 
   loadNearbyPharmacies() {

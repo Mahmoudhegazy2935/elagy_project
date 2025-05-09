@@ -13,6 +13,7 @@
 
 
   <div class="row justify-content-center">
+
     <!-- Nearby Pharmacies -->
     <div class="col-md-4 mb-4">
       <div class="card p-3 shadow-sm">
@@ -26,66 +27,72 @@
         }
       </div>
     </div>
-
-    <!-- Orders Display -->
-     @if (orders_apper==false) {
+  
+    <!-- Main Content Area -->
     <div class="col-md-8">
-      @for (order of orders; track $index) {
-        <div class="card mb-4 p-3 shadow rounded" style="background-color: #f9f9f9;">
-          <h5 class="mb-2">🚚 يتم التوصيل الى:</h5>
-          <p class="mb-3">{{ userAddress }}</p>
-
-          <hr>
-          <h6>📦 منتجات الشحنة</h6>
-
-          <div class="row">
-            @for (item of order.items; track $index) {
-              <div class="col-md-6 mb-3">
-                <div class="border p-2 h-100 rounded bg-light">
-                  <p class="mb-1 fw-bold">{{ item.productName }}</p>
-                  <p class="mb-1">الكمية: {{ item.quantity }}</p>
-                  <p class="mb-1">السعر: {{ item.priceProduct }} جنيه</p>
+  
+      @if (orders.length == 0 && roshtas.length == 0) {
+        <div class="alert alert-warning text-center">
+          لا يوجد منتجات
+        </div>
+      }
+  
+      @if (orders.length > 0) {
+        @for (order of orders; track $index) {
+          <div class="card mb-4 p-3 shadow rounded" style="background-color: #f9f9f9;">
+            <h5 class="mb-2">🚚 يتم التوصيل الى:</h5>
+            <p class="mb-3">{{ userAddress }}</p>
+            <hr>
+            <h6>📦 منتجات الشحنة</h6>
+  
+            <div class="row">
+              @for (item of order.items; track $index) {
+                <div class="col-md-6 mb-3">
+                  <div class="border p-2 h-100 rounded bg-light">
+                    <p class="mb-1 fw-bold">{{ item.productName }}</p>
+                    <p class="mb-1">الكمية: {{ item.quantity }}</p>
+                    <p class="mb-1">السعر: {{ item.priceProduct }} جنيه</p>
+                  </div>
                 </div>
-              </div>
-            }
-          </div>
-
-          <hr>
-          <p><b>💰 السعر الإجمالي:</b> {{ getTotal(order.items) }} جنيه</p>
-          <p><b>🚚 سعر الشحن:</b>  حتي 20 جنيه </p>
-          <p><b>📌 الحالة:</b> {{ order.status }} - سيتم التواصل معك</p>
-        </div>
-      }
-    </div>}@else {
-
-        <!-- roshtas Display -->
-    <div class="col-md-8">
-      @for (roshta of roshtas; track $index) {
-        <div class="card mb-4 p-3 shadow rounded" style="background-color: #f9f9f9;">
-          <h5 class="mb-2">🚚 يتم التوصيل الى:</h5>
-          <p class="mb-3">{{ userAddress }}</p>
-
-          <hr>
-          <h6>📦 الروشتة</h6>
-          <div class="row">
-            <div class="text-center my-3">
-              <img
-                [src]="'http://localhost:5208/' + roshta.imagePath"
-                alt="صورة الروشتة"
-                class="img-thumbnail"
-                style="max-height: 150px; cursor: pointer;"
-                (click)="openImage(roshta.imagePath)">
-                <p class="mt-1 text-muted small">📷 اضغط على الصورة لتكبيرها</p>
+              }
             </div>
+  
+            <hr>
+            <p><b>💰 السعر الإجمالي:</b> {{ getTotal(order.items) }} جنيه</p>
+            <p><b>🚚 سعر الشحن:</b> حتى 20 جنيه </p>
+            <p><b>📌 الحالة:</b> {{ order.status }} - سيتم التواصل معك</p>
           </div>
-
-          <hr>
-          <p><b>💰 السعر الإجمالي:</b> {{ roshta.price }} جنيه</p>
-          <p><b>🚚 سعر الشحن:</b>  حتي 20 جنيه </p>
-          <p><b>📌 الحالة:</b> {{ roshta.status }} - سيتم التواصل معك</p>
-        </div>
+        }
       }
-    </div>}
-
+  
+      @if (roshtas.length > 0) {
+        @for (roshta of roshtas; track $index) {
+          <div class="card mb-4 p-3 shadow rounded" style="background-color: #f9f9f9;">
+            <h5 class="mb-2">🚚 يتم التوصيل الى:</h5>
+            <p class="mb-3">{{ userAddress }}</p>
+            <hr>
+            <h6>📦 الروشتة</h6>
+            <div class="row">
+              <div class="text-center my-3">
+                <img
+                  [src]="'http://localhost:5208/' + roshta.imagePath"
+                  alt="صورة الروشتة"
+                  class="img-thumbnail"
+                  style="max-height: 150px; cursor: pointer;"
+                  (click)="openImage(roshta.imagePath)">
+                <p class="mt-1 text-muted small">📷 اضغط على الصورة لتكبيرها</p>
+              </div>
+            </div>
+  
+            <hr>
+            <p><b>💰 السعر الإجمالي:</b> {{ roshta.price }} جنيه</p>
+            <p><b>🚚 سعر الشحن:</b> حتى 20 جنيه </p>
+            <p><b>📌 الحالة:</b> {{ roshta.status }} - سيتم التواصل معك</p>
+          </div>
+        }
+      }
+  
+    </div>
   </div>
+  
 </div>
