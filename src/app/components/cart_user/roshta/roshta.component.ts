@@ -3,6 +3,7 @@ import { NavebarComponent } from "../../navebar/navebar.component";
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 interface Pharmacy {
   pharmacyName: string;
@@ -30,7 +31,7 @@ export class RoshtaComponent {
   locations: string[] = ['نجع حمادي', 'قنا', 'دشنا', 'اولاد عمرو', 'الوقف'];
   price: number = 0;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private router: Router) {}
 
   ngOnInit(): void {
     // Restore optional saved image name
@@ -98,6 +99,12 @@ export class RoshtaComponent {
 
         this.http.post('http://localhost:5208/api/Roshta', formData, { params }).subscribe({
           next: res => {
+            localStorage.setItem('userInfo', JSON.stringify({
+              userName: this.userName,
+              userAddress: this.userAddress,
+              phoneNumber: this.phoneNumber,
+              speicalLocation: this.speicalLocation
+            }));
             if (this.nearbyPharmacies.length > 0) {
               this.clearRoshtaFile();
               Swal.fire({
@@ -107,7 +114,9 @@ export class RoshtaComponent {
                   <p>سيتم التواصل معك من أقرب صيدلية قريبة</p>
                   <p>شكرًا لطلبك 🎉</p>
                 `,
-                confirmButtonText: 'متابعة'
+                confirmButtonText: 'تابع طلبك'
+              }).then(() => {
+                this.router.navigate(['/order_done']);
               });
             } else {
               Swal.fire({

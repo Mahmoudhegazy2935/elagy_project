@@ -3,16 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Order } from '../../../models/order.model';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-pharmacy-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule],
   templateUrl: './pharmacy-home.component.html',
   styleUrl: './pharmacy-home.component.css'
 })
 export class PharmacyHomeComponent {
+  menuOpen = false;
+  showDropdown = false;
   deliveryArea: string = 'قنا'; // e.g., passed from parent pharmacy home
   pharmacy_name=localStorage.getItem('userName');
   orders: Order[] = [];
@@ -55,25 +58,60 @@ ngOnInit(): void {
       status: 'تم القبول'
     };
 
+    // إرسال الطلب للـ API لتحديث الحالة
     this.http.put(`http://localhost:5208/api/Cart/${orderId}`, updatedStatus)
       .subscribe({
         next: () => {
+          // العثور على الطلب الذي تم قبوله من داخل قائمة orders
           const order = this.orders.find(o => o.id === orderId);
           if (order) {
+            // تحديث حالة الطلب إلى "تم القبول"
             order.status = updatedStatus.status;
 
-
+            // إضافة الطلب إلى قائمة الطلبات المقبولة في الذاكرة المحلية
             const acceptedOrders = JSON.parse(localStorage.getItem('acceptedOrders') || '[]');
             acceptedOrders.push(order);
             localStorage.setItem('acceptedOrders', JSON.stringify(acceptedOrders));
 
+            // تحديث قائمة الطلبات المقبولة في الواجهة
+            this.updateAcceptedOrders();
+            this.refreshOrders();
+
             console.log(`Order ${orderId} marked as accepted and saved.`);
+          } else {
+            console.error(`Order with ID ${orderId} not found in local data.`);
           }
         },
         error: err => {
-          console.error(`Error updating order ${orderId}`, err);
+          console.error(`Error updating order ${orderId}:`, err);
+          alert('حدث خطأ أثناء تحديث حالة الطلب. يرجى المحاولة لاحقاً.');
         }
       });
+  }
+
+  // دالة لتحديث قائمة الطلبات المقبولة في الواجهة
+  updateAcceptedOrders(): void {
+    // تحديث قائمة الطلبات المقبولة من الذاكرة المحلية
+    this.acceptedOrders = JSON.parse(localStorage.getItem('acceptedOrders') || '[]');
+    // إذا كنت تستخدم عرض أو تصفية هذه الطلبات في واجهة المستخدم، يمكن إضافة مزيد من التصفية هنا
+  }
+
+
+  refreshOrders(): void {
+    this.http.get<any[]>('http://localhost:5208/api/Cart').subscribe(data => {
+      this.orders = data.filter(order =>
+        order.speicalLocation === this.deliveryArea &&
+        order.status === 'قيد المعالجة'
+      );
+
+      this.acceptedOrders = data.filter(order =>
+        order.speicalLocation === this.deliveryArea &&
+        order.status === 'تم القبول'
+      );
+
+      // تحديث التخزين المحلي إن كنت تستخدمه
+      localStorage.setItem('acceptedOrders', JSON.stringify(this.acceptedOrders));
+    });
   }
 
 
@@ -101,5 +139,13 @@ ngOnInit(): void {
     }
   }
 
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown;
+  }
 
 }

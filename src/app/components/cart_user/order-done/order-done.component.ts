@@ -1,8 +1,11 @@
+import { routes } from './../../../app.routes';
 import { Component, OnInit } from '@angular/core';
 import { Order, OrderItem } from '../../../models/order.model';
 import { HttpClient } from '@angular/common/http';
 import { NavebarComponent } from "../../navebar/navebar.component";
 import { RouterModule } from '@angular/router';
+import { Roshta } from '../../../models/roshta';
+import Swal from 'sweetalert2';
 
 
 interface Pharmacy {
@@ -19,8 +22,10 @@ interface Pharmacy {
 })
 export class OrderDoneComponent implements OnInit{
   orders: Order[] = [];
-  nearbyPharmacies: Pharmacy[] = [];
+  roshtas: Roshta[] = [];
+  orders_apper:boolean=true;
 
+  nearbyPharmacies: Pharmacy[] = [];
   savedInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
   userName = this.savedInfo.userName || '';
   userAddress = this.savedInfo.userAddress || '';
@@ -32,7 +37,7 @@ export class OrderDoneComponent implements OnInit{
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-
+    this.loadRoshtas();
     this.loadOrders();
     this.loadNearbyPharmacies();
   }
@@ -56,11 +61,32 @@ export class OrderDoneComponent implements OnInit{
              orderDate.getMonth() === today.getMonth() &&
              orderDate.getDate() === today.getDate();
       });
+      this.orders_apper=true
 
-      console.log('Filtered orders:', this.orders);
     });
   }
 
+  loadRoshtas() {
+
+    const today = new Date();
+
+    this.http.get<Roshta[]>('http://localhost:5208/api/Roshta').subscribe(data => {
+
+      this.roshtas = data.filter(roshta => {
+        const roshtaDate = new Date(roshta.date);
+
+        return roshta.userName.trim() === this.userName.trim() &&
+               roshta.address.trim() === this.userAddress.trim() &&
+               roshta.phoneNumber.trim() === this.phoneNumber.trim() &&
+               roshta.speicalLocation.trim() === this.speicalLocation.trim() &&
+               roshtaDate.getFullYear() === today.getFullYear() &&
+               roshtaDate.getMonth() === today.getMonth() &&
+               roshtaDate.getDate() === today.getDate();
+      });
+      this.orders_apper=false;
+      console.log('Filtered roshtas:', this.roshtas);
+    });
+  }
 
 
   loadNearbyPharmacies() {
@@ -68,12 +94,26 @@ export class OrderDoneComponent implements OnInit{
     this.http.get<Pharmacy[]>(`http://localhost:5208/api/Pharmacy/Nearby?Address=${addressEncoded}`)
       .subscribe(data => {
         this.nearbyPharmacies = data;
-        console.log('Nearby Pharmacies:', this.nearbyPharmacies);
       });
   }
 
   getTotal(items: OrderItem[]): number {
     return items.reduce((sum, item) => sum + (item.priceProduct * item.quantity), 0);
+  }
+
+  openImage(imagePath?: string): void {
+    if (!imagePath) return;
+
+    Swal.fire({
+      imageUrl: `http://localhost:5208/${imagePath}`,
+      imageAlt: 'صورة الروشتة',
+      showCloseButton: true,
+      confirmButtonText: 'إغلاق',
+      width: '60%',
+      customClass: {
+        image: 'w-100'
+      }
+    });
   }
 
 
