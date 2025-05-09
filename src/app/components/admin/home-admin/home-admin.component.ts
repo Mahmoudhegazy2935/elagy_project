@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { PharmacyAdminServicesService } from '../homeAdmin/Pharmacy-admin/PharmacyAdminServices/pharmacy-admin-services.service';
 import { UsirAdminServicesService } from '../homeAdmin/usirAdmin/UsirAdminServices/usir-admin-services.service';
 import { NavebarAdminComponent } from '../navebar-admin/navebar-admin/navebar-admin.component';
+import { HttpClient } from '@angular/common/http';
+import { Order } from '../../../models/order.model';
 
 @Component({
   selector: 'app-home-admin',
@@ -14,8 +16,10 @@ import { NavebarAdminComponent } from '../navebar-admin/navebar-admin/navebar-ad
 })
 export class HomeAdminComponent implements OnInit {
     pharmacyCount: number = 0;
-    usircoint:number=0
-    constructor(private pharmacyAdminServicesService: PharmacyAdminServicesService , private usirAdminServicesService:UsirAdminServicesService) {}
+    usircoint:number=0;
+    ordirscount:number=0;
+
+    constructor(private http: HttpClient,private pharmacyAdminServicesService: PharmacyAdminServicesService , private usirAdminServicesService:UsirAdminServicesService) {}
 
     ngOnInit(): void {
       this.pharmacyAdminServicesService.getPharmacies().subscribe(pharmacies => {
@@ -24,6 +28,14 @@ export class HomeAdminComponent implements OnInit {
 
       this.usirAdminServicesService.getuser().subscribe(data => {
         this.usircoint=data.length});
+
+
+          this.http.get<Order[]>('http://localhost:5208/api/Cart').subscribe(data => {
+              // Only load accepted orders
+              this.ordirscount=data.length
+            });
+
+
 
 
     }

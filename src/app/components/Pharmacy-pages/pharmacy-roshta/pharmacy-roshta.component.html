@@ -1,0 +1,84 @@
+<nav class="navbar ">
+  <a href="#" class="text-decoration-none" routerLink="/intro">
+      <div class="genral_logo" routerLink="/intro">
+      <div class="logo-image ms-3"></div>
+      <h1 class="logo">علاجي</h1>
+    </div>
+    </a>
+    <div class="hamburger" (click)="toggleMenu()">
+      &#9776;
+    </div>
+  <ul [class.open]="menuOpen">
+
+    <li><a routerLink="/pharmacy_home" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">الطلبات</a></li>
+    <li><a routerLink="/pharmacy_roshta" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">الروشتات</a></li>
+
+
+  </ul>
+</nav>
+
+
+<div class="d-flex justify-content-center mt-5">
+  <div class="orders-container col-lg-8 col-md-10 col-sm-12">
+    <div class="row justify-content-start align-items-center mb-3">
+      <h3>صيدلية : {{ pharmacy_name }} </h3>
+      <h5>لصاحبها : {{ pharmacy_name }}</h5>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-start align-items-center mb-1">
+      <button class="btn ms-3" [ngClass]="showAccepted ? 'btn-outline-dark' : 'btn-dark'" (click)="showAccepted = false">
+        الروشتات الجديدة
+      </button>
+      <button class="btn" [ngClass]="showAccepted ? 'btn-dark' : 'btn-outline-dark'" (click)="showAccepted = true">
+        الروشتات التي تم قبولها
+      </button>
+    </div>
+
+    @for (order of showAccepted ? acceptedRoshtas : roshtas; track $index) {
+      <div class="card mb-4 shadow-sm rounded">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <h4 class="card-title text-dark">الاسم : {{ order.userName }}</h4>
+              <p class="mb-1">رقم الهاتف 📞 : <strong>{{ order.phoneNumber }}</strong></p>
+              <p class="mb-1">العنوان 🏠 : {{ order.address }}</p>
+            </div>
+            <div>
+              <p class="mb-1 w-75 text-center me-auto">{{ formatRelativeDate(order.date) }}</p>
+              <p class="mb-1 w-75 text-center me-auto">{{ order.date | date: 'medium' }}</p>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <button class="btn btn-outline-dark dropdown-toggle mb-2" (click)="toggleRoshta(order.id)">
+              {{ expandedRoshtaIds.includes(order.id) ? 'إخفاء الروشتة' : 'عرض الروشتة' }}
+            </button>
+
+            @if (order.status === "تم القبول") {
+              <p class="mb-0 status-tag">📌 الحالة: <strong>{{ order.status }}</strong></p>
+            } @else {
+              <div class="d-flex align-items-center">
+                <input type="number" class="form-control me-2" style="width: 150px;margin-left: 10px;" [(ngModel)]="order.enteredPrice" placeholder="سعر الروشتة">
+                <button class="btn btn-primary" (click)="acceptRoshta(order.id, order.enteredPrice)">✅ قبول الطلب</button>
+              </div>
+            }
+          </div>
+
+          @if (expandedRoshtaIds.includes(order.id)) {
+            <div class="text-center my-3">
+              <img
+                [src]="'http://localhost:5208/' + order.imagePath"
+                alt="صورة الروشتة"
+                class="img-thumbnail"
+                style="max-height: 150px; cursor: pointer;"
+                (click)="openImage(order.imagePath)">
+              <p class="mt-1 text-muted small">📷 اضغط على الصورة لتكبيرها</p>
+            </div>
+
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
+

@@ -1,4 +1,28 @@
-<div class="d-flex justify-content-center mt-3">
+
+
+<nav class="navbar ">
+  <a href="#" class="text-decoration-none" routerLink="/intro">
+      <div class="genral_logo" routerLink="/intro">
+      <div class="logo-image ms-3"></div>
+      <h1 class="logo">علاجي</h1>
+    </div>
+    </a>
+    <div class="hamburger" (click)="toggleMenu()">
+      &#9776;
+    </div>
+  <ul [class.open]="menuOpen">
+
+    <li><a routerLink="/pharmacy_home" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">الطلبات</a></li>
+    <li><a routerLink="/pharmacy_roshta" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">الروشتات</a></li>
+
+  </ul>
+</nav>
+
+
+
+
+
+<div class="d-flex justify-content-center mt-5">
   <div class="orders-container col-lg-8 col-md-10 col-sm-12">
     <div class="row justify-content-start align-items-center mb-3">
       <h3>صيدلية : {{pharmacy_name}} </h3>

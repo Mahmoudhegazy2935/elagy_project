@@ -132,6 +132,7 @@ export class PharmacyRegistrationComponent {
 
   m: string[] = ['نجع حمادي', 'قنا', 'دشنا', 'اولاد عمرو', 'الوقف'];
 
+
   // المتغير الذي سيحمل القيمة المختارة
   selectedm: string = ''; // يتم تحديثه عندما يختار المستخدم محافظة
 

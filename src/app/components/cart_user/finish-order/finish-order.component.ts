@@ -35,10 +35,17 @@ export class FinishOrderComponent {
 ngOnInit() {
   // Option 1: If using localStorage
   this.cartProducts = JSON.parse(localStorage.getItem('cart')!) || [];
+<<<<<<< HEAD
   this.loadNearbyPharmacies();
   if (this.speicalLocation) {
     this.loadNearbyPharmacies();
   }
+=======
+  if (this.speicalLocation) {
+    this.loadNearbyPharmacies();
+  }
+
+>>>>>>> main
 
 }
 
