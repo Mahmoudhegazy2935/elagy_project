@@ -1,16 +1,20 @@
 import { routes } from './../../../app.routes';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Order, OrderItem } from '../../../models/order.model';
 import { HttpClient } from '@angular/common/http';
 import { NavebarComponent } from "../../navebar/navebar.component";
 import { RouterModule } from '@angular/router';
 import { Roshta } from '../../../models/roshta';
 import Swal from 'sweetalert2';
+import { Subject, switchMap, takeUntil, timer } from 'rxjs';
 
 
 interface Pharmacy {
   pharmacyName: string;
   deliveryArea: string;
+  location?:string;
+  name:string;
+  phoneNumber:string;
 }
 
 @Component({
@@ -20,7 +24,7 @@ interface Pharmacy {
   templateUrl: './order-done.component.html',
   styleUrl: './order-done.component.css'
 })
-export class OrderDoneComponent implements OnInit{
+export class OrderDoneComponent implements OnInit ,OnDestroy{
   orders: Order[] = [];
   roshtas: Roshta[] = [];
   orders_apper:boolean=true;
@@ -32,15 +36,30 @@ export class OrderDoneComponent implements OnInit{
   phoneNumber = this.savedInfo.phoneNumber || '';
   speicalLocation = this.savedInfo.speicalLocation || '';
   today = new Date().toISOString().split('T')[0]; // Example: '2025-04-28'
+  private destroy$ = new Subject<void>();
 
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.loadRoshtas();
-    this.loadOrders();
     this.loadNearbyPharmacies();
+    timer(0, 10000) // start immediately, repeat every 15s
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.loadOrders();   // Just call the functions
+        this.loadRoshtas();
+      });
   }
+
+
+ngOnDestroy(): void {
+  this.destroy$.next();
+  this.destroy$.complete();
+}
+
+
+
+
   loadOrders() {
     const today = new Date();
     this.http.get<Order[]>('http://localhost:5208/api/Cart').subscribe(data => {
@@ -100,3 +119,5 @@ export class OrderDoneComponent implements OnInit{
 
 
 }
+
+

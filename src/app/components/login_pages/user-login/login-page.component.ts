@@ -50,15 +50,6 @@ export class LoginPageComponent {
         localStorage.setItem('authToken', token);
 
         const decoded: any = jwtDecode(token);
-        const nameArray2 = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
-        const name = Array.isArray(nameArray2) ? nameArray2.join(' ') : nameArray2;
-
-        localStorage.setItem('userName', name);
-
-        const nameArray3 = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
-        const email = Array.isArray(nameArray3) ? nameArray3.join(' ') : nameArray3;
-
-        localStorage.setItem('email', email);
 
 
         const nameArray = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
@@ -70,12 +61,46 @@ export class LoginPageComponent {
         // Redirect based on role
         switch (role) {
           case 'Pharmacy':
+            const nameArray2 = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+            const pharmacyName = Array.isArray(nameArray2) ? nameArray2.join(' ') : nameArray2;
+            localStorage.setItem('pharmacyName', pharmacyName);
+
+            const nameArray3 = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
+            const pharmacyemail = Array.isArray(nameArray3) ? nameArray3.join(' ') : nameArray3;
+            localStorage.setItem('pharmacyemail', pharmacyemail);
+
+            const nameArray4 = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/streetaddress"];
+            const pharmacyaddress = Array.isArray(nameArray4) ? nameArray4.join(' ') : nameArray4;
+            localStorage.setItem('pharmacyaddress', pharmacyaddress);
+
             this.router.navigate(['/pharmacy_home']);
             break;
           case 'Admin':
+            const nameArray5 = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+            const AdminName = Array.isArray(nameArray5) ? nameArray5.join(' ') : nameArray5;
+            localStorage.setItem('AdminName', AdminName);
+
+            const nameArray6 = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
+            const Adminemail = Array.isArray(nameArray6) ? nameArray6.join(' ') : nameArray6;
+            localStorage.setItem('Adminemail', Adminemail);
+
+            const nameArray7 = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/streetaddress"];
+            const Adminaddress = Array.isArray(nameArray7) ? nameArray7.join(' ') : nameArray7;
+            localStorage.setItem('Adminaddress', Adminaddress);
             this.router.navigate(['/HomeAdminComponent']);
             break;
           default:
+             const nameArray8 = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+            const UserName = Array.isArray(nameArray8) ? nameArray8.join(' ') : nameArray8;
+            localStorage.setItem('UserName', UserName);
+
+            const nameArray9 = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
+            const Useremail = Array.isArray(nameArray9) ? nameArray9.join(' ') : nameArray9;
+            localStorage.setItem('Useremail', Useremail);
+
+            const nameArray10 = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/streetaddress"];
+            const Userddress = Array.isArray(nameArray10) ? nameArray10.join(' ') : nameArray10;
+            localStorage.setItem('Userddress', Userddress)
             this.router.navigate(['/home']);
         }
       },
