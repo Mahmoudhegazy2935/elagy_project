@@ -20,8 +20,9 @@
         <hr>
         @for (pharmacy of nearbyPharmacies; track $index) {
           <div style="font-size: 20px;" class="btn btn-outline-primary w-100 mb-2">
-            {{ pharmacy.pharmacyName }}
-            <p style="color: black; font-size: 15px;">العنوان : {{pharmacy.deliveryArea}}</p>
+            {{ pharmacy.name }}
+            <p style="color: black; font-size: 15px;">العنوان : {{pharmacy.location}}</p>
+            <p style="color: black; font-size: 15px;">الهاتف : {{pharmacy.phoneNumber}}</p>
           </div>
         }
       </div>

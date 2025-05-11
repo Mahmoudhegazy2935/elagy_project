@@ -1,68 +1,52 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service/auth.service';
+import { CommonModule } from '@angular/common'; // Needed for *ngIf, etc.
+import { Cart2Service } from '../../services/cart2.service/cart2.service';
 
 @Component({
   selector: 'app-navebar',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './navebar.component.html',
   styleUrl: './navebar.component.css'
 })
-export class NavebarComponent {
+export class NavebarComponent implements OnInit {
   menuOpen = false;
-  cartProducts: any[] = [];
-cartCount: number = 0;
-userName = localStorage.getItem('userName');
-showDropdown = false;
+  cartCount = 0;
+  userName = localStorage.getItem('UserName');
+  showDropdown = false;
 
-ngOnInit() {
-  this.getCartProducts();
-}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private cartService: Cart2Service
+  ) {}
 
-constructor(
-  private authService: AuthService,
-  private router: Router
-) {}
-
-handleClick() {
-  if (this.authService.isLoggedIn()) {
-    this.authService.logout1();
-    this.router.navigate(['/login']); // بعد تسجيل الخروج
-  } else {
-    this.router.navigate(['/login']); // صفحة تسجيل الدخول
-  }
-}
-
-get buttonLabel(): string {
-  return this.authService.isLoggedIn() ? 'تسجيل الخروج' : 'تسجيل الدخول';
-}
-
-getCartProducts() {
-  if ("cart" in localStorage) {
-    this.cartProducts = JSON.parse(localStorage.getItem("cart")!);
-
-    this.cartProducts = this.cartProducts.map(item => ({
-      ...item,
-      amount: Number(item.amount) || 1
-    }));
-
-    this.updateCartCount();
+  ngOnInit() {
+    this.cartService.cartCount$.subscribe(count => {
+      this.cartCount = count;
+    });
   }
 
-}
+  handleClick() {
+    if (this.authService.isLoggedIn()) {
+      this.authService.logout1();
+      this.router.navigate(['/login']);
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
 
-updateCartCount() {
-  this.cartCount = this.cartProducts.length; // only number of distinct items
-}
+  get buttonLabel(): string {
+    return this.authService.isLoggedIn() ? 'تسجيل الخروج' : 'تسجيل الدخول';
+  }
 
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
 
-toggleMenu() {
-  this.menuOpen = !this.menuOpen;
-}
-
-toggleDropdown() {
-  this.showDropdown = !this.showDropdown;
-}
-
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown;
+  }
 }
