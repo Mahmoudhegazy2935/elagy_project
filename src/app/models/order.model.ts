@@ -14,4 +14,5 @@ export interface Order {
   status: string;
   date: string;
   items: OrderItem[];
+   isAboutToExpire?: boolean;
 }

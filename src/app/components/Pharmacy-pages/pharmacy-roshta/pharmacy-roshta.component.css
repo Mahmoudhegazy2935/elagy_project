@@ -149,3 +149,11 @@ a.active-link {
   font-weight: bold;
   transition: 0.3s ease;
 }
+
+
+.badge.bg-warning {
+  font-size: 0.9rem;
+  padding: 0.4em 0.7em;
+  border-radius: 0.5rem;
+}
+

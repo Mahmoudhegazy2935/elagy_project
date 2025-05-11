@@ -150,3 +150,9 @@ a.active-link {
   font-weight: bold;
   transition: 0.3s ease;
 }
+
+.badge {
+  font-size: 0.85rem;
+  padding: 0.4em 0.6em;
+  border-radius: 0.5rem;
+}

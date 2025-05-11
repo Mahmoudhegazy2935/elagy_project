@@ -39,7 +39,11 @@
         الطلبات التي تم قبولها
         </button>
 
-    </div>
+      </div>
+      @if (orders.length===0) {
+         <span class="badge bg-secondary text-dark m-2 p-3">⏰لا توجد طلبات جديدة حتي الان</span>
+      }
+
     @for (order of showAccepted ? acceptedOrders : orders; track $index) {
       <div class="card mb-4 shadow-sm  rounded">
         <div class="card-body">
@@ -62,6 +66,9 @@
               <p class="mb-0 status-tag">📌 الحالة: <strong>{{ order.status }}</strong></p>
             }@else {
               <button class="btn btn-primary" (click)="acceptOrder(order.id)">✅ قبول الطلب</button>
+            }
+            @if (order.isAboutToExpire) {
+              <span class="badge bg-warning text-dark ms-2">⏰ اقترب انتهاء الوقت لرفض الطلب!</span>
             }
           </div>
 

@@ -30,24 +30,58 @@ export class PharmacyHomeComponent {
 
 
 ngOnInit(): void {
-
-    timer(0, 10000) // start immediately, repeat every 15s
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(() => {
-          this.http.get<Order[]>('http://localhost:5208/api/Cart').subscribe(data => {
-            this.orders = data.filter(order =>
-              order.speicalLocation === this.deliveryArea &&
-              order.status === 'قيد المعالجة'
-            );
-          });
+  timer(0, 10000) // run every 10 seconds
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(() => {
+      this.http.get<Order[]>('http://localhost:5208/api/Cart').subscribe(data => {
+        // Step 1: Update orders that are too old
+        data.forEach(order => {
+          if (
+            order.speicalLocation === this.deliveryArea &&
+            order.status === 'قيد المعالجة' &&
+            this.isOlderThan3Hours(order.date)
+          ) {
+            this.http.put(`http://localhost:5208/api/Cart/${order.id}`, { status: 'نأسف لاتوجد استجابة' })
+              .subscribe(() => {
+                console.log(`Order ${order.id} updated to نأسف لاتوجد استجابة`);
+              });
+          }
         });
 
-    const storedOrders = localStorage.getItem('acceptedOrders');
-    // const storedExpandedIds = localStorage.getItem('expandedOrderIds');
+        // Step 2: Filter and mark active orders
+        this.orders = data
+          .filter(order =>
+            order.speicalLocation === this.deliveryArea &&
+            order.status === 'قيد المعالجة' &&
+            this.isLessThan3HoursOld(order.date)
+          )
+          .map(order => {
+            const orderDate = new Date(order.date);
+            const now = new Date();
+            const diffInHours = (now.getTime() - orderDate.getTime()) / (1000 * 60 * 60);
 
-    this.acceptedOrders = storedOrders ? JSON.parse(storedOrders) : [];
-    // this.expandedOrderIds = storedExpandedIds ? JSON.parse(storedExpandedIds) : [];
+            return {
+              ...order,
+              isAboutToExpire: diffInHours >= 2.5 && diffInHours < 3
+            };
+          });
+
+        // Step 3: Accepted orders (already accepted)
+        this.acceptedOrders = data.filter(order =>
+          order.speicalLocation === this.deliveryArea &&
+          order.status === 'تم القبول'
+        );
+
+        // Save to localStorage if needed
+        localStorage.setItem('acceptedOrders', JSON.stringify(this.acceptedOrders));
+      });
+    });
+
+  const storedOrders = localStorage.getItem('acceptedOrders');
+  this.acceptedOrders = storedOrders ? JSON.parse(storedOrders) : [];
 }
+
+
 
 ngOnDestroy(): void {
   this.destroy$.next();
@@ -112,7 +146,8 @@ ngOnDestroy(): void {
     this.http.get<any[]>('http://localhost:5208/api/Cart').subscribe(data => {
       this.orders = data.filter(order =>
         order.speicalLocation === this.deliveryArea &&
-        order.status === 'قيد المعالجة'
+        order.status === 'قيد المعالجة' &&
+        this.isLessThan3HoursOld(order.date)
       );
 
       this.acceptedOrders = data.filter(order =>
@@ -158,5 +193,23 @@ ngOnDestroy(): void {
   toggleDropdown() {
     this.showDropdown = !this.showDropdown;
   }
+
+
+
+
+isLessThan3HoursOld(dateStr: string): boolean {
+  const date = new Date(dateStr);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  return diffMs < 3 * 60 * 60 * 1000; // 3 hours in milliseconds
+}
+
+isOlderThan3Hours(dateStr: string): boolean {
+  const date = new Date(dateStr);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  return diffMs >= 3 * 60 * 60 * 1000;
+}
+
 
 }

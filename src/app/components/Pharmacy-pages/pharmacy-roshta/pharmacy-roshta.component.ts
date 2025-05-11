@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Roshta } from '../../../models/roshta';
 import Swal from 'sweetalert2';
+import { Subject, takeUntil, timer } from 'rxjs';
 
 @Component({
   selector: 'app-pharmacy-roshta',
@@ -22,21 +23,57 @@ export class PharmacyRoshtaComponent {
   expandedRoshtaIds: number[] = [];
   acceptedRoshtas: any[] = [];
   showAccepted = false;
+  private destroy$ = new Subject<void>();
+
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit(): void {
-    this.http.get<Roshta[]>('http://localhost:5208/api/Roshta').subscribe(data => {
-      this.roshtas = data.filter(order =>
-        order.speicalLocation === this.deliveryArea &&
-        order.status === 'قيد المعالجة'
-      );
+ngOnInit(): void {
+  timer(0, 10000) // Immediately and every 10 seconds
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(() => {
+      this.http.get<Roshta[]>('http://localhost:5208/api/Roshta').subscribe(data => {
+        const now = new Date();
+        const updatedRoshtas: Roshta[] = [];
+
+        data.forEach(roshta => {
+          const roshtaDate = new Date(roshta.date);
+          const diffInMs = now.getTime() - roshtaDate.getTime();
+          const diffInHours = diffInMs / (1000 * 60 * 60);
+
+          if (
+            roshta.speicalLocation === this.deliveryArea &&
+            roshta.status === 'قيد المعالجة'
+          ) {
+            if (diffInHours > 3) {
+              // Set status to 'نأسف لاتوجد استجابة'
+              const updated = { ...roshta, status: 'نأسف لاتوجد استجابة' };
+              this.http.put(`http://localhost:5208/api/Roshta/${roshta.id}`, { status: updated.status })
+                .subscribe(() => {
+                  console.log(`Roshta ${roshta.id} updated due to timeout`);
+                  this.refreshRoshtas(); // Refresh after update
+                });
+            } else {
+              // 👇 Set isAboutToExpire flag
+              (roshta as any).isAboutToExpire = diffInHours >= 2.5 && diffInHours < 3;
+              updatedRoshtas.push(roshta);
+            }
+          }
+        });
+
+        this.roshtas = updatedRoshtas;
+      });
     });
 
-    const storedRoshtas = localStorage.getItem('acceptedRoshtas');
-    this.acceptedRoshtas = storedRoshtas ? JSON.parse(storedRoshtas) : [];
-  }
+  const storedRoshtas = localStorage.getItem('acceptedRoshtas');
+  this.acceptedRoshtas = storedRoshtas ? JSON.parse(storedRoshtas) : [];
+}
 
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
   toggleRoshta(orderId: number): void {
     if (this.expandedRoshtaIds.includes(orderId)) {
       this.expandedRoshtaIds = this.expandedRoshtaIds.filter(id => id !== orderId);

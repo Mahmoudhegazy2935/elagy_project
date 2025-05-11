@@ -33,7 +33,9 @@
         الروشتات التي تم قبولها
       </button>
     </div>
-
+    @if (roshtas.length===0) {
+         <span class="badge bg-secondary text-dark m-2 p-3">⏰لا توجد روشتات جديدة حتي الان</span>
+      }
     @for (order of showAccepted ? acceptedRoshtas : roshtas; track $index) {
       <div class="card mb-4 shadow-sm rounded">
         <div class="card-body">
@@ -61,6 +63,9 @@
                 <input type="number" class="form-control me-2" style="width: 150px;margin-left: 10px;" [(ngModel)]="order.enteredPrice" placeholder="سعر الروشتة">
                 <button class="btn btn-primary" (click)="acceptRoshta(order.id, order.enteredPrice)">✅ قبول الطلب</button>
               </div>
+            }
+            @if (order.isAboutToExpire) {
+              <span class="badge bg-warning text-dark ms-2">⏰ اقترب انتهاء الوقت لرفض الروشتة!</span>
             }
           </div>
 
