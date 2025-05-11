@@ -10,7 +10,8 @@ export interface PharmacyAdminModels {
   tradeLicense :string;
   taxCard :string;
   pharmacyLicense :string;
-
+  email:string;
+  
   products: any; // ممكن تعدلها حسب البنية لاحقًا
   orders: any;   // ممكن تعدلها حسب البنية لاحقًا
 }

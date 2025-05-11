@@ -33,7 +33,7 @@ export class CartComponent implements OnInit {
 
       this.cartProducts = this.cartProducts.map(item => ({
         ...item,
-        amount: Number(item.amount) || 1
+        amount: Number(item.amount) || 0
       }));
 
 
