@@ -23,6 +23,7 @@ import { OrderDoneComponent } from './components/cart_user/order-done/order-done
 import { OrdersAdminComponent } from './components/admin/homeAdmin/orders-admin/orders-admin.component';
 import { RoshtaComponent } from './components/cart_user/roshta/roshta.component';
 import { PharmacyRoshtaComponent } from './components/Pharmacy-pages/pharmacy-roshta/pharmacy-roshta.component';
+import { AddproductComponent } from './components/admin/homeAdmin/AddProduct/addproduct/addproduct.component';
 
 
 export const routes: Routes = [
@@ -53,7 +54,7 @@ export const routes: Routes = [
   {path:'orders_admin',component:OrdersAdminComponent},
   {path:'roshta',component:RoshtaComponent},
   {path:'pharmacy_roshta',component:PharmacyRoshtaComponent},
-
+  {path:'Addproduct',component:AddproductComponent},
 
 
 

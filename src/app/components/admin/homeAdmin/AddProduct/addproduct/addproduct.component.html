@@ -1,0 +1,55 @@
+<div class="bg-image pt-5">
+    <div class="container">
+      <div class="screen">
+        <div class="screen__content">
+          <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="login">
+            <h1 class="mb-4 text-center text-white">إضافة منتج جديد</h1>
+  
+            <div class="login__field">
+              <label for="name">اسم المنتج</label>
+              <input id="name" type="text" class="login__input" formControlName="name" placeholder="ادخل اسم المنتج">
+            </div>
+  
+            <div class="login__field">
+              <label for="description">وصف المنتج</label>
+              <input id="description" type="text" class="login__input" formControlName="description" placeholder="ادخل وصف المنتج">
+            </div>
+  
+            <div class="login__field">
+              <label for="price">السعر</label>
+              <input id="price" type="number" class="login__input" formControlName="price" placeholder="ادخل السعر">
+            </div>
+  
+            <div class="login__field">
+              <label for="quantity">الكمية المتاحة</label>
+              <input id="quantity" type="number" class="login__input" formControlName="quantity" placeholder="ادخل الكمية">
+            </div>
+  
+            <div class="login__field">
+              <label for="amount">الكمية التي يحددها المستخدم</label>
+              <input id="amount" type="number" class="login__input" formControlName="amount" placeholder="ادخل الكمية المختارة">
+            </div>
+  
+            <div class="login__field">
+              <label for="productImage">صورة المنتج</label>
+              <input class="form-control w-75" type="file" (change)="onFileChange($event, 'image')" id="productImage">
+            </div>
+  
+            <button type="submit" class="button login__submit">إضافة المنتج</button>
+  
+            @if (successMessage) {
+              <div class="alert alert-success mt-3 text-center">
+                {{ successMessage }}
+              </div>
+            }
+  
+            @if (errorMessage) {
+              <div class="alert alert-danger mt-3 text-center">
+                {{ errorMessage }}
+              </div>
+            }
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

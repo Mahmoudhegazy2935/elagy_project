@@ -11,12 +11,13 @@
           <div class="card h-100 p-3">
             <div class="card__border"></div>
 
-            <div class="card_title__container d-flex align-items-center mb-3">
+            <div class="card_title__container d-flex align-items-center mb-3 ">
               <img [src]="'http://localhost:5208/' + pharmacy.pharmacyLicense" class="img_icon img_iconimg1 me-2">
-
-              <span class="card_title fs-5">{{ pharmacy.pharmacyName }}</span>
+              <img [src]="'http://localhost:5208/' + pharmacy.taxCard" class="img_icon img_iconimg1 me-2">
+              <img [src]="'http://localhost:5208/' + pharmacy.tradeLicense" class="img_icon img_iconimg1 me-2">
+              
             </div>
-
+            <div class="card_title fs-5">{{ pharmacy.pharmacyName }}</div>
             <table class="table table-bordered table-sm text-white">
               <tbody>
                 <tr>
@@ -26,7 +27,7 @@
                 <tr>
                   <th scope="row">تليفون المدير</th>
                   <td>{{ pharmacy.managerPhone }}</td>
-                </tr>
+                </tr> 
                 <tr>
                   <th scope="row">تليفون الصيدلية</th>
                   <td>{{ pharmacy.pharmacyPhone }}</td>
@@ -35,9 +36,18 @@
                   <th scope="row">موقع التوصيل</th>
                   <td>{{ pharmacy.deliveryArea }}</td>
                 </tr>
+
                 <tr>
                   <th scope="row">مواعيد العمل</th>
                   <td>{{ pharmacy.workingHours }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">الايميل</th>
+                  <td>{{ pharmacy.email }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">كلمة السر</th>
+                  <td>{{ pharmacy.password }}</td>
                 </tr>
               </tbody>
             </table>
