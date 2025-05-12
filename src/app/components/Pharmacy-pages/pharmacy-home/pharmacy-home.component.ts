@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil, timer } from 'rxjs';
 import { Order } from '../../../models/order.model';
 import { RouterModule } from '@angular/router';
 
@@ -16,12 +16,14 @@ import { RouterModule } from '@angular/router';
 export class PharmacyHomeComponent {
   menuOpen = false;
   showDropdown = false;
-  deliveryArea: string = 'قنا'; // e.g., passed from parent pharmacy home
-  pharmacy_name=localStorage.getItem('userName');
+  deliveryArea=localStorage.getItem('pharmacyaddress');// e.g., passed from parent pharmacy home
+  pharmacy_name=localStorage.getItem('pharmacyName');
   orders: Order[] = [];
   expandedOrderIds: number[] = [];
   acceptedOrders: Order[] = [];
   showAccepted: boolean = false;
+    private destroy$ = new Subject<void>();
+
 
 
   constructor(private http: HttpClient) {}
@@ -29,20 +31,29 @@ export class PharmacyHomeComponent {
 
 ngOnInit(): void {
 
-  this.http.get<Order[]>('http://localhost:5208/api/Cart').subscribe(data => {
-    this.orders = data.filter(order =>
-      order.speicalLocation === this.deliveryArea &&
-      order.status === 'قيد المعالجة'
-    );
+    timer(0, 10000) // start immediately, repeat every 15s
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(() => {
+          this.http.get<Order[]>('http://localhost:5208/api/Cart').subscribe(data => {
+            this.orders = data.filter(order =>
+              order.speicalLocation === this.deliveryArea &&
+              order.status === 'قيد المعالجة'
+            );
+          });
+        });
 
-
-  });
     const storedOrders = localStorage.getItem('acceptedOrders');
     // const storedExpandedIds = localStorage.getItem('expandedOrderIds');
 
     this.acceptedOrders = storedOrders ? JSON.parse(storedOrders) : [];
     // this.expandedOrderIds = storedExpandedIds ? JSON.parse(storedExpandedIds) : [];
 }
+
+ngOnDestroy(): void {
+  this.destroy$.next();
+  this.destroy$.complete();
+}
+
 
   toggleOrderItems(orderId: number): void {
     if (this.expandedOrderIds.includes(orderId)) {

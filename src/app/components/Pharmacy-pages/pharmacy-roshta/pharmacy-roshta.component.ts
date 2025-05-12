@@ -16,8 +16,8 @@ import Swal from 'sweetalert2';
 export class PharmacyRoshtaComponent {
   menuOpen = false;
   showDropdown = false;
-  deliveryArea: string = 'قنا';
-  pharmacy_name = localStorage.getItem('userName');
+  deliveryArea=localStorage.getItem('pharmacyaddress');// e.g., passed from parent pharmacy home
+  pharmacy_name=localStorage.getItem('pharmacyName');
   roshtas: Roshta[] = [];
   expandedRoshtaIds: number[] = [];
   acceptedRoshtas: any[] = [];

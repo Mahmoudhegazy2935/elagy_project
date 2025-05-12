@@ -4,6 +4,7 @@ import { ProductService } from '../../services/product.service/product.service';
 import { Product } from '../../models/product';
 import Swal from 'sweetalert2';
 import { NavebarComponent } from "../navebar/navebar.component";
+import { Cart2Service } from '../../services/cart2.service/cart2.service';
 
 @Component({
   selector: 'app-singl-product',
@@ -17,7 +18,7 @@ export class SinglProductComponent {
   CartProduct:any[]=[];
   panadolimages: string='https://tse4.mm.bing.net/th?id=OIP._hfjck2DY3y4rDCzHUEd7AHaHa&pid=Api';
   constructor(
-
+    private cartService: Cart2Service,
     private route: ActivatedRoute,
     private router: Router,
     private productsrvice: ProductService,
@@ -57,36 +58,38 @@ export class SinglProductComponent {
       });
     }
 
-    addToCart(product:any){
-      console.log(product)
-      // this.CartProduct=localStorage.getItem("cart")
+  addToCart(product: any) {
+   const productToAdd = {
+     ...product,
+     amount: 1
+   };
 
-      const productToAdd = {
-        ...product,
-        amount: 1  // لو المستخدم مدخلش كمية، نحط 1 افتراضيًا
-      };
+   let cart: any[] = [];
 
+   if ("cart" in localStorage) {
+     cart = JSON.parse(localStorage.getItem("cart")!);
+     const exist = cart.find(item => item.id == product.id);
 
-      if("cart" in localStorage){
-        this.CartProduct=JSON.parse(localStorage.getItem("cart")!)
-        let exist=this.CartProduct.find(item => item.id == product.id)
-        if (exist){
-          Swal.fire({
-            title: 'المنتج مضاف في السله ',
-            text: 'تمت الإضافة إلى السلة سابقاً',
-            icon: 'success',
-            confirmButtonText: 'حسناً'
-          });
-        }else{
-          this.CartProduct.push(product)
-          localStorage.setItem("cart",JSON.stringify(this.CartProduct))
-        }
+     if (exist) {
+       Swal.fire({
+         title: 'المنتج مضاف في السلة',
+         text: 'تمت الإضافة إلى السلة سابقاً',
+         icon: 'info',
+         confirmButtonText: 'حسناً'
+       });
+       return;
+     }
+   }
 
-      }else{
-        this.CartProduct.push(product)
-        localStorage.setItem("cart",JSON.stringify(this.CartProduct))
-      }
-      // localStorage.setItem("cart",JSON.stringify(product))
-    }
+   cart.push(productToAdd);
+   this.cartService.updateCart(cart); // this both saves to localStorage and notifies listeners
+
+   Swal.fire({
+     title: 'تم!',
+     text: 'تمت الإضافة إلى السلة بنجاح',
+     icon: 'success',
+     confirmButtonText: 'حسناً'
+   });
+ }
 
 }

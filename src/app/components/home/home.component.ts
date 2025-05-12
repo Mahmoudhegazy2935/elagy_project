@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { TruncatePipe } from '../../pipes/truncate.pipe';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { Cart2Service } from '../../services/cart2.service/cart2.service';
 
 
 @Component({
@@ -32,30 +33,9 @@ export class HomeComponent {
   addButton:boolean=false;
   amount:number=0;
   showVideo = false;
-  drugImages: string[] = [
-    "https://tse4.mm.bing.net/th?id=OIP._hfjck2DY3y4rDCzHUEd7AHaHa&pid=Api", // Brufen
-    "https://tse1.mm.bing.net/th?id=OIP.QdXEFdNXjT2grIdPA4A7xAHaHa&pid=Api", // Antinal
-    "https://tse1.mm.bing.net/th?id=OIP.U2aeir-D51jFZ5o7SoZupgHaHa&pid=Api", // Panadol Extra
-    "https://tse4.mm.bing.net/th?id=OIP.3R0UOSw4mr1_h0XlD1VmnwHaHa&pid=Api", // Duphaston
-    "https://m.media-amazon.com/images/I/51dfDhgmlFL.jpg",
-    "https://cdn.altibbi.com/cdn/cache/large/image/2021/05/24/41e99577971dd5e734ebf9af5b5fe7c7.webp",
-    "https://www.claritin.com/sites/g/files/vrxlpx50451/files/2024-10/claritin-pdp-hero-24h-tablets-10ct-front-1200x1154.png",
-    "https://lh4.googleusercontent.com/proxy/ingBVfk8hBuoo64bEXM689sbZ93dKk8vE3tX-lXXXX_JmLCoaw4lGiyMEegVd1940ks6UWklovfElB7u1624xQLm91LnheUSJ1qNHHSQP4I3TA1Pg6tfi5OIJsoLZuAUXg",
-    "https://dawadose.com/wp-content/uploads/2024/10/Flagyl-500mg-14-Tablets.jpg",
-    "https://images-eu.ssl-images-amazon.com/images/I/81yEWxYtayL._AC_UL600_SR600,600_.jpg",
-    "https://cdn.chefaa.com/filters:format(webp)/public/uploads/products/panadol-cold-and-flu-day-01664875291.png",
-    "https://img.youm7.com/large/201802260938383838.jpg",
-    "https://www.buscopan.com/dam/jcr:ba32304b-a371-47b3-bd31-8884d5930eb9/Buscopan-ENG-CLEAN-1500x1200.png",
-    "https://tdawi.com/media/catalog/product/cache/c02fd180406f0a5f799ad7095a14ddcd/g/a/gaptin_300_mg_2__sc38rzjd79xttsal.jpg",
-  ];
 
-  panadolimages:string[]=[
-    "https://tse1.mm.bing.net/th?id=OIP.U2aeir-D51jFZ5o7SoZupgHaHa&pid=Api", // Panadol Extra
-    "https://cdn.chefaa.com/filters:format(webp)/public/uploads/products/panadol-cold-and-flu-day-01664875291.png",
-
-  ]
   constructor(
-
+    private cartService:Cart2Service,
     private productsrvice: ProductService,
     private router: Router
   ) {}
@@ -125,35 +105,40 @@ export class HomeComponent {
   }
 
 
-  addToCart(product:any){
+ addToCart(product: any) {
+  const productToAdd = {
+    ...product,
+    amount: 1
+  };
 
-    // this.CartProduct=localStorage.getItem("cart")
+  let cart: any[] = [];
 
-    const productToAdd = {
-      ...product,
-      amount: 1  // لو المستخدم مدخلش كمية، نحط 1 افتراضيًا
-    };
-    if("cart" in localStorage){
-      this.CartProduct=JSON.parse(localStorage.getItem("cart")!)
-      let exist=this.CartProduct.find(item => item.id == product.id)
-      if (exist){
-        Swal.fire({
-          title: 'المنتج مضاف في السله ',
-          text: 'تمت الإضافة إلى السلة سابقاً',
-          icon: 'success',
-          confirmButtonText: 'حسناً'
-        });
-      }else{
-        this.CartProduct.push(product)
-        localStorage.setItem("cart",JSON.stringify(this.CartProduct))
-      }
+  if ("cart" in localStorage) {
+    cart = JSON.parse(localStorage.getItem("cart")!);
+    const exist = cart.find(item => item.id == product.id);
 
-    }else{
-      this.CartProduct.push(product)
-      localStorage.setItem("cart",JSON.stringify(this.CartProduct))
+    if (exist) {
+      Swal.fire({
+        title: 'المنتج مضاف في السلة',
+        text: 'تمت الإضافة إلى السلة سابقاً',
+        icon: 'info',
+        confirmButtonText: 'حسناً'
+      });
+      return;
     }
-    // localStorage.setItem("cart",JSON.stringify(product))
   }
+
+  cart.push(productToAdd);
+  this.cartService.updateCart(cart); // this both saves to localStorage and notifies listeners
+
+  Swal.fire({
+    title: 'تم!',
+    text: 'تمت الإضافة إلى السلة بنجاح',
+    icon: 'success',
+    confirmButtonText: 'حسناً'
+  });
+}
+
 
 
 
