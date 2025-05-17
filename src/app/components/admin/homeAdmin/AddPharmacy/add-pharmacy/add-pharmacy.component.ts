@@ -62,6 +62,7 @@ export class AddPharmacyComponent {
     this.successMessage = '';
 
     if (this.registerForm.invalid) {
+      console.log(this.registerForm.invalid)
       return;
     }
 
