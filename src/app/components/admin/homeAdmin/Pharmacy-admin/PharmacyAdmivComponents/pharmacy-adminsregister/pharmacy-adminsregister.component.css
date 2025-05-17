@@ -1,0 +1,57 @@
+:host {
+    direction: rtl;
+    text-align: right;
+  }
+  
+  .container {
+    background-color:rgba(209, 233, 246, 1);
+    padding: 20px;
+    margin-top: 80px;
+    border-radius: 12px;
+  }
+  
+  .pharmacy-table {
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
+  }
+  
+  .pharmacy-table th,
+  .pharmacy-table td {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+    background-color: rgba(255, 255, 255, 0.05);
+  
+  }
+  
+  .pharmacy-table tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  
+  .card{
+    box-shadow: -13px 10px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px; border: 1px black solid;
+  }
+  .card_title__container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  
+    gap: 0.5rem;
+  }
+  
+  .card_title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--white);
+  }
+  
+  .img_iconimg1 {
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background-position: center;
+  }
+  
