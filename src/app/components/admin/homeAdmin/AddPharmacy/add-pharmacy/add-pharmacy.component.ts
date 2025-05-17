@@ -75,7 +75,7 @@ export class AddPharmacyComponent {
         this.registerForm.reset();
         this.submitted = false;
 
-        this.router.navigate(['/pharmacy_home']);
+        this.router.navigate(['/HomeAdminComponent']);
 
       },
       error: (error) => {
