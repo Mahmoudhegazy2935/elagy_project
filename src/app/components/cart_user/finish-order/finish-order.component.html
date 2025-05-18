@@ -4,7 +4,7 @@
 <div class="container mt-4" dir="rtl">
   <h1 class="text-success mb-4">إتمام الطلب</h1>
 
-  <!-- ✅ User Info Form -->
+  <!-- User Info Form -->
   <div class="card p-4 shadow-sm mb-4">
     <h4 class="text-primary mb-3">معلومات العميل</h4>
 
@@ -16,13 +16,24 @@
     <div class="mb-3">
       <label for="speicalLocation" class="form-label">العنوان العام:</label>
       <select id="speicalLocation" class="form-select" [(ngModel)]="speicalLocation" (change)="loadNearbyPharmacies()">
-        <option disabled selected value="">اختر العنوان</option>
-       @for (location of locations; track $index) {
-         <option  [value]="location">{{ location }}</option>
+        <option disabled value="">اختر العنوان</option>
+        @for (location of locations; track $index) {
+          <option [value]="location">{{ location }}</option>
         }
       </select>
     </div>
 
+    @if (secondLocationsList.length > 0) {
+      <div class="mb-3">
+        <label for="secondLocation" class="form-label">عنوان إضافي:</label>
+        <select id="secondLocation" class="form-select" [(ngModel)]="secondLocation" (change)="updateUserAddress()">
+          <option disabled value="">اختر عنوان إضافي</option>
+          @for (loc of secondLocationsList; track $index) {
+            <option [value]="loc">{{ loc }}</option>
+          }
+        </select>
+      </div>
+    }
 
     <div class="mb-3">
       <label for="address" class="form-label">العنوان بالتفصيل:</label>
@@ -35,7 +46,7 @@
     </div>
   </div>
 
-  <!-- ✅ Product Summary Table -->
+  <!-- Product Summary Table -->
   <div class="card shadow-sm p-3">
     <h4 class="text-primary mb-3">تفاصيل الطلب</h4>
 
@@ -50,25 +61,23 @@
       </thead>
       <tbody>
         @for (item of cartProducts; track $index) {
-        <tr>
-          <td>{{ item.name }}</td>
-          <td>{{ item.amount }}</td>
-          <td>{{ item.price }} جنيه</td>
-          <td>{{ item.amount * item.price }} جنيه</td>
-        </tr>}
+          <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.amount }}</td>
+            <td>{{ item.price }} جنيه</td>
+            <td>{{ item.amount * item.price }} جنيه</td>
+          </tr>
+        }
       </tbody>
-      <tfoot>
-
-      </tfoot>
     </table>
   </div>
 
-  <!-- ✅ Submit Button -->
+  <!-- Submit Button -->
   <div class="text-end mt-3">
     <button class="btn btn-success mb-5" (click)="submitOrder()">تأكيد الطلب</button>
   </div>
 
-  <!-- ✅ Success Message -->
+  <!-- Success Message -->
   @if (success) {
     <div class="alert alert-success mt-3" role="alert">
       <strong>تم بنجاح!</strong> تم إرسال طلبك إلى الخادم.
