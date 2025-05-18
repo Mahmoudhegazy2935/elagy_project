@@ -213,6 +213,7 @@ export class FinishOrderComponent {
   constructor(private cart2Service: Cart2Service, private router: Router, private http: HttpClient) { }
 
   cartProducts: any[] = [];
+  userAddress1:string='';
   userName: string = '';
   userAddress: string = '';
   speicalLocation: string = '';
@@ -268,11 +269,11 @@ export class FinishOrderComponent {
   // دالة لدمج العنوان الإضافي مع العنوان بالتفصيل
   updateUserAddress() {
     if (this.secondLocation) {
-      if (!this.userAddress || this.userAddress.trim() === '') {
+      if (!this.userAddress1 || this.userAddress1.trim() === '') {
         this.userAddress = this.secondLocation;
       } else {
-        if (!this.userAddress.includes(this.secondLocation)) {
-          this.userAddress =   this.secondLocation +' - ' + this.userAddress;
+        if (!this.userAddress1.includes(this.secondLocation)) {
+          this.userAddress =   this.secondLocation +' - ' + this.userAddress1;
         }
       }
     }

@@ -26,7 +26,7 @@
     @if (secondLocationsList.length > 0) {
       <div class="mb-3">
         <label for="secondLocation" class="form-label">عنوان إضافي:</label>
-        <select id="secondLocation" class="form-select" [(ngModel)]="secondLocation" (change)="updateUserAddress()">
+        <select id="secondLocation" class="form-select" [(ngModel)]="secondLocation">
           <option disabled value="">اختر عنوان إضافي</option>
           @for (loc of secondLocationsList; track $index) {
             <option [value]="loc">{{ loc }}</option>
@@ -37,7 +37,7 @@
 
     <div class="mb-3">
       <label for="address" class="form-label">العنوان بالتفصيل:</label>
-      <input type="text" id="address" class="form-control" [(ngModel)]="userAddress" placeholder="مثال : المساكن/شارع التأمين /بجوار قهوة المونديال">
+      <input type="text" id="address" class="form-control" [(ngModel)]="userAddress1"  (change)="updateUserAddress()"  placeholder="مثال : المساكن/شارع التأمين /بجوار قهوة المونديال">
     </div>
 
     <div class="mb-3">
