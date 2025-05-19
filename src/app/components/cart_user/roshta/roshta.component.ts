@@ -22,7 +22,7 @@ export class RoshtaComponent {
 
   roshtaFileName: string | null = null;
   roshtaFile: File | null = null;
-
+  userAddress1:string='';
   userName: string = '';
   userAddress: string = '';
   speicalLocation: string = '';
@@ -30,6 +30,9 @@ export class RoshtaComponent {
   success: boolean = false;
   locations: string[] = ['نجع حمادي', 'قنا', 'دشنا', 'اولاد عمرو', 'الوقف'];
   price: number = 0;
+  secondLocationsList: string[] = [];
+
+  secondLocation: string = '';
 
   constructor(private http: HttpClient,private router: Router) {}
 
@@ -37,8 +40,36 @@ export class RoshtaComponent {
     // Restore optional saved image name
     const savedName = localStorage.getItem('roshtaFileName');
     if (savedName) this.roshtaFileName = savedName;
+    if (this.speicalLocation) {
+      this.loadNearbyPharmacies();
+      this.updateSecondLocationsList();
+    }
+  }
+  updateSecondLocationsList() {
+    const locationsMap: { [key: string]: string[] } = {
+      'نجع حمادي': ['شارع أحمد شوقي', 'حي السلام', 'المنطقة الصناعية'],
+      'قنا': ['حي الكوثر', 'شارع البحر', 'شارع الثورة'],
+      'دشنا': ['الحي الشرقي', 'شارع الجيش'],
+      'اولاد عمرو': ['الشارع العام', 'حي المعلمين'],
+      'الوقف': ['حي النور', 'شارع 15 مايو']
+    };
+
+    this.secondLocationsList = locationsMap[this.speicalLocation] || [];
+    // امسح العنوان الإضافي المختار لما يتغير العنوان العام
+    this.secondLocation = '';
   }
 
+  updateUserAddress() {
+    if (this.secondLocation) {
+      if (!this.userAddress1 || this.userAddress1.trim() === '') {
+        this.userAddress = this.secondLocation;
+      } else {
+        if (!this.userAddress1.includes(this.secondLocation)) {
+          this.userAddress =   this.secondLocation +' - ' + this.userAddress1;
+        }
+      }
+    }
+  }
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
@@ -49,6 +80,7 @@ export class RoshtaComponent {
       localStorage.setItem('roshtaFileName', file.name);
     }
   }
+
 
   deleteRoshta(): void {
     this.roshtaFile = null;
@@ -159,5 +191,6 @@ export class RoshtaComponent {
         this.nearbyPharmacies = data;
         console.log('Nearby Pharmacies:', this.nearbyPharmacies);
       });
+      this.updateSecondLocationsList();
   }
 }

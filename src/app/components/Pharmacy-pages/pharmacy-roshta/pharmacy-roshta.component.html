@@ -25,6 +25,17 @@
       <h5>بعنوان: {{ deliveryArea }}</h5>
     </div>
     <hr>
+    
+    <div class="d-flex justify-content-start align-items-center mb-3">
+        <label for="street-select" class="me-2">اختر الشارع:</label>
+        <select [(ngModel)]="selectedStreet" (change)="refreshRoshtas()" id="street-select" class="form-select w-auto">
+          <option value="">كل الشوارع</option>
+          <option *ngFor="let street of streetsForArea" [value]="street">{{ street }}</option>
+        </select>
+    
+    </div>
+    
+    
     <div class="d-flex justify-content-start align-items-center mb-1">
       <button class="btn ms-3" [ngClass]="showAccepted ? 'btn-outline-dark' : 'btn-dark'" (click)="showAccepted = false">
         الروشتات الجديدة

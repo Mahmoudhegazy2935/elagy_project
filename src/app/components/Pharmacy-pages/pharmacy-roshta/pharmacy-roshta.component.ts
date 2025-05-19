@@ -17,63 +17,78 @@ import { Subject, takeUntil, timer } from 'rxjs';
 export class PharmacyRoshtaComponent {
   menuOpen = false;
   showDropdown = false;
-  deliveryArea=localStorage.getItem('pharmacyaddress');// e.g., passed from parent pharmacy home
-  pharmacy_name=localStorage.getItem('pharmacyName');
+  deliveryArea = localStorage.getItem('pharmacyaddress'); // المركز
+  pharmacy_name = localStorage.getItem('pharmacyName');
   roshtas: Roshta[] = [];
   expandedRoshtaIds: number[] = [];
   acceptedRoshtas: any[] = [];
   showAccepted = false;
+  selectedStreet: string = ''; // الشارع المختار
+  streetsForArea: string[] = []; // شوارع المركز المختار
+
   private destroy$ = new Subject<void>();
 
+  // خريطة الشوارع حسب المركز
+  locationsMap: { [key: string]: string[] } = {
+    'نجع حمادي': ['شارع أحمد شوقي', 'حي السلام', 'المنطقة الصناعية'],
+    'قنا': ['حي الكوثر', 'شارع البحر', 'شارع الثورة'],
+    'دشنا': ['الحي الشرقي', 'شارع الجيش'],
+    'اولاد عمرو': ['الشارع العام', 'حي المعلمين'],
+    'الوقف': ['حي النور', 'شارع 15 مايو']
+  };
 
   constructor(private http: HttpClient) {}
 
-ngOnInit(): void {
-  timer(0, 10000) // Immediately and every 10 seconds
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(() => {
-      this.http.get<Roshta[]>('http://localhost:5208/api/Roshta').subscribe(data => {
-        const now = new Date();
-        const updatedRoshtas: Roshta[] = [];
+  ngOnInit(): void {
+    // تحميل شوارع المركز
+    this.streetsForArea = this.locationsMap[this.deliveryArea || ''] || [];
 
-        data.forEach(roshta => {
-          const roshtaDate = new Date(roshta.date);
-          const diffInMs = now.getTime() - roshtaDate.getTime();
-          const diffInHours = diffInMs / (1000 * 60 * 60);
+    // تحميل الروشتات كل 10 ثواني
+    timer(0, 10000)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.http.get<Roshta[]>('http://localhost:5208/api/Roshta').subscribe(data => {
+          const now = new Date();
+          const updatedRoshtas: Roshta[] = [];
 
-          if (
-            roshta.speicalLocation === this.deliveryArea &&
-            roshta.status === 'قيد المعالجة'
-          ) {
-            if (diffInHours > 3) {
-              // Set status to 'نأسف لاتوجد استجابة'
-              const updated = { ...roshta, status: 'نأسف لاتوجد استجابة' };
-              this.http.put(`http://localhost:5208/api/Roshta/${roshta.id}`, { status: updated.status })
-                .subscribe(() => {
-                  console.log(`Roshta ${roshta.id} updated due to timeout`);
-                  this.refreshRoshtas(); // Refresh after update
-                });
-            } else {
-              // 👇 Set isAboutToExpire flag
-              (roshta as any).isAboutToExpire = diffInHours >= 2.5 && diffInHours < 3;
-              updatedRoshtas.push(roshta);
+          data.forEach(roshta => {
+            const roshtaDate = new Date(roshta.date);
+            const diffInMs = now.getTime() - roshtaDate.getTime();
+            const diffInHours = diffInMs / (1000 * 60 * 60);
+            const mainStreet = this.getMainStreet(roshta.address);
+
+            if (
+              roshta.speicalLocation === this.deliveryArea &&
+              roshta.status === 'قيد المعالجة' &&
+              (!this.selectedStreet || mainStreet === this.selectedStreet)
+            ) {
+              if (diffInHours > 3) {
+                const updated = { ...roshta, status: 'نأسف لاتوجد استجابة' };
+                this.http.put(`http://localhost:5208/api/Roshta/${roshta.id}`, { status: updated.status })
+                  .subscribe(() => {
+                    console.log(`Roshta ${roshta.id} updated due to timeout`);
+                    this.refreshRoshtas(); // إعادة التحميل بعد التحديث
+                  });
+              } else {
+                (roshta as any).isAboutToExpire = diffInHours >= 2.5 && diffInHours < 3;
+                updatedRoshtas.push(roshta);
+              }
             }
-          }
+          });
+
+          this.roshtas = updatedRoshtas;
         });
-
-        this.roshtas = updatedRoshtas;
       });
-    });
 
-  const storedRoshtas = localStorage.getItem('acceptedRoshtas');
-  this.acceptedRoshtas = storedRoshtas ? JSON.parse(storedRoshtas) : [];
-}
-
+    const storedRoshtas = localStorage.getItem('acceptedRoshtas');
+    this.acceptedRoshtas = storedRoshtas ? JSON.parse(storedRoshtas) : [];
+  }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
   toggleRoshta(orderId: number): void {
     if (this.expandedRoshtaIds.includes(orderId)) {
       this.expandedRoshtaIds = this.expandedRoshtaIds.filter(id => id !== orderId);
@@ -106,7 +121,6 @@ ngOnInit(): void {
             accepted.push(roshta);
             localStorage.setItem('acceptedRoshtas', JSON.stringify(accepted));
 
-            // تحديث بيانات الروشتات المتاحة في الواجهة
             this.refreshRoshtas();
             this.updateAcceptedRoshtas();
 
@@ -122,18 +136,23 @@ ngOnInit(): void {
       });
   }
 
-  // دالة لتحديث الطلبات
   refreshRoshtas(): void {
-    this.http.get<any[]>('http://localhost:5208/api/Roshta').subscribe(data => {
-      this.roshtas = data.filter(order =>
-        order.speicalLocation === this.deliveryArea &&
-        order.status === 'قيد المعالجة'
-      );
+    this.http.get<Roshta[]>('http://localhost:5208/api/Roshta').subscribe(data => {
+      this.roshtas = data.filter(order => {
+        const mainStreet = this.getMainStreet(order.address);
+        return order.speicalLocation === this.deliveryArea &&
+               order.status === 'قيد المعالجة' &&
+               (!this.selectedStreet || mainStreet === this.selectedStreet);
+      });
     });
   }
 
   updateAcceptedRoshtas(): void {
     this.acceptedRoshtas = JSON.parse(localStorage.getItem('acceptedRoshtas') || '[]');
+  }
+
+  getMainStreet(address: string): string {
+    return address.split('-')[0].trim(); // استخراج أول جزء من العنوان
   }
 
   isToday(dateStr: string): boolean {
@@ -176,5 +195,4 @@ ngOnInit(): void {
       }
     });
   }
-
 }
