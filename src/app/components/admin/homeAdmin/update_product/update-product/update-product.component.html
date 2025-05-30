@@ -32,10 +32,12 @@
               <td>{{ product.description }}</td>
               <td>{{ product.price }} ج</td>
               <td>{{ product.quantity }}</td>
-              <td>
-                <button (click)="selectProduct(product)">تعديل</button>
-                <button (click)="deleteProduct(product.id)">حذف</button>
-              </td>
+             
+                <td style="display: flex; justify-content: center; gap: 10px;">
+                    <button (click)="selectProduct(product)">تعديل</button>
+                    <button (click)="deleteProduct(product.id)">حذف</button>
+                  </td>
+            
             </tr>
           }
         </tbody>

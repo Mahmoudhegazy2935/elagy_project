@@ -40,45 +40,55 @@
     }
   
     .table {
-      width: 100%;
-      border-collapse: collapse;
-  
-      thead tr {
-        background-color: #c61d21;
-        color: white;
-        text-align: center;
+        width: 100%;
+        max-width: 1200px; /* يمنع التيبل من التمدد الزائد */
+        margin: 30px auto; /* توسيط التيبل داخل الصفحة */
+        border-collapse: collapse;
+        font-size: 18px; /* تكبير الخط */
+      
+        thead tr {
+          background-color: #c61d21;
+          color: white;
+          text-align: center;
+          font-size: 20px;
+        }
+      
+        th,
+        td {
+          padding: 16px; /* تكبير المسافات داخل الخلايا */
+          border-bottom: 1px solid #ddd;
+          vertical-align: middle;
+          text-align: center;
+        }
+      
+        tbody tr:hover {
+          background-color: #f9f9f9;
+        }
+      
+        img {
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      
+        button {
+          background-color: #c61d21;
+          color: white;
+          border: none;
+          padding: 10px 16px;
+          margin: 0 4px;
+          font-size: 16px;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background-color 0.3s ease-in-out;
+        }
+      
+        button:hover {
+          background-color: #a31a1c;
+        }
       }
-      th, td {
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
-        vertical-align: middle;
-        text-align: center;
-      }
-      tbody tr:hover {
-        background-color: #f9f9f9;
-      }
-  
-      img {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-  
-      button {
-        background-color: #c61d21;
-        color: white;
-        border: none;
-        padding: 6px 12px;
-        margin: 0 2px;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s ease-in-out;
-      }
-      button:hover {
-        background-color: #a31a1c;
-      }
-    }
+      
   
     .editForm {
       margin-top: 30px;
