@@ -1,23 +1,21 @@
+<nav class="navbar">
+  <a href="#" class="text-decoration-none" routerLink="/intro">
+    <div class="genral_logo d-flex align-items-center">
+      <div class="logo-image ms-3"></div>
+      <h1 class="logo mb-0">علاجي</h1>
+    </div>
+  </a>
 
+  <div class="hamburger" (click)="toggleMenu()">
+    &#9776;
+  </div>
 
-<nav class="navbar ">
-    <a href="#" class="text-decoration-none" routerLink="/intro">
-        <div class="genral_logo" >
-        <div class="logo-image ms-3"></div>
-        <h1 class="logo">علاجي</h1>
-      </div>
-      </a>
-      <div class="hamburger" (click)="toggleMenu()">
-        &#9776;
-      </div>
-    <ul [class.open]="menuOpen">
-
-      <li><a href="#" routerLink="/UsirAdmin" routerLinkActive="active">العملاء المنضمين</a></li>
-      <li><a href="#" routerLink="/PharmacyListComponent"> الصيدليات</a></li>
-      <li><a href="#" routerLink="/orders_admin"> الطلبات المنتهية</a></li>
-      <li><a href="#" routerLink="/AddPharmacy">اضفة صيدلية</a></li>
-      <span style="display: inline-block; width: 2px; height: 40px; background-color: rgb(199, 199, 199); vertical-align: middle;"></span>
-      <!-- <li><a style="font-size: 15px; width: 10px;" class="mt-5">مرحبا ,{{userName}}</a></li> -->
-
-    </ul>
-  </nav>
+  <ul [class.open]="menuOpen" class="nav-links">
+    <li><a routerLink="/UsirAdmin" routerLinkActive="active">العملاء المنضمين</a></li>
+    <li><a routerLink="/PharmacyListComponent" routerLinkActive="active">صيدليات قيد المعالجة</a></li>
+    <li><a routerLink="/orders_admin" routerLinkActive="active">الطلبات المنتهية</a></li>
+    <li><a routerLink="/AddPharmacy" routerLinkActive="active">اضافة صيدلية</a></li>
+    <span class="divider"></span>
+    <!-- <li><a style="font-size: 15px;" class="mt-5">مرحبا ,{{userName}}</a></li> -->
+  </ul>
+</nav>

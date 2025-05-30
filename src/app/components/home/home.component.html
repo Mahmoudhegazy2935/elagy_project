@@ -93,6 +93,7 @@
           <!-- Scrollable Row -->
           <div #scrollContainer class="scroll-row d-flex overflow-auto">
             @for (product of products.slice(0, 10); track $index) {
+             
               <div class="card mx-2" style="min-width: 220px; flex: 0 0 auto;">
                 <a [routerLink]="['/userhome/', product.id]">
                   <div class="contImg">
@@ -133,6 +134,7 @@
         <section class="container my-5">
 
           <div class="row ">
+            
             @for (product of products; track $index) {
 
               <!-- Product Card -->

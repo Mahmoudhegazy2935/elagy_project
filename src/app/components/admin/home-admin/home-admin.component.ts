@@ -6,6 +6,7 @@ import { UsirAdminServicesService } from '../homeAdmin/usirAdmin/UsirAdminServic
 import { NavebarAdminComponent } from '../navebar-admin/navebar-admin/navebar-admin.component';
 import { HttpClient } from '@angular/common/http';
 import { Order } from '../../../models/order.model';
+import { PharmaciesWithUsService } from '../homeAdmin/Pharmacies with us/pharmacies-with-us.service';
 
 @Component({
   selector: 'app-home-admin',
@@ -18,8 +19,8 @@ export class HomeAdminComponent implements OnInit {
     pharmacyCount: number = 0;
     usircoint:number=0;
     ordirscount:number=0;
-
-    constructor(private http: HttpClient,private pharmacyAdminServicesService: PharmacyAdminServicesService , private usirAdminServicesService:UsirAdminServicesService) {}
+    pharmcies:number=0;
+    constructor(private http: HttpClient,private pharmacyAdminServicesService: PharmacyAdminServicesService , private usirAdminServicesService:UsirAdminServicesService,private pharmaciesWithUsService: PharmaciesWithUsService) {}
 
     ngOnInit(): void {
       this.pharmacyAdminServicesService.getPharmacies().subscribe(pharmacies => {
@@ -29,6 +30,8 @@ export class HomeAdminComponent implements OnInit {
       this.usirAdminServicesService.getuser().subscribe(data => {
         this.usircoint=data.length});
 
+        this.pharmaciesWithUsService.getuser().subscribe(data => {
+          this.pharmcies=data.length});
 
           this.http.get<Order[]>('http://localhost:5208/api/Cart').subscribe(data => {
               // Only load accepted orders

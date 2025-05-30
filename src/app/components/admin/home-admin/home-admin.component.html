@@ -1,35 +1,57 @@
 <app-navebar-admin></app-navebar-admin>
-<div class="content-with-navbar bg-image pt-5">
-<!-- From Uiverse.io by eslam-hany -->
-<div class="content-with-navbar row justify-content-center mt-5 gap-5">
-<div class="book" routerLink="/UsirAdmin">
-    <p>{{usircoint}}</p>
-    <div class="cover d-flex flex-column ">
-        <div class="fluent_people-team-16-filled"></div>
-        <p> العملاء المنضمين</p>
+
+<div class="container">
+  <div class="row justify-content-center gap-3">
+
+    <div class="col-10 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex justify-content-center" routerLink="/UsirAdmin">
+      <div class="book">
+        <p>{{usircoint}}</p>
+        <div class="cover d-flex flex-column">
+          <div class="fluent_people-team-16-filled"></div>
+          <p>العملاء المنضمين</p>
+        </div>
+      </div>
     </div>
-   </div>
-   <!-- From Uiverse.io by eslam-hany -->
- <div class="book" routerLink="/PharmacyListComponent">
-    <p>{{pharmacyCount}}</p>
-    <div class="cover d-flex flex-column ">
-        <div class="healthicons_pharmacy"></div>
-        <p>الصيدليات</p>
+
+    <div class="col-10 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex justify-content-center" routerLink="/PharmacyListComponent">
+      <div class="book">
+        <p>{{pharmacyCount}}</p>
+        <div class="cover d-flex flex-column">
+          <div class="healthicons_pharmacy"></div>
+          <p>صيدليات قيد المعالجة</p>
+        </div>
+      </div>
     </div>
-   </div>
-   <!-- From Uiverse.io by eslam-hany -->
- <div class="book" routerLink="/orders_admin">
-    <p>{{ordirscount}}</p>
-    <div class="cover d-flex flex-column ">
-        <div class="Vector1"></div>
-        <p>الطلبات المنتهيه</p>
+
+    <div class="col-10 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex justify-content-center" routerLink="/orders_admin">
+      <div class="book">
+        <p>{{ordirscount}}</p>
+        <div class="cover d-flex flex-column">
+          <div class="Vector1"></div>
+          <p>الطلبات المنتهيه</p>
+        </div>
+      </div>
     </div>
-   
+
+    <div class="col-10 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex justify-content-center" routerLink="/Addproduct">
+      <div class="book">
+        <div class="hoom"></div>
+        <div class="cover d-flex flex-column">
+          <div class="mnm"></div>
+          <p>اضافة منتج</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-10 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex justify-content-center" routerLink="/PharmaciesWithUsComponent">
+      <div class="book">
+        <p>{{pharmcies}}</p>
+        <div class="cover d-flex flex-column">
+          <div class="Vector1"></div>
+          <p>الصيدليات المنضمة</p>
+        </div>
+      </div>
+    </div>
+
   </div>
-  <div class="book" routerLink="/Addproduct">
-    <div class="hoom"></div>
-    <div class="cover d-flex flex-column ">
-        <div class="mnm"></div>
-        <p>اضافة منتج</p>
-    </div>
 </div>
