@@ -26,6 +26,7 @@ import { PharmacyRoshtaComponent } from './components/Pharmacy-pages/pharmacy-ro
 import { AddproductComponent } from './components/admin/homeAdmin/AddProduct/addproduct/addproduct.component';
 import { PharmacyAdminsregisterComponent } from './components/admin/homeAdmin/Pharmacy-admin/PharmacyAdmivComponents/pharmacy-adminsregister/pharmacy-adminsregister.component';
 import { PharmaciesWithUsComponent } from './components/admin/homeAdmin/Pharmacies with us/pharmacies-with-us/pharmacies-with-us.component';
+import { UpdateProductComponent } from './components/admin/homeAdmin/update_product/update-product/update-product.component';
 
 
 export const routes: Routes = [
@@ -61,6 +62,6 @@ export const routes: Routes = [
 
 {path:'PharmaciesWithUsComponent',component:PharmaciesWithUsComponent},
 
-
+{path:'UpdateProductComponent',component:UpdateProductComponent}
 
 ];

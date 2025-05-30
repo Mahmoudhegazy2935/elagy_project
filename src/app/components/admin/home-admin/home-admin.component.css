@@ -72,11 +72,24 @@ p {
   background-image: url("hoom.jpeg");
   background-size: cover;
 }
+.mmmm {
+  width: 250px;
+  height: 250px;
+  background-image: url("mmmm.jpeg");
+  background-size: cover;
+}
+
 
 .mnm {
   width: 55px;
   height: 55px;
   background-image: url("mnm-removebg-preview.png");
+  background-size: cover;
+}
+.mmmmm {
+  width: 55px;
+  height: 55px;
+  background-image: url("mmmmm.png");
   background-size: cover;
 }
 

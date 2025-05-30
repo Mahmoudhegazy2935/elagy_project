@@ -1,0 +1,72 @@
+<app-navebar-admin></app-navebar-admin>
+<br><br>
+
+<div class="container cartBox">
+    <h2 style="text-align: center; text-shadow: 2px 2px 5px rgba(0,0,0,0.3);">
+        إدارة المنتجات
+      </h2>
+      
+  
+    <div class="headCart">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="ابحث عن منتج..." class="input" />
+      <span (click)="search()" class="btnSearch">بحث</span>
+    </div>
+  
+    @if (products.length > 0) {
+      <table class="table">
+        <thead>
+          <tr>
+            <th>الصورة</th>
+            <th>الاسم</th>
+            <th>الوصف</th>
+            <th>السعر</th>
+            <th>الكمية</th>
+            <th>إجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (product of products; track product.id) {
+            <tr>
+              <td><img [src]="'http://localhost:5208/' + product.imagePath"  alt="صورة المنتج" /></td>
+              <td>{{ product.name }}</td>
+              <td>{{ product.description }}</td>
+              <td>{{ product.price }} ج</td>
+              <td>{{ product.quantity }}</td>
+              <td>
+                <button (click)="selectProduct(product)">تعديل</button>
+                <button (click)="deleteProduct(product.id)">حذف</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  
+    @if (showEditForm && selectedProduct) {
+      <div class="editForm">
+        <h3>تعديل المنتج</h3>
+        <form (ngSubmit)="saveProduct()">
+          <label>الاسم:
+            <input [(ngModel)]="selectedProduct.name" name="name" required />
+          </label><br />
+          <label>الوصف:
+            <input [(ngModel)]="selectedProduct.description" name="description" />
+          </label><br />
+          <label>السعر:
+            <input type="number" [(ngModel)]="selectedProduct.price" name="price" required />
+          </label><br />
+          <label>الكمية:
+            <input type="number" [(ngModel)]="selectedProduct.quantity" name="quantity" required />
+          </label><br />
+          <label>الصورة:
+            <input type="file" (change)="onImageSelected($event)" />
+          </label><br />
+          <img *ngIf="selectedProduct?.imagePath" [src]="selectedProduct.imagePath" class="preview-img" />
+  
+          <button type="submit">حفظ</button>
+          <button type="button" (click)="cancelEdit()">إلغاء</button>
+        </form>
+      </div>
+    }
+  </div>
+  
