@@ -45,9 +45,10 @@ export class ProductService {
     return this.httpClient.get<Product>(`${this.apiUrl}/${id}`);
   }
 
-  updateProduct(id: number, product: Product): Observable<Product> {
-    return this.httpClient.put<Product>(`${this.apiUrl}/${id}`, product);
+  updateProduct(id: number, productData: FormData): Observable<Product> {
+    return this.httpClient.put<Product>(`${this.apiUrl}/${id}`, productData);
   }
+  
   deleteproduct(productid: string): Observable<void> {
     return this.httpClient.delete<void>(`${this.apiUrl}/${productid}`);
   }

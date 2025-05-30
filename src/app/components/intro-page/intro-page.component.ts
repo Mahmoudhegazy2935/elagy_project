@@ -28,7 +28,7 @@ export class IntroPageComponent {
         localStorage.setItem('userName', name);
         switch (this.role) {
           case 'Pharmacy':
-            this.router.navigate(['/cart']);
+            this.router.navigate(['/pharmacy_home']);
             break;
           case 'Admin':
             this.router.navigate(['/HomeAdminComponent']);
