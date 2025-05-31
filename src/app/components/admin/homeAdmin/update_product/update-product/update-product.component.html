@@ -37,7 +37,8 @@
                     <button (click)="selectProduct(product)">تعديل</button>
                     <button (click)="deleteProduct(product.id)">حذف</button>
                   </td>
-            
+                  
+              
             </tr>
           }
         </tbody>
@@ -61,9 +62,13 @@
             <input type="number" [(ngModel)]="selectedProduct.quantity" name="quantity" required />
           </label><br />
           <label>الصورة:
-            <input type="file" (change)="onImageSelected($event)" />
-          </label><br />
-          <img *ngIf="selectedProduct?.imagePath" [src]="selectedProduct.imagePath" class="preview-img" />
+            <input type="file" (change)="onImageSelected($event)"  />
+          </label>
+          <br />
+          @if (selectedProduct?.imagePath) {
+            <img [src]="'http://localhost:5208/' +  selectedProduct.imagePath" class="preview-img" />
+          }
+          
   
           <button type="submit">حفظ</button>
           <button type="button" (click)="cancelEdit()">إلغاء</button>
