@@ -11,13 +11,14 @@ import { TruncatePipe } from '../../pipes/truncate.pipe';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Cart2Service } from '../../services/cart2.service/cart2.service';
+import { SpinnerComponent } from "../spinner/spinner.component";
 
 
 @Component({
 
   selector: 'app-home,TruncatePipe',
   standalone: true,
-  imports: [NavebarComponent,RouterModule,FormsModule],
+  imports: [NavebarComponent, RouterModule, FormsModule, SpinnerComponent],
   templateUrl:'./home.component.html',
   styleUrl: './home.component.css',
 
@@ -25,6 +26,7 @@ import { Cart2Service } from '../../services/cart2.service/cart2.service';
 export class HomeComponent {
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   searchQuery: string = '';
+  loading:boolean=false;
     // Store only a single product
   errorMessage: string = '';
   products: Product[] = [];
@@ -50,6 +52,7 @@ export class HomeComponent {
   }
 
   search() {
+    this.loading=true;
     this.errorMessage = '';
       // Reset previous result
 
@@ -57,6 +60,7 @@ export class HomeComponent {
     if (this.searchQuery.trim()) {
       this.productsrvice.searchProduct(this.searchQuery).subscribe({
         next: (data) => {
+          this.loading=false;
            if (data) {
             this.products = data;  // Store the product
           } else {
@@ -64,6 +68,7 @@ export class HomeComponent {
           }
         },
         error: (err) => {
+          this.loading=false;
           console.error('Error fetching product', err);
           this.errorMessage = ` لا توجد نتائج ل ${this.searchQuery}`;
         }
@@ -77,9 +82,13 @@ export class HomeComponent {
 
 
   getProducts() {
+    this.loading=true;
     this.productsrvice
       .getAllProducts()
-      .subscribe((data) => (this.products = data));
+      .subscribe((data) => {
+        this.loading=false;
+        this.products = data
+      });
 
 
   }

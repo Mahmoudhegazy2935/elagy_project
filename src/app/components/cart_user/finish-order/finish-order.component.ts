@@ -41,7 +41,7 @@
 //   // Option 1: If using localStorage
 //   this.cartProducts = JSON.parse(localStorage.getItem('cart')!) || [];
 
- 
+
 
 //   if (this.speicalLocation) {
 //     this.loadNearbyPharmacies();
@@ -70,7 +70,7 @@
 //       quantity: item.amount,
 //     };
 //   });
-  
+
 //   let fullAddress = this.secondLocation // جديد
 //   ? `${this.secondLocation} - ${this.userAddress}` // جديد
 //   : this.userAddress; // جديد
@@ -84,7 +84,7 @@
 //   status: "قيد المعالجة",
 //   items: items
 // };
-  
+
 //   // Show confirmation popup before sending
 //   Swal.fire({
 //     title: 'تأكيد الطلب',
@@ -213,6 +213,7 @@ export class FinishOrderComponent {
   constructor(private cart2Service: Cart2Service, private router: Router, private http: HttpClient) { }
 
   cartProducts: any[] = [];
+  loading:boolean=false;
   userAddress1:string='';
   userName: string = '';
   userAddress: string = '';
@@ -242,8 +243,8 @@ export class FinishOrderComponent {
   updateSecondLocationsList() {
     const locationsMap: { [key: string]: string[] } = {
       'نجع حمادي': ['شارع أحمد شوقي', 'حي السلام', 'المنطقة الصناعية'],
-      'قنا': ['حي الكوثر', 'شارع البحر', 'شارع الثورة'],
-      'دشنا': ['الحي الشرقي', 'شارع الجيش'],
+      'قنا': ['الشؤون', 'المساكن', 'البانزيون','السيد','حوض عشرة','المعبر'],
+      'دشنا': ['كوبري الجبانة', 'كوبري حلاوة','المركز'],
       'اولاد عمرو': ['الشارع العام', 'حي المعلمين'],
       'الوقف': ['حي النور', 'شارع 15 مايو']
     };
@@ -254,11 +255,13 @@ export class FinishOrderComponent {
   }
 
   loadNearbyPharmacies() {
+    this.loading=true;
     if (!this.speicalLocation) return;
 
     const addressEncoded = encodeURIComponent(this.speicalLocation);
     this.http.get<Pharmacy[]>(`http://localhost:5208/api/Pharmacy/Nearby?Address=${addressEncoded}`)
       .subscribe(data => {
+        this.loading=false;
         this.nearbyPharmacies = data;
         console.log('Nearby Pharmacies:', this.nearbyPharmacies);
       });

@@ -6,11 +6,12 @@ import { RouterModule } from '@angular/router';
 import { Roshta } from '../../../models/roshta';
 import Swal from 'sweetalert2';
 import { Subject, takeUntil, timer } from 'rxjs';
+import { SpinnerComponent } from "../../spinner/spinner.component";
 
 @Component({
   selector: 'app-pharmacy-roshta',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule],
+  imports: [RouterModule, FormsModule, CommonModule, SpinnerComponent],
   templateUrl: './pharmacy-roshta.component.html',
   styleUrl: './pharmacy-roshta.component.css'
 })
@@ -23,6 +24,7 @@ export class PharmacyRoshtaComponent {
   expandedRoshtaIds: number[] = [];
   acceptedRoshtas: any[] = [];
   showAccepted = false;
+  loading:boolean=false;
   selectedStreet: string = ''; // الشارع المختار
   streetsForArea: string[] = []; // شوارع المركز المختار
 
@@ -31,8 +33,8 @@ export class PharmacyRoshtaComponent {
   // خريطة الشوارع حسب المركز
   locationsMap: { [key: string]: string[] } = {
     'نجع حمادي': ['شارع أحمد شوقي', 'حي السلام', 'المنطقة الصناعية'],
-    'قنا': ['حي الكوثر', 'شارع البحر', 'شارع الثورة'],
-    'دشنا': ['الحي الشرقي', 'شارع الجيش'],
+    'قنا': ['الشؤون', 'المساكن', 'البانزيون','السيد','حوض عشرة','المعبر'],
+    'دشنا': ['كوبري الجبانة', 'كوبري حلاوة','المركز'],
     'اولاد عمرو': ['الشارع العام', 'حي المعلمين'],
     'الوقف': ['حي النور', 'شارع 15 مايو']
   };
@@ -40,6 +42,7 @@ export class PharmacyRoshtaComponent {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
+    this.loading=true;
     // تحميل شوارع المركز
     this.streetsForArea = this.locationsMap[this.deliveryArea || ''] || [];
 
@@ -48,6 +51,7 @@ export class PharmacyRoshtaComponent {
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.http.get<Roshta[]>('http://localhost:5208/api/Roshta').subscribe(data => {
+        this.loading=false;
           const now = new Date();
           const updatedRoshtas: Roshta[] = [];
 
@@ -137,7 +141,9 @@ export class PharmacyRoshtaComponent {
   }
 
   refreshRoshtas(): void {
+    this.loading=true;
     this.http.get<Roshta[]>('http://localhost:5208/api/Roshta').subscribe(data => {
+      this.loading=false;
       this.roshtas = data.filter(order => {
         const mainStreet = this.getMainStreet(order.address);
         return order.speicalLocation === this.deliveryArea &&

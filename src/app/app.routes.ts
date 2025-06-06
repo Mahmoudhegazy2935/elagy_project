@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { LoginPageComponent } from './components/login_pages/user-login/login-page.component';
 import { IntroPageComponent } from './components/intro-page/intro-page.component';
-import { PharmacyLoginComponent } from './components/login_pages/pharmacy-login/pharmacy-login.component';
 import { registerAppScopedDispatcher } from '@angular/core/primitives/event-dispatch';
 import { RegisterPageComponent } from './components/register/register-page.component';
 import { ForgotThePasswordComponent } from './components/login_pages/forgot_the_password/forgot-the-password/forgot-the-password.component';
@@ -27,41 +26,49 @@ import { AddproductComponent } from './components/admin/homeAdmin/AddProduct/add
 import { PharmacyAdminsregisterComponent } from './components/admin/homeAdmin/Pharmacy-admin/PharmacyAdmivComponents/pharmacy-adminsregister/pharmacy-adminsregister.component';
 import { PharmaciesWithUsComponent } from './components/admin/homeAdmin/Pharmacies with us/pharmacies-with-us/pharmacies-with-us.component';
 import { UpdateProductComponent } from './components/admin/homeAdmin/update_product/update-product/update-product.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+import { AuthGuard } from './guards/auth.guard';
+import { PharmacyGuard } from './guards/pharmacy.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 
 export const routes: Routes = [
 
-  {path:'',component: IntroPageComponent},
-  // {path:'',component: PharmacyHomeComponent},
-  {path:'intro',component: IntroPageComponent},
-
-  {path:'home', component: HomeComponent},
-  { path: 'userhome/:id', component: SinglProductComponent },
-  { path: 'product/:name', component: SinglProductComponent },
-  {path:'pharmacy_login', component: PharmacyLoginComponent},
-  { path: 'login', component: LoginPageComponent},
-  { path: 'register', component: RegisterPageComponent},
+  // Public
+  { path: '', component: IntroPageComponent },
+  { path: 'intro', component: IntroPageComponent },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'register', component: RegisterPageComponent },
   { path: 'forgot_the_password', component: ForgotThePasswordComponent, title: 'forgot_the_password' },
-  { path: 'cart', component: CartComponent },
-  {path:'HomeAdminComponent', component: HomeAdminComponent, title: 'admin'},
+  { path: 'PharmacyRegistration', component: PharmacyRegistrationComponent, title: 'Pharmacy-Registration' },
 
-  {path:'PharmacyListComponent',component:PharmacyListComponent,title:'PharmacyList'},
-  {path:'UsirAdmin',component:UsirAdminComponentComponent,title:'usar admin'},
+  // User
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'userhome/:id', component: SinglProductComponent, canActivate: [AuthGuard] },
+  { path: 'product/:name', component: SinglProductComponent, canActivate: [AuthGuard] },
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
+  { path: 'finsh_ordre', component: FinishOrderComponent, canActivate: [AuthGuard], title: 'finsh_ordre' },
+  { path: 'order_done', component: OrderDoneComponent, canActivate: [AuthGuard] },
+  { path: 'roshta', component: RoshtaComponent, canActivate: [AuthGuard] },
 
-  {path:'finsh_ordre', component: FinishOrderComponent, title: 'finsh_ordre'},
+  // Pharmacy
+  { path: 'pharmacy_home', component: PharmacyHomeComponent, canActivate: [PharmacyGuard] },
+  { path: 'pharmacy_roshta', component: PharmacyRoshtaComponent, canActivate: [PharmacyGuard] },
 
-  {path:'PharmacyRegistration',component:PharmacyRegistrationComponent,title:'Pharmacy-Registration'},
-  {path:'AddPharmacy',component:AddPharmacyComponent},
-  {path:'pharmacy_home',component:PharmacyHomeComponent},
-  {path:'order_done',component:OrderDoneComponent},
-  {path:'orders_admin',component:OrdersAdminComponent},
-  {path:'roshta',component:RoshtaComponent},
-  {path:'pharmacy_roshta',component:PharmacyRoshtaComponent},
-  {path:'Addproduct',component:AddproductComponent},
-  {path:'PharmacyAdminsregister',component:PharmacyAdminsregisterComponent},
+  // Admin
+  { path: 'HomeAdminComponent', component: HomeAdminComponent, canActivate: [AdminGuard], title: 'admin' },
+  { path: 'PharmacyListComponent', component: PharmacyListComponent, canActivate: [AdminGuard], title: 'PharmacyList' },
+  { path: 'UsirAdmin', component: UsirAdminComponentComponent, canActivate: [AdminGuard], title: 'usar admin' },
+  { path: 'AddPharmacy', component: AddPharmacyComponent, canActivate: [AdminGuard] },
+  { path: 'orders_admin', component: OrdersAdminComponent, canActivate: [AdminGuard] },
+  { path: 'Addproduct', component: AddproductComponent, canActivate: [AdminGuard] },
+  { path: 'PharmacyAdminsregister', component: PharmacyAdminsregisterComponent, canActivate: [AdminGuard] },
+  { path: 'PharmaciesWithUsComponent', component: PharmaciesWithUsComponent, canActivate: [AdminGuard] },
+  { path: 'UpdateProductComponent', component: UpdateProductComponent, canActivate: [AdminGuard] },
 
-{path:'PharmaciesWithUsComponent',component:PharmaciesWithUsComponent},
-
-{path:'UpdateProductComponent',component:UpdateProductComponent}
+  // Error handling
+  { path: 'unauthorized', component: UnauthorizedComponent },
+  { path: '**', component: NotFoundComponent }
 
 ];

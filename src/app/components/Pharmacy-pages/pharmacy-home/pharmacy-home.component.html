@@ -45,7 +45,7 @@
     @if ((showAccepted ? acceptedOrders : getFilteredOrders()).length === 0) {
       <span class="badge bg-secondary text-dark m-2 p-3">⏰لا توجد طلبات حالياً</span>
     }
-
+    @if (!loading) {
     @for (order of showAccepted ? acceptedOrders : getFilteredOrders(); track $index) {
       <div class="card mb-4 shadow-sm  rounded">
         <div class="card-body">
@@ -89,6 +89,10 @@
           }
         </div>
       </div>
-    }
+    }}
+    @if (loading) {
+    <div class="text-center w-100">
+      <app-spinner></app-spinner>
+    </div>}
   </div>
 </div>

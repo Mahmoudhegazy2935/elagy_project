@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PharmacyLoginComponent } from './pharmacy-login.component';
+import { NotFoundComponent } from './not-found.component';
 
-describe('PharmacyLoginComponent', () => {
-  let component: PharmacyLoginComponent;
-  let fixture: ComponentFixture<PharmacyLoginComponent>;
+describe('NotFoundComponent', () => {
+  let component: NotFoundComponent;
+  let fixture: ComponentFixture<NotFoundComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PharmacyLoginComponent]
+      imports: [NotFoundComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PharmacyLoginComponent);
+    fixture = TestBed.createComponent(NotFoundComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

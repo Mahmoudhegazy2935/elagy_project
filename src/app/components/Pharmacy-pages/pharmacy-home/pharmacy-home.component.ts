@@ -222,11 +222,12 @@ import { Observable, Subject, takeUntil, timer } from 'rxjs';
 import { Order } from '../../../models/order.model';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { SpinnerComponent } from "../../spinner/spinner.component";
 
 @Component({
   selector: 'app-pharmacy-home',
   standalone: true,
-  imports: [CommonModule, RouterModule,FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, SpinnerComponent],
   templateUrl: './pharmacy-home.component.html',
   styleUrl: './pharmacy-home.component.css'
 })
@@ -239,14 +240,15 @@ export class PharmacyHomeComponent {
   expandedOrderIds: number[] = [];
   acceptedOrders: Order[] = [];
   showAccepted: boolean = false;
+  loading:boolean=false;
   private destroy$ = new Subject<void>();
 
   selectedStreet: string = '';
 
   locationsMap: { [key: string]: string[] } = {
     'نجع حمادي': ['شارع أحمد شوقي', 'حي السلام', 'المنطقة الصناعية'],
-    'قنا': ['حي الكوثر', 'شارع البحر', 'شارع الثورة'],
-    'دشنا': ['الحي الشرقي', 'شارع الجيش'],
+    'قنا': ['الشؤون', 'المساكن', 'البانزيون','السيد','حوض عشرة','المعبر'],
+    'دشنا': ['كوبري الجبانة', 'كوبري حلاوة','المركز'],
     'اولاد عمرو': ['الشارع العام', 'حي المعلمين'],
     'الوقف': ['حي النور', 'شارع 15 مايو']
   };
@@ -258,10 +260,12 @@ export class PharmacyHomeComponent {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
+    this.loading=true;
     timer(0, 10000)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.http.get<Order[]>('http://localhost:5208/api/Cart').subscribe(data => {
+          this.loading=false;
           data.forEach(order => {
             if (
               order.speicalLocation === this.deliveryArea &&
@@ -353,7 +357,9 @@ export class PharmacyHomeComponent {
   }
 
   refreshOrders(): void {
+    this.loading=true;
     this.http.get<any[]>('http://localhost:5208/api/Cart').subscribe(data => {
+      this.loading=false;
       this.orders = data
         .filter(order =>
           order.speicalLocation === this.deliveryArea &&

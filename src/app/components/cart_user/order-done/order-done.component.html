@@ -19,25 +19,30 @@
       <div class="card p-3 shadow-sm">
         <h5 class="mb- text-center">الصيدليات القريبة منك</h5>
         <hr>
+        @if (!loading) {
         @for (pharmacy of nearbyPharmacies; track $index) {
           <div style="font-size: 20px;" class="btn btn-outline-primary w-100 mb-2">
             {{ pharmacy.name }}
             <p style="color: black; font-size: 15px;">العنوان : {{pharmacy.location}}</p>
             <p style="color: black; font-size: 15px;">الهاتف : {{pharmacy.phoneNumber}}</p>
           </div>
-        }
+        }}
+        @if (loading) {
+        <div class="text-center w-100">
+          <app-spinner></app-spinner>
+        </div>}
       </div>
     </div>
-  
+
     <!-- Main Content Area -->
     <div class="col-md-8">
-  
+
       @if (orders.length == 0 && roshtas.length == 0) {
         <div class="alert alert-warning text-center">
           لا يوجد منتجات
         </div>
       }
-  
+      @if (!loading) {
       @if (orders.length > 0) {
         @for (order of orders; track $index) {
           <div class="card mb-4 p-3 shadow rounded" style="background-color: #f9f9f9;">
@@ -45,7 +50,7 @@
             <p class="mb-3">{{ userAddress }}</p>
             <hr>
             <h6>📦 منتجات الشحنة</h6>
-  
+
             <div class="row">
               @for (item of order.items; track $index) {
                 <div class="col-md-6 mb-3">
@@ -57,15 +62,20 @@
                 </div>
               }
             </div>
-  
+
             <hr>
             <p><b>💰 السعر الإجمالي:</b> {{ getTotal(order.items) }} جنيه</p>
             <p><b>🚚 سعر الشحن:</b> حتى 20 جنيه </p>
-            <p><b>📌 الحالة:</b> {{ order.status }} - سيتم التواصل معك</p>
+            @if (order.status ==='قيد المعالجة') {
+            <p><b>📌 الحالة:</b>  {{ order.status }} - سيتم التواصل معك</p>
+            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            }@else {
+              <p><b>📌 الحالة:</b>  {{ order.status }} - سيتم التواصل معك</p>
+            }
           </div>
         }
       }
-  
+
       @if (roshtas.length > 0) {
         @for (roshta of roshtas; track $index) {
           <div class="card mb-4 p-3 shadow rounded" style="background-color: #f9f9f9;">
@@ -84,16 +94,25 @@
                 <p class="mt-1 text-muted small">📷 اضغط على الصورة لتكبيرها</p>
               </div>
             </div>
-  
+
             <hr>
             <p><b>💰 السعر الإجمالي:</b> {{ roshta.price }} جنيه</p>
             <p><b>🚚 سعر الشحن:</b> حتى 20 جنيه </p>
-            <p><b>📌 الحالة:</b> {{ roshta.status }} - سيتم التواصل معك</p>
+             @if (roshta.status ==='قيد المعالجة') {
+            <p><b>📌 الحالة:</b>  {{ roshta.status }} - سيتم التواصل معك</p>
+            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            }@else {
+              <p><b>📌 الحالة:</b>  {{ roshta.status }} - سيتم التواصل معك</p>
+            }
           </div>
         }
       }
-  
+    }
+    @if (loading) {
+        <div class="text-center w-100">
+          <app-spinner></app-spinner>
+        </div>}
     </div>
   </div>
-  
+
 </div>

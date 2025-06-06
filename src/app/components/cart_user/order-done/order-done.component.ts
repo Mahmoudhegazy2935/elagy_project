@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { Roshta } from '../../../models/roshta';
 import Swal from 'sweetalert2';
 import { Subject, switchMap, takeUntil, timer } from 'rxjs';
+import { SpinnerComponent } from "../../spinner/spinner.component";
 
 
 interface Pharmacy {
@@ -20,7 +21,7 @@ interface Pharmacy {
 @Component({
   selector: 'app-order-done',
   standalone: true,
-  imports: [NavebarComponent,RouterModule],
+  imports: [NavebarComponent, RouterModule, SpinnerComponent],
   templateUrl: './order-done.component.html',
   styleUrl: './order-done.component.css'
 })
@@ -28,7 +29,7 @@ export class OrderDoneComponent implements OnInit ,OnDestroy{
   orders: Order[] = [];
   roshtas: Roshta[] = [];
   orders_apper:boolean=true;
-
+  loading:boolean=false;
   nearbyPharmacies: Pharmacy[] = [];
   savedInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
   userName = this.savedInfo.userName || '';
@@ -43,7 +44,7 @@ export class OrderDoneComponent implements OnInit ,OnDestroy{
 
   ngOnInit(): void {
     this.loadNearbyPharmacies();
-    timer(0, 10000) // start immediately, repeat every 15s
+    timer(0, 100000) // start immediately, repeat every 15s
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.loadOrders();   // Just call the functions
@@ -61,8 +62,10 @@ ngOnDestroy(): void {
 
 
   loadOrders() {
+    this.loading=true;
     const today = new Date();
     this.http.get<Order[]>('http://localhost:5208/api/Cart').subscribe(data => {
+        this.loading=false;
       this.orders = data.filter(order => {
         const orderDate = new Date(order.date);
         return order.userName.trim() === this.userName.trim() &&
@@ -73,10 +76,12 @@ ngOnDestroy(): void {
       });
     });
   }
-  
+
   loadRoshtas() {
+        this.loading=true;
     const today = new Date();
     this.http.get<Roshta[]>('http://localhost:5208/api/Roshta').subscribe(data => {
+        this.loading=false;
       this.roshtas = data.filter(roshta => {
         const roshtaDate = new Date(roshta.date);
         return roshta.userName.trim() === this.userName.trim() &&
@@ -87,13 +92,15 @@ ngOnDestroy(): void {
       });
     });
   }
-  
+
 
 
   loadNearbyPharmacies() {
+        this.loading=true;
     const addressEncoded = encodeURIComponent(this.speicalLocation);
     this.http.get<Pharmacy[]>(`http://localhost:5208/api/Pharmacy/Nearby?Address=${addressEncoded}`)
       .subscribe(data => {
+        this.loading=false;
         this.nearbyPharmacies = data;
       });
   }
