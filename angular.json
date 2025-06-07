@@ -23,7 +23,11 @@
                 "glob": "**/*",
                 "input": "public"
               },
-              { "glob": "**/*", "input": "src/assets/", "output": "/assets/" }
+              {
+                "glob": "**/*",
+                "input": "src/assets/",
+                "output": "/assets/"
+              }
             ],
             "styles": ["src/styles.css"],
             "scripts": []
@@ -33,13 +37,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
                 }
               ],
               "outputHashing": "all"
