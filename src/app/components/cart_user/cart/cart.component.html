@@ -1,81 +1,85 @@
 <br>
-
 <app-navebar></app-navebar>
 
+<div class="cartBox w-100 px-3 px-md-5 mx-auto" dir="rtl">
+  <h1 class="text-danger">عربة التسوق</h1>
 
-
-<div class="cartBox w-75 mx-auto" dir="rtl">
-    <h1 class="text-danger">عربة التسوق</h1>
-
-  <div class="headCart">
-    <p class="lead">لديك <label class="text-danger ">{{cartProducts.length}}</label> من المنتجات في عربة التسوق</p>
-    @if (cartProducts.length>0) {
-    <span class="text-danger card-header" (click)="clearCart()">حذف الجميع</span>
+  <div class="headCart d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
+    <p class="lead mb-2 mb-md-0">
+      لديك <label class="text-danger">{{ cartProducts.length }}</label> من المنتجات في عربة التسوق
+    </p>
+    @if (cartProducts.length > 0) {
+      <span class="text-danger card-header cursor-pointer" (click)="clearCart()">حذف الجميع</span>
     }
   </div>
-  <button class="btn btn-primary mb-3" [routerLink]="['/order_done']">تابع طلبك </button>
 
-  @if (cartProducts.length>0) {
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead class="text-nowrap">
-              <tr>
-                <th></th>
-                <th>الاسم</th>
-                <th style="width: 25%;">السعر</th>
-                <th style="width: 25%;">الكمية</th>
-                <th>السعر الكلي</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (item of cartProducts; track $index) {
-                <tr>
-                  <td><img [src]="'https://elagy-apii.runasp.net/' + item.imagePath" alt="" style="max-width: 60px;"></td>
-                  <td>{{ item.name }}</td>
-                  <td>{{ item.price }} جنيه</td>
-                  <td>
-                    <div class="d-flex align-items-center gap-2">
-                      <button class="btn btn-dark btn-sm" (click)="addAmount($index)">+</button>
-                      <input class="form-control form-control-sm w-50" type="number" (change)="detectChange()" [(ngModel)]="item.amount" min="1">
-                      <button class="btn btn-dark btn-sm" (click)="minsAmount($index)">-</button>
-                    </div>
-                  </td>
-                  <td>{{ item.price * item.amount }} جنية</td>
-                  <td>
-                    <button class="btn btn-danger btn-sm" (click)="deleteProduct($index)">حذف</button>
-                  </td>
-                </tr>
+  <button class="btn btn-primary mb-3" [routerLink]="['/order_done']">تابع طلبك</button>
+
+  @if (cartProducts.length > 0) {
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered align-middle text-center w-100">
+        <thead class="table-light text-nowrap">
+          <tr>
+            <th></th>
+            <th>الاسم</th>
+            <th style="min-width: 100px;">السعر</th>
+            <th style="min-width: 120px;">الكمية</th>
+            <th style="min-width: 120px;">السعر الكلي</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of cartProducts; track $index) {
+            <tr>
+              <td><img [src]="'https://elagy-apii.runasp.net/' + item.imagePath" alt="" style="max-width: 60px;"></td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.price }} جنيه</td>
+              <td>
+                <div class="d-flex align-items-center justify-content-center gap-2">
+                  <button class="btn btn-dark btn-sm" (click)="addAmount($index)">+</button>
+                  <input class="form-control form-control-sm text-center" style="width: 60px;" type="number"
+                    (change)="detectChange()" [(ngModel)]="item.amount" min="1">
+                  <button class="btn btn-dark btn-sm" (click)="minsAmount($index)">-</button>
+                </div>
+              </td>
+              <td>{{ item.price * item.amount }} جنية</td>
+              <td>
+                <button class="btn btn-danger btn-sm" (click)="deleteProduct($index)">حذف</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="4" class="text-end">السعر الكلي:</th>
+            <th>{{ total }} جنية</th>
+            <th>
+              @if (cartProducts.length > 0) {
+                <button class="btn btn-success w-100" [routerLink]="['/finsh_ordre']" (click)="addCart()">اكمال الطلب</button>
+              } @else {
+                <button class="btn btn-success w-100" [routerLink]="['/home']">اذهب لتتسوق</button>
               }
-            </tbody>
-            <tfoot>
-              <tr>
-                <th colspan="4" class="text-end">السعر الكلي :</th>
-                <th>{{ total }} جنية</th>
-                <th>
-                  @if (cartProducts.length > 0) {
-                    <button class="btn btn-success w-100" [routerLink]="['/finsh_ordre']" (click)="addCart()">اكمال الطلب</button>
-                  } @else {
-                    <button class="btn btn-success w-100" [routerLink]="['/home']">اذهب لتتسوق</button>
-                  }
-                </th>
-              </tr>
-            </tfoot>
-          </table>
+            </th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  } @else {
+    <div class="empty-cart-wrapper">
+      <div class="empty-cart text-center">
+        <div class="empty-content">
+          <img src="assets/empty-cart-icon.png" width="120" height="120" alt="empty-icon">
+          <h2>سلة التسوق فارغة</h2>
+          <button class="btn btn-primary mb-3" [routerLink]="['/home']">اذهب لتتسوق</button>
         </div>
-
-      }@else {
-        <div class="empty-cart-wrapper" >
-          <div class="empty-cart text-center">
-            <div class="empty-content">
-              <img src="assets/empty-cart-icon.png" width="120" height="120" alt="empty-icon">
-              <h2>سلة التسوق فارغة</h2>
-              <button class="btn btn-primary mb-3" [routerLink]="['/home']">اذهب لتتسوق</button>
-            </div>
-          </div>
-        </div>
-      }
+      </div>
+    </div>
+  }
 
 </div>
+
 @if (success) {
-<div class="alert alert-success" role="alert" ><strong>Well done!</strong> Your Order is Successfully Send</div>}
+  <div class="alert alert-success mt-3" role="alert">
+    <strong>تم بنجاح!</strong> تم إرسال طلبك بنجاح
+  </div>
+}
