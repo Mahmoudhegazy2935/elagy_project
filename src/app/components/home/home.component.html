@@ -60,7 +60,7 @@
               <div>
 
                 <video width="640" height="360" controls autoplay  (click)="showVideo = false">
-                  <source src="assets/mm.mp4" type="video/mp4">
+                  <source src="assets/mmm.mp4" type="video/mp4">
                   المتصفح لا يدعم تشغيل الفيديو.
                 </video>
               </div>}@else {
@@ -98,7 +98,7 @@
               <div class="card mx-2" style="min-width: 220px; flex: 0 0 auto;">
                 <a [routerLink]="['/userhome/', product.id]">
                   <div class="contImg">
-                    <img [src]="'http://localhost:5208/' + product.imagePath" class="card-img-top" height="150" alt="{{product.name}}">
+                    <img [src]="'https://elagy-apii.runasp.net/' + product.imagePath" class="card-img-top" height="150" alt="{{product.name}}">
                   </div>
                 </a>
                 <div class="card-body text-center">
@@ -148,7 +148,7 @@
 
                   <a href="" [routerLink]="['/product/', product.name]">
                     <div class="contImg" >
-                      <img [src]="'http://localhost:5208/' + product.imagePath" class="card-img-top" width="150px" height="150px" alt="{{product.name}}">
+                      <img [src]="'https://elagy-apii.runasp.net/' + product.imagePath" class="card-img-top" width="150px" height="150px" alt="{{product.name}}">
                     </div>
                   </a>
 

@@ -63,7 +63,7 @@ export class UpdateProductComponent {
       formData.append('image', this.selectedImageFile);
     } else {
       // أرسل مسار الصورة القديمة
-      formData.append('imagePath', 'http://localhost:5208/' +this.selectedProduct.imagePath || '');
+      formData.append('imagePath', 'https://elagy-apii.runasp.net/' +this.selectedProduct.imagePath || '');
     }
   
     this.productService.updateProduct(this.selectedProduct.id, formData).subscribe({

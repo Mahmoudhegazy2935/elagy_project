@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class UsirAdminServicesService {
 
-  private baseUrl = 'http://localhost:5208/api/User/user';
- private daleteUrl='http://localhost:5208/api/User';
+  private baseUrl = 'https://elagy-apii.runasp.net/api/User/user';
+ private daleteUrl='https://elagy-apii.runasp.net/api/User';
   constructor(private http: HttpClient) {}
 
   getuser(): Observable<UsirAdminModels[]> {

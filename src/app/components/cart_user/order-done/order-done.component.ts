@@ -64,7 +64,7 @@ ngOnDestroy(): void {
   loadOrders() {
     this.loading=true;
     const today = new Date();
-    this.http.get<Order[]>('http://localhost:5208/api/Cart').subscribe(data => {
+    this.http.get<Order[]>('https://elagy-apii.runasp.net/api/Cart').subscribe(data => {
         this.loading=false;
       this.orders = data.filter(order => {
         const orderDate = new Date(order.date);
@@ -80,7 +80,7 @@ ngOnDestroy(): void {
   loadRoshtas() {
         this.loading=true;
     const today = new Date();
-    this.http.get<Roshta[]>('http://localhost:5208/api/Roshta').subscribe(data => {
+    this.http.get<Roshta[]>('https://elagy-apii.runasp.net/api/Roshta').subscribe(data => {
         this.loading=false;
       this.roshtas = data.filter(roshta => {
         const roshtaDate = new Date(roshta.date);
@@ -98,7 +98,7 @@ ngOnDestroy(): void {
   loadNearbyPharmacies() {
         this.loading=true;
     const addressEncoded = encodeURIComponent(this.speicalLocation);
-    this.http.get<Pharmacy[]>(`http://localhost:5208/api/Pharmacy/Nearby?Address=${addressEncoded}`)
+    this.http.get<Pharmacy[]>(`https://elagy-apii.runasp.net/api/Pharmacy/Nearby?Address=${addressEncoded}`)
       .subscribe(data => {
         this.loading=false;
         this.nearbyPharmacies = data;
@@ -113,7 +113,7 @@ ngOnDestroy(): void {
     if (!imagePath) return;
 
     Swal.fire({
-      imageUrl: `http://localhost:5208/${imagePath}`,
+      imageUrl: `https://elagy-apii.runasp.net/${imagePath}`,
       imageAlt: 'صورة الروشتة',
       showCloseButton: true,
       confirmButtonText: 'إغلاق',

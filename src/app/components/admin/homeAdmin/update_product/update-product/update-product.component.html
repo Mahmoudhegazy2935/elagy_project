@@ -27,7 +27,7 @@
         <tbody>
           @for (product of products; track product.id) {
             <tr>
-              <td><img [src]="'http://localhost:5208/' + product.imagePath"  alt="صورة المنتج" /></td>
+              <td><img [src]="'https://elagy-apii.runasp.net' + product.imagePath"  alt="صورة المنتج" /></td>
               <td>{{ product.name }}</td>
               <td>{{ product.description }}</td>
               <td>{{ product.price }} ج</td>
@@ -66,7 +66,7 @@
           </label>
           <br />
           @if (selectedProduct.imagePath) {
-            <img [src]="'http://localhost:5208/' +  selectedProduct.imagePath" class="preview-img" />
+            <img [src]="'https://elagy-apii.runasp.net/' +  selectedProduct.imagePath" class="preview-img" />
           }
 
 

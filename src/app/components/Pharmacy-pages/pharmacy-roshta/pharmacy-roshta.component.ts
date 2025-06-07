@@ -50,7 +50,7 @@ export class PharmacyRoshtaComponent {
     timer(0, 10000)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        this.http.get<Roshta[]>('http://localhost:5208/api/Roshta').subscribe(data => {
+        this.http.get<Roshta[]>('https://elagy-apii.runasp.net/api/Roshta').subscribe(data => {
         this.loading=false;
           const now = new Date();
           const updatedRoshtas: Roshta[] = [];
@@ -68,7 +68,7 @@ export class PharmacyRoshtaComponent {
             ) {
               if (diffInHours > 3) {
                 const updated = { ...roshta, status: 'نأسف لاتوجد استجابة' };
-                this.http.put(`http://localhost:5208/api/Roshta/${roshta.id}`, { status: updated.status })
+                this.http.put(`https://elagy-apii.runasp.net/api/Roshta/${roshta.id}`, { status: updated.status })
                   .subscribe(() => {
                     console.log(`Roshta ${roshta.id} updated due to timeout`);
                     this.refreshRoshtas(); // إعادة التحميل بعد التحديث
@@ -113,7 +113,7 @@ export class PharmacyRoshtaComponent {
       price: enteredPrice
     };
 
-    this.http.put(`http://localhost:5208/api/Roshta/${orderId}`, updatedStatus)
+    this.http.put(`https://elagy-apii.runasp.net/api/Roshta/${orderId}`, updatedStatus)
       .subscribe({
         next: () => {
           const roshta = this.roshtas.find(r => r.id === orderId);
@@ -142,7 +142,7 @@ export class PharmacyRoshtaComponent {
 
   refreshRoshtas(): void {
     this.loading=true;
-    this.http.get<Roshta[]>('http://localhost:5208/api/Roshta').subscribe(data => {
+    this.http.get<Roshta[]>('https://elagy-apii.runasp.net/api/Roshta').subscribe(data => {
       this.loading=false;
       this.roshtas = data.filter(order => {
         const mainStreet = this.getMainStreet(order.address);
@@ -191,7 +191,7 @@ export class PharmacyRoshtaComponent {
 
   openImage(imagePath: string): void {
     Swal.fire({
-      imageUrl: `http://localhost:5208/${imagePath}`,
+      imageUrl: `https://elagy-apii.runasp.net/${imagePath}`,
       imageAlt: 'صورة الروشتة',
       showCloseButton: true,
       confirmButtonText: 'إغلاق',
