@@ -44,7 +44,7 @@ export class OrderDoneComponent implements OnInit ,OnDestroy{
 
   ngOnInit(): void {
     this.loadNearbyPharmacies();
-    timer(0, 100000) // start immediately, repeat every 15s
+    timer(0, 10000) // start immediately, repeat every 15s
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.loadOrders();   // Just call the functions
