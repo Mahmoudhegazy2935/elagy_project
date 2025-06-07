@@ -16,6 +16,7 @@
   <button class="btn btn-primary mb-3" [routerLink]="['/order_done']">تابع طلبك</button>
 
   @if (cartProducts.length > 0) {
+
     <div class="cart-items">
       <div *ngFor="let item of cartProducts; let i = index" class="card mb-3 p-3 shadow-sm">
         <div class="row align-items-center text-center text-md-start">
@@ -45,6 +46,8 @@
         </div>
       </div>
 
+
+
       <!-- Total and Continue Button -->
       <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-4">
         <h5 class="text-end text-md-start mb-3 mb-md-0">السعر الكلي: <span class="text-danger">{{ total }} جنية</span></h5>
@@ -68,4 +71,6 @@
   <div class="alert alert-success mt-3" role="alert">
     <strong>تم بنجاح!</strong> تم إرسال طلبك بنجاح
   </div>
+
 }
+
