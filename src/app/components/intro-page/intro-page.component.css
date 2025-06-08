@@ -127,7 +127,7 @@ body {
 @media (max-width: 768px) {
   .fullscreen-bg {
     flex-direction: column;
-    height: auto;
+    height: 100%;
     padding: 20px;
   }
 
