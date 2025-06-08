@@ -13,8 +13,8 @@ export class PharmacyAdminServicesService {
   }
 
 
-  private baseUrl = 'http://localhost:5208/api/Pharmacy';
-  private apiUrl2='http://localhost:5208/api/User/Pharmacies'; // GET Pharmacy
+  private baseUrl = 'https://elagy-apii.runasp.net/api/Pharmacy';
+  private apiUrl2='https://elagy-apii.runasp.net/api/User/Pharmacies'; // GET Pharmacy
   constructor(private http: HttpClient) {}
 
   getPharmacies(): Observable<PharmacyAdminModels[]> {

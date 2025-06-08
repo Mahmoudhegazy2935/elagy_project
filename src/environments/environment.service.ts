@@ -1,4 +1,4 @@
 export const environment = {
-  baseApi:"http://localhost:5208/api/",
+  baseApi:"https://elagy-apii.runasp.net/api/",
   production: false
 };

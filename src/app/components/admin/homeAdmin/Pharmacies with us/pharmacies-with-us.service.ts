@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PharmaciesWithUsService {
-  private baseUrl='http://localhost:5208/api/User/Pharmacies';
+  private baseUrl='https://elagy-apii.runasp.net/api/User/Pharmacies';
   constructor(private http: HttpClient) {}
 
   getuser(): Observable<UsirAdminModels[]> {

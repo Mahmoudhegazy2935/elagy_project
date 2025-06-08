@@ -22,7 +22,7 @@ export class OrdersAdminComponent {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<Order[]>('http://localhost:5208/api/Cart').subscribe(data => {
+    this.http.get<Order[]>('https://elagy-apii.runasp.net/api/Cart').subscribe(data => {
       // Only load accepted orders
       this.orders = data.filter(order => order.status === 'تم القبول');
       this.filteredOrders = [...this.orders]; // default to all

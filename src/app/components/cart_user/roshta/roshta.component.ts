@@ -129,7 +129,7 @@ export class RoshtaComponent {
           .set('Status', 'قيد المعالجة')
           .set('price', this.price.toString());
 
-        this.http.post('http://localhost:5208/api/Roshta', formData, { params }).subscribe({
+        this.http.post('https://elagy-apii.runasp.net/api/Roshta', formData, { params }).subscribe({
           next: res => {
             localStorage.setItem('userInfo', JSON.stringify({
               userName: this.userName,
@@ -186,7 +186,7 @@ export class RoshtaComponent {
 
   loadNearbyPharmacies() {
     const addressEncoded = encodeURIComponent(this.speicalLocation);
-    this.http.get<Pharmacy[]>(`http://localhost:5208/api/Pharmacy/Nearby?Address=${addressEncoded}`)
+    this.http.get<Pharmacy[]>(`https://elagy-apii.runasp.net/api/Pharmacy/Nearby?Address=${addressEncoded}`)
       .subscribe(data => {
         this.nearbyPharmacies = data;
         console.log('Nearby Pharmacies:', this.nearbyPharmacies);

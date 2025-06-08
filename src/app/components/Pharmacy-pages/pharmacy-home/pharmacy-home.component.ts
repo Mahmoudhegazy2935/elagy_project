@@ -264,7 +264,7 @@ export class PharmacyHomeComponent {
     timer(0, 10000)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        this.http.get<Order[]>('http://localhost:5208/api/Cart').subscribe(data => {
+        this.http.get<Order[]>('https://elagy-apii.runasp.net/api/Cart').subscribe(data => {
           this.loading=false;
           data.forEach(order => {
             if (
@@ -272,7 +272,7 @@ export class PharmacyHomeComponent {
               order.status === 'قيد المعالجة' &&
               this.isOlderThan3Hours(order.date)
             ) {
-              this.http.put(`http://localhost:5208/api/Cart/${order.id}`, { status: 'نأسف لاتوجد استجابة' })
+              this.http.put(`https://elagy-apii.runasp.net/api/Cart/${order.id}`, { status: 'نأسف لاتوجد استجابة' })
                 .subscribe(() => {
                   console.log(`Order ${order.id} updated to نأسف لاتوجد استجابة`);
                 });
@@ -327,7 +327,7 @@ export class PharmacyHomeComponent {
   acceptOrder(orderId: number): void {
     const updatedStatus = { status: 'تم القبول' };
 
-    this.http.put(`http://localhost:5208/api/Cart/${orderId}`, updatedStatus).subscribe({
+    this.http.put(`https://elagy-apii.runasp.net/api/Cart/${orderId}`, updatedStatus).subscribe({
       next: () => {
         const order = this.orders.find(o => o.id === orderId);
         if (order) {
@@ -358,7 +358,7 @@ export class PharmacyHomeComponent {
 
   refreshOrders(): void {
     this.loading=true;
-    this.http.get<any[]>('http://localhost:5208/api/Cart').subscribe(data => {
+    this.http.get<any[]>('https://elagy-apii.runasp.net/api/Cart').subscribe(data => {
       this.loading=false;
       this.orders = data
         .filter(order =>

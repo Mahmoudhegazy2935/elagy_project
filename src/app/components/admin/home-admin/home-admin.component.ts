@@ -33,7 +33,7 @@ export class HomeAdminComponent implements OnInit {
         this.pharmaciesWithUsService.getuser().subscribe(data => {
           this.pharmcies=data.length});
 
-          this.http.get<Order[]>('http://localhost:5208/api/Cart').subscribe(data => {
+          this.http.get<Order[]>('https://elagy-apii.runasp.net/api/Cart').subscribe(data => {
               // Only load accepted orders
               this.ordirscount=data.length
             });

@@ -178,7 +178,7 @@
 
 // loadNearbyPharmacies() {
 //   const addressEncoded = encodeURIComponent(this.speicalLocation);
-//   this.http.get<Pharmacy[]>(`http://localhost:5208/api/Pharmacy/Nearby?Address=${addressEncoded}`)
+//   this.http.get<Pharmacy[]>(`https://elagy-apii.runasp.net/api/Pharmacy/Nearby?Address=${addressEncoded}`)
 //     .subscribe(data => {
 //       this.nearbyPharmacies = data;
 //       console.log('Nearby Pharmacies:', this.nearbyPharmacies);
@@ -259,7 +259,7 @@ export class FinishOrderComponent {
     if (!this.speicalLocation) return;
 
     const addressEncoded = encodeURIComponent(this.speicalLocation);
-    this.http.get<Pharmacy[]>(`http://localhost:5208/api/Pharmacy/Nearby?Address=${addressEncoded}`)
+    this.http.get<Pharmacy[]>(`https://elagy-apii.runasp.net/api/Pharmacy/Nearby?Address=${addressEncoded}`)
       .subscribe(data => {
         this.loading=false;
         this.nearbyPharmacies = data;
