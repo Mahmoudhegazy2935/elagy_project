@@ -1,81 +1,71 @@
 <br>
-
 <app-navebar></app-navebar>
 
+<div class="cartBox w-100 px-3 px-md-5 mx-auto" dir="rtl">
+  <h1 class="text-danger">عربة التسوق</h1>
 
-
-<div class="cartBox w-75 mx-auto" dir="rtl">
-    <h1 class="text-danger">عربة التسوق</h1>
-
-  <div class="headCart">
-    <p class="lead">لديك <label class="text-danger ">{{cartProducts.length}}</label> من المنتجات في عربة التسوق</p>
-    @if (cartProducts.length>0) {
-    <span class="text-danger card-header" (click)="clearCart()">حذف الجميع</span>
+  <div class="headCart d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
+    <p class="lead mb-2 mb-md-0">
+      لديك <label class="text-danger">{{ cartProducts.length }}</label> من المنتجات في عربة التسوق
+    </p>
+    @if (cartProducts.length > 0) {
+      <span class="text-danger card-header cursor-pointer" (click)="clearCart()">حذف الجميع</span>
     }
   </div>
-  <button class="btn btn-primary mb-3" [routerLink]="['/order_done']">تابع طلبك </button>
 
-  @if (cartProducts.length>0) {
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th></th>
-                <th>الاسم</th>
-                <th style="width: 25%;">السعر</th>
-                <th style="width: 25%;">الكمية</th>
-                <th>السعر الكلي</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (item of cartProducts; track $index ) {
-            <tr>
-                <td><img [src]="'https://elagy-apii.runasp.net/' + item.imagePath"  alt=""></td>
-                <td>{{item.name}}</td>
-                <td>{{item.price}} جنيه</td>
-                <td>
-                    <div class="quantity">
-                        <button class="btn btn-dark" (click)="addAmount($index)">+</button>
-                        <input class="form-control"  type="number" (change)="detectChange()" [(ngModel)]="item.amount" min="1">
-                        <button class="btn btn-dark" (click)="minsAmount($index)" >-</button>
-                    </div>
-                </td>
-                <td>{{item.price * item.amount}} جنية</td>
-                <td>
-                    <button class="btn btn-danger" (click)="deleteProduct($index)" >حذف</button>
-                </td>
-            </tr>}
+  <button class="btn btn-primary mb-3" [routerLink]="['/order_done']">تابع طلبك</button>
 
-          </tbody>
-          <tfoot>
-            <tr>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th>السعر الكلي : {{total}} جنية</th>
-              <!-- <th><button class="btn btn-success" (click)="addCart()">اتمام الطلب</button></th> -->
-              @if (cartProducts.length > 0) {
-                <th><button class="btn btn-success" [routerLink]="['/finsh_ordre']" (click)="addCart()">اكمال الطلب</button></th>
-              }@else {
-                <th><button class="btn btn-success" [routerLink]="['/home']">اذهب لتتسوق</button></th>
-              }
-
-            </tr>
-          </tfoot>
-        </table>
-      }@else {
-        <div class="empty-cart-wrapper" >
-          <div class="empty-cart text-center">
-            <div class="empty-content">
-              <img src="assets/empty-cart-icon.png" width="120" height="120" alt="empty-icon">
-              <h2>سلة التسوق فارغة</h2>
-              <button class="btn btn-primary mb-3" [routerLink]="['/home']">اذهب لتتسوق</button>
+  @if (cartProducts.length > 0) {
+    <div class="cart-items">
+      <div *ngFor="let item of cartProducts; let i = index" class="card mb-3 p-3 shadow-sm">
+        <div class="row align-items-center text-center text-md-start">
+          <div class="col-12 col-md-2 mb-2 mb-md-0">
+            <img [src]="'https://elagy-apii.runasp.net/' + item.imagePath" alt="" class="img-fluid" style="max-width: 80px;">
+          </div>
+          <div class="col-12 col-md-2">
+            <strong>{{ item.name }}</strong>
+          </div>
+          <div class="col-12 col-md-2">
+            <span>{{ item.price }} جنيه</span>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="d-flex justify-content-center justify-content-md-start align-items-center gap-2">
+              <button class="btn btn-dark btn-sm" (click)="addAmount(i)">+</button>
+              <input class="form-control form-control-sm text-center" style="width: 60px;" type="number"
+                [(ngModel)]="item.amount" (change)="detectChange()" min="1">
+              <button class="btn btn-dark btn-sm" (click)="minsAmount(i)">-</button>
             </div>
           </div>
+          <div class="col-6 col-md-2">
+            <span>{{ item.price * item.amount }} جنيه</span>
+          </div>
+          <div class="col-6 col-md-1">
+            <button class="btn btn-danger btn-sm" (click)="deleteProduct(i)">حذف</button>
+          </div>
         </div>
-      }
+      </div>
 
+      <!-- Total and Continue Button -->
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-4">
+        <h5 class="text-end text-md-start mb-3 mb-md-0">السعر الكلي: <span class="text-danger">{{ total }} جنية</span></h5>
+        <button class="btn btn-success" [routerLink]="['/finsh_ordre']" (click)="addCart()">اكمال الطلب</button>
+      </div>
+    </div>
+  } @else {
+    <div class="empty-cart-wrapper">
+      <div class="empty-cart text-center">
+        <div class="empty-content">
+          <img src="assets/empty-cart-icon.png" width="120" height="120" alt="empty-icon">
+          <h2>سلة التسوق فارغة</h2>
+          <button class="btn btn-primary mb-3" [routerLink]="['/home']">اذهب لتتسوق</button>
+        </div>
+      </div>
+    </div>
+  }
 </div>
+
 @if (success) {
-<div class="alert alert-success" role="alert" ><strong>Well done!</strong> Your Order is Successfully Send</div>}
+  <div class="alert alert-success mt-3" role="alert">
+    <strong>تم بنجاح!</strong> تم إرسال طلبك بنجاح
+  </div>
+}
