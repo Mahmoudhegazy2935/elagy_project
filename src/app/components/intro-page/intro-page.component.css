@@ -10,6 +10,9 @@
   display: flex;
   flex-wrap: wrap;
 }
+.mm{
+  width: 75%;
+}
 
 :host {
   display: flex;
