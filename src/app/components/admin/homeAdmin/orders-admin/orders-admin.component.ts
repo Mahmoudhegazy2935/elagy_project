@@ -29,17 +29,18 @@ export class OrdersAdminComponent {
     });
   }
 
-  filterOrdersByDate(): void {
-    if (!this.selectedDate) {
-      this.filteredOrders = [...this.orders];
-      return;
-    }
-
-    this.filteredOrders = this.orders.filter(order => {
-      const orderDate = new Date(order.date).toISOString().split('T')[0];
-      return orderDate === this.selectedDate;
-    });
+ filterOrdersByDate(): void {
+  if (!this.selectedDate) {
+    this.filteredOrders = [...this.orders];
+    return;
   }
+
+  const selected = this.selectedDate;
+  this.filteredOrders = this.orders.filter(order => {
+    const orderDate = new Date(order.date).toISOString().split('T')[0];
+    return orderDate === selected;
+  });
+}
 
   toggleOrderItems(orderId: number): void {
     if (this.expandedOrderIds.includes(orderId)) {
