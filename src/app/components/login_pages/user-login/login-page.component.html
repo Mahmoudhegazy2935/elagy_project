@@ -7,7 +7,6 @@
       <div class="screen__content">
 			<form class="login" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="login__field">
-          <i class="login__icon fas fa-user"></i>
           <h1 class="mb-3">تسجيل الدخول </h1>
 
 
@@ -19,7 +18,6 @@
                 }
 				</div>
 				<div class="login__field">
-          <i class="login__icon fas fa-lock"></i>
 					<input type="password" class="login__input" formControlName="password" placeholder="كلمة السر">
           @if (f['password'].touched && f['password'].invalid) {
 
@@ -37,9 +35,8 @@
 			<div class="social-login">
         <h3></h3>
 				<div class="social-icons">
-          <a href="#" class="social-login__icon fab fa-instagram" [routerLink]="['/forgot_the_password']">نسيت كلمة السر ؟</a>
-					<a href="#" class="social-login__icon fab fa-facebook" [routerLink]="['/register']">انشاء حساب</a>
-					<a href="#" routerLink="/PharmacyRegistration" class="social-login__icon fab fa-twitter">هل لديك صيدلية ؟</a>
+					<a href="#" class="social-login__icon " [routerLink]="['/register']">انشاء حساب</a>
+					<a href="#" routerLink="/PharmacyRegistration" class="social-login__icon ">هل لديك صيدلية ؟</a>
 				</div>
 			</div>
 		</div>
