@@ -31,6 +31,8 @@ import { UnauthorizedComponent } from './components/unauthorized/unauthorized.co
 import { AuthGuard } from './guards/auth.guard';
 import { PharmacyGuard } from './guards/pharmacy.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { NbComponent } from './components/cart_user/nb/nb.component';
+
 
 
 export const routes: Routes = [
@@ -40,21 +42,23 @@ export const routes: Routes = [
   { path: 'intro', component: IntroPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
+  { path: 'np', component: NbComponent },
   { path: 'forgot_the_password', component: ForgotThePasswordComponent, title: 'forgot_the_password' },
   { path: 'PharmacyRegistration', component: PharmacyRegistrationComponent, title: 'Pharmacy-Registration' },
 
   // User
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'userhome/:id', component: SinglProductComponent, canActivate: [AuthGuard] },
-  { path: 'product/:name', component: SinglProductComponent, canActivate: [AuthGuard] },
-  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
-  { path: 'finsh_ordre', component: FinishOrderComponent, canActivate: [AuthGuard], title: 'finsh_ordre' },
-  { path: 'order_done', component: OrderDoneComponent, canActivate: [AuthGuard] },
-  { path: 'roshta', component: RoshtaComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent,},
+  { path: 'userhome/:id', component: SinglProductComponent,},
+  { path: 'product/:name', component: SinglProductComponent,},
+  { path: 'cart', component: CartComponent },
+  { path: 'finsh_ordre', component: FinishOrderComponent, title: 'finsh_ordre' },
+  { path: 'order_done', component: OrderDoneComponent,},
+  { path: 'roshta', component: RoshtaComponent },
 
   // Pharmacy
   { path: 'pharmacy_home', component: PharmacyHomeComponent, canActivate: [PharmacyGuard] },
   { path: 'pharmacy_roshta', component: PharmacyRoshtaComponent, canActivate: [PharmacyGuard] },
+
 
   // Admin
   { path: 'HomeAdminComponent', component: HomeAdminComponent, canActivate: [AdminGuard], title: 'admin' },

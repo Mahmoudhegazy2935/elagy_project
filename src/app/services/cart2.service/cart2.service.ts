@@ -2,11 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.service';
 import { BehaviorSubject } from 'rxjs';
+import { Product } from '../../models/product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Cart2Service {
+  addToCart(searchedProduct: Product) {
+    throw new Error('Method not implemented.');
+  }
   private cartProducts: any[] = [];
   private cartCountSubject = new BehaviorSubject<number>(0);
 

@@ -1,4 +1,5 @@
 export interface Roshta {
+  isAboutToExpire: boolean;
   id: number;
   userName: string;
   address: string;

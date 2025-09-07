@@ -56,24 +56,32 @@ export class HomeComponent {
     this.errorMessage = '';
       // Reset previous result
 
-
-    if (this.searchQuery.trim()) {
-      this.productsrvice.searchProduct(this.searchQuery).subscribe({
-        next: (data) => {
-          this.loading=false;
-           if (data) {
-            this.products = data;  // Store the product
-          } else {
-            this.errorMessage = ` لا توجد نتائج ل ${this.searchQuery}`;
+      if (this.searchQuery.trim()) {
+        this.loading = true;
+        this.productsrvice.searchProduct(this.searchQuery).subscribe({
+          next: (data) => {
+            this.loading = false;
+      
+            if (data && data.length > 0) {
+              this.products = data;
+              this.errorMessage = '';
+            } else {
+              this.products = [];
+              this.errorMessage = `نأسف أن العلاج "${this.searchQuery}" مش متسجل في بيانات الموقع.`;
+              // 👇 التوجيه لصفحة تسجيل العلاج
+              // this.router.navigate(['/add-medicine'], { queryParams: { name: this.searchQuery } });
+            }
+          },
+          error: (err) => {
+            this.loading = false;
+            console.error('Error fetching product', err);
+            this.products = [];
+            this.errorMessage = `نأسف أن العلاج "${this.searchQuery}" مش متسجل في بيانات الموقع.`;
+            // this.router.navigate(['/np'], { queryParams: { name: this.searchQuery } });
           }
-        },
-        error: (err) => {
-          this.loading=false;
-          console.error('Error fetching product', err);
-          this.errorMessage = ` لا توجد نتائج ل ${this.searchQuery}`;
-        }
-      });
-    }
+        });
+      }
+      
   }
 
   onSearch() {
@@ -91,6 +99,14 @@ export class HomeComponent {
       });
 
 
+  }
+  onButtonClick() {
+    this.search();  // الفنكشن الأولى
+    this.np();      // الفنكشن التانية
+  }
+  
+  np(){
+    this.router.navigate(['/np'], { queryParams: { name: this.searchQuery } });
   }
 
 

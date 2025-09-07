@@ -186,7 +186,7 @@
 // }
 
 // }
-
+//////////////////////////////////////////////////////////
 import { Component } from '@angular/core';
 import { NavebarComponent } from "../../navebar/navebar.component";
 import { Cart2Service } from '../../../services/cart2.service/cart2.service';

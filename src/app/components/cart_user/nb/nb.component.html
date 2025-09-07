@@ -1,0 +1,63 @@
+<app-navebar></app-navebar>
+
+<div class="card p-4 shadow-sm mb-4 mt-5">
+  <div class="mb-3">
+    <label for="medicine" class="form-label">اسم العلاج</label>
+    <input type="text" id="medicine" class="form-control" [(ngModel)]="medicineName" placeholder="ادخل اسم العلاج">
+  </div>
+</div>
+
+<div class="mt-4 px-4 w-100" dir="rtl">
+  <h1 class="text-success mb-4">إتمام الطلب</h1>
+
+  <div class="card p-4 shadow-sm mb-4">
+    <h4 class="text-primary mb-3">معلومات العميل</h4>
+
+    <div class="mb-3">
+      <label for="name" class="form-label">الاسم الكامل:</label>
+      <input type="text" id="name" class="form-control" [(ngModel)]="userName" placeholder="ادخل اسمك">
+    </div>
+
+    <div class="mb-3">
+      <label for="speicalLocation" class="form-label">العنوان العام:</label>
+      <select id="speicalLocation" class="form-select" [(ngModel)]="speicalLocation" (change)="loadNearbyPharmacies()">
+        <option disabled value="">اختر العنوان</option>
+        @for (location of locations; track $index) {
+          <option [value]="location">{{ location }}</option>
+        }
+      </select>
+    </div>
+
+    @if (secondLocationsList.length > 0) {
+      <div class="mb-3">
+        <label for="secondLocation" class="form-label">عنوان إضافي:</label>
+        <select id="secondLocation" class="form-select" [(ngModel)]="secondLocation">
+          <option disabled value="">اختر عنوان إضافي</option>
+          @for (loc of secondLocationsList; track $index) {
+            <option [value]="loc">{{ loc }}</option>
+          }
+        </select>
+      </div>
+    }
+
+    <div class="mb-3">
+      <label for="address" class="form-label">العنوان بالتفصيل:</label>
+      <input type="text" id="address" class="form-control" [(ngModel)]="userAddress1" (change)="updateUserAddress()" placeholder="مثال : المساكن/شارع التأمين /بجوار قهوة المونديال">
+    </div>
+
+    <div class="mb-3">
+      <label for="phone" class="form-label">رقم الهاتف:</label>
+      <input type="text" id="phone" class="form-control" [(ngModel)]="phoneNumber" placeholder="ادخل رقم الهاتف">
+    </div>
+  </div>
+
+  <div class="text-end mt-3">
+    <button class="btn btn-success mb-5" (click)="submitOrder()">تأكيد الطلب</button>
+  </div>
+
+  @if (success) {
+    <div class="alert alert-success mt-3" role="alert">
+      <strong>تم بنجاح!</strong> تم إرسال طلبك إلى الخادم.
+    </div>
+  }
+</div>

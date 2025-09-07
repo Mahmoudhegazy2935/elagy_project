@@ -15,26 +15,24 @@ import { SpinnerComponent } from "../../spinner/spinner.component";
   templateUrl: './pharmacy-roshta.component.html',
   styleUrl: './pharmacy-roshta.component.css'
 })
-export class PharmacyRoshtaComponent {
-  menuOpen = false;
+export class PharmacyRoshtaComponent { menuOpen = false;
   showDropdown = false;
-  deliveryArea = localStorage.getItem('pharmacyaddress'); // المركز
+  deliveryArea = localStorage.getItem('pharmacyaddress'); 
   pharmacy_name = localStorage.getItem('pharmacyName');
   roshtas: Roshta[] = [];
   expandedRoshtaIds: number[] = [];
   acceptedRoshtas: any[] = [];
   showAccepted = false;
-  loading:boolean=false;
-  selectedStreet: string = ''; // الشارع المختار
-  streetsForArea: string[] = []; // شوارع المركز المختار
+  loading: boolean = false;
+  selectedStreet: string = ''; 
+  streetsForArea: string[] = []; 
 
   private destroy$ = new Subject<void>();
 
-  // خريطة الشوارع حسب المركز
   locationsMap: { [key: string]: string[] } = {
     'نجع حمادي': ['شارع أحمد شوقي', 'حي السلام', 'المنطقة الصناعية'],
-    'قنا': ['الشؤون', 'المساكن', 'البانزيون','السيد','حوض عشرة','المعبر'],
-    'دشنا': ['كوبري الجبانة', 'كوبري حلاوة','المركز'],
+    'قنا': ['الشؤون', 'المساكن', 'البانزيون', 'السيد', 'حوض عشرة', 'المعبر'],
+    'دشنا': ['كوبري الجبانة', 'كوبري حلاوة', 'المركز'],
     'اولاد عمرو': ['الشارع العام', 'حي المعلمين'],
     'الوقف': ['حي النور', 'شارع 15 مايو']
   };
@@ -42,16 +40,14 @@ export class PharmacyRoshtaComponent {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.loading=true;
-    // تحميل شوارع المركز
+    this.loading = true;
     this.streetsForArea = this.locationsMap[this.deliveryArea || ''] || [];
 
-    // تحميل الروشتات كل 10 ثواني
     timer(0, 10000)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.http.get<Roshta[]>('https://elagy-apii.runasp.net/api/Roshta').subscribe(data => {
-        this.loading=false;
+          this.loading = false;
           const now = new Date();
           const updatedRoshtas: Roshta[] = [];
 
@@ -71,7 +67,7 @@ export class PharmacyRoshtaComponent {
                 this.http.put(`https://elagy-apii.runasp.net/api/Roshta/${roshta.id}`, { status: updated.status })
                   .subscribe(() => {
                     console.log(`Roshta ${roshta.id} updated due to timeout`);
-                    this.refreshRoshtas(); // إعادة التحميل بعد التحديث
+                    this.refreshRoshtas();
                   });
               } else {
                 (roshta as any).isAboutToExpire = diffInHours >= 2.5 && diffInHours < 3;
@@ -129,8 +125,6 @@ export class PharmacyRoshtaComponent {
             this.updateAcceptedRoshtas();
 
             console.log(`Roshta ${orderId} accepted with price ${enteredPrice}.`);
-          } else {
-            console.error(`Roshta with ID ${orderId} not found in local data.`);
           }
         },
         error: err => {
@@ -141,9 +135,9 @@ export class PharmacyRoshtaComponent {
   }
 
   refreshRoshtas(): void {
-    this.loading=true;
+    this.loading = true;
     this.http.get<Roshta[]>('https://elagy-apii.runasp.net/api/Roshta').subscribe(data => {
-      this.loading=false;
+      this.loading = false;
       this.roshtas = data.filter(order => {
         const mainStreet = this.getMainStreet(order.address);
         return order.speicalLocation === this.deliveryArea &&
@@ -158,7 +152,7 @@ export class PharmacyRoshtaComponent {
   }
 
   getMainStreet(address: string): string {
-    return address.split('-')[0].trim(); // استخراج أول جزء من العنوان
+    return address.split('-')[0].trim();
   }
 
   isToday(dateStr: string): boolean {
@@ -200,5 +194,17 @@ export class PharmacyRoshtaComponent {
         image: 'w-100'
       }
     });
+  }
+
+  // ✅ لو الملف صورة
+  isImageFile(path: string): boolean {
+    const lower = path.toLowerCase();
+    return lower.endsWith('.jpg') || lower.endsWith('.jpeg') || lower.endsWith('.png') || lower.endsWith('.gif') || lower.endsWith('.webp');
+  }
+
+  // ✅ لو الملف نص (نجيب اسم العلاج بس)
+  getFileName(path: string): string {
+    const fileName = path.split('\\').pop()?.split('/').pop() || path;
+    return fileName.split('-').pop() || fileName;
   }
 }
