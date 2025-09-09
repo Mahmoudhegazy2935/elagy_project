@@ -67,7 +67,7 @@ export class HomeComponent {
               this.errorMessage = '';
             } else {
               this.products = [];
-              this.errorMessage = `نأسف أن العلاج "${this.searchQuery}" مش متسجل في بيانات الموقع.`;
+              this.errorMessage = `نأسف أن العلاج "${this.searchQuery}"مش متسجل في بيانات الموقع اكمل اسم العلاج و اضغط علي زر البحث. `;
               // 👇 التوجيه لصفحة تسجيل العلاج
               // this.router.navigate(['/add-medicine'], { queryParams: { name: this.searchQuery } });
             }
@@ -76,7 +76,7 @@ export class HomeComponent {
             this.loading = false;
             console.error('Error fetching product', err);
             this.products = [];
-            this.errorMessage = `نأسف أن العلاج "${this.searchQuery}" مش متسجل في بيانات الموقع.`;
+            this.errorMessage = `نأسف أن العلاج "${this.searchQuery}" مش متسجل في بيانات الموقع اكمل اسم العلاج و اضغط علي زر البحث.`;
             // this.router.navigate(['/np'], { queryParams: { name: this.searchQuery } });
           }
         });
