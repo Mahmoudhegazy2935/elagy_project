@@ -6,6 +6,7 @@ export interface OrderItem {
 }
 
 export interface Order {
+  pharmacyName: string | null;
   id: number;
   userName: string;
   phoneNumber: string;

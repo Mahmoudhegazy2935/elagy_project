@@ -105,7 +105,7 @@ export class PharmacyRoshtaComponent { menuOpen = false;
     }
 
     const updatedStatus = {
-      status: 'تم القبول',
+      status: `تم القبول - ${this.pharmacy_name}-العنوان : ${this.deliveryArea}` ,
       price: enteredPrice
     };
 

@@ -325,7 +325,7 @@ export class PharmacyHomeComponent {
   }
 
   acceptOrder(orderId: number): void {
-    const updatedStatus = { status: 'تم القبول' };
+    const updatedStatus = { status: `تم القبول - ${this.pharmacy_name}-العنوان : ${this.deliveryArea}` };
 
     this.http.put(`https://elagy-apii.runasp.net/api/Cart/${orderId}`, updatedStatus).subscribe({
       next: () => {
