@@ -56,36 +56,66 @@ export class AddPharmacyComponent {
     return this.registerForm.controls;
   }
 
-  onSubmit() {
-    this.submitted = true;
-    this.errorMessage = '';
-    this.successMessage = '';
+//   onSubmit() {
+//     this.submitted = true;
+//     this.errorMessage = '';
+//     this.successMessage = '';
 
-    if (this.registerForm.invalid) {
-      console.log(this.registerForm.invalid)
-      return;
+//     if (this.registerForm.invalid) {
+//       console.log(this.registerForm.invalid)
+//       return;
+//     }
+
+//     this.authService.addpharmacy(this.registerForm.value).subscribe({
+//       next: (response) => {
+
+//         console.log('Response:', response);
+
+//         this.successMessage = response || 'Registration successful!';
+
+//         this.registerForm.reset();
+//         this.submitted = false;
+
+//         this.router.navigate(['/HomeAdminComponent']);
+
+//       },
+//       error: (error) => {
+//         this.errorMessage = error.error;
+//         console.error('Error:', error);
+//       }
+//     });
+// }
+
+onSubmit() {
+  this.submitted = true;
+  this.errorMessage = '';
+  this.successMessage = '';
+
+  if (this.registerForm.invalid) {
+    return;
+  }
+
+  // تعديل lastName بحيث يضاف عليه center
+  const formValue = { ...this.registerForm.value };
+  formValue.lastName = formValue.center
+    ? `${formValue.lastName} - ${formValue.center}`
+    : formValue.lastName;
+
+  console.log("📤 البيانات المرسلة:", formValue);
+
+  this.authService.addpharmacy(formValue).subscribe({
+    next: (response) => {
+      this.successMessage = response || 'Registration successful!';
+      this.registerForm.reset();
+      this.submitted = false;
+      this.router.navigate(['/HomeAdminComponent']);
+    },
+    error: (error) => {
+      this.errorMessage = error.error;
+      console.error('❌ Error:', error);
     }
-
-    this.authService.addpharmacy(this.registerForm.value).subscribe({
-      next: (response) => {
-
-        console.log('Response:', response);
-
-        this.successMessage = response || 'Registration successful!';
-
-        this.registerForm.reset();
-        this.submitted = false;
-
-        this.router.navigate(['/HomeAdminComponent']);
-
-      },
-      error: (error) => {
-        this.errorMessage = error.error;
-        console.error('Error:', error);
-      }
-    });
+  });
 }
-
 
 
 [x: string]: any;

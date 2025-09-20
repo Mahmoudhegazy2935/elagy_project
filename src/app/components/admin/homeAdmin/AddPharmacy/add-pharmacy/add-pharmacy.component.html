@@ -55,7 +55,7 @@
                         <div class="mb-3">
                           <label for="center">اختر المركز</label>
 
-                          <select class="form-control" formControlName="center">
+                          <select class="form-control" formControlName="location">
                             @for (item of m; track $index) {
                               <option  [value]="item">
                                 {{ item }}
@@ -63,7 +63,7 @@
                             }
                           </select>
                         </div>
-                      <input type="text" class="login__input1 " formControlName="location"  placeholder=" العنوان" required>
+                      <input type="text" class="login__input1 " formControlName="center"  placeholder=" العنوان" required>
                       <!-- @if (f.location.touched && f.location.invalid) {
                       <small class="text-danger" >Valid location is required</small>
                       } -->

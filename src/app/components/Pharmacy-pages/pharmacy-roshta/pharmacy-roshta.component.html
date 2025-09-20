@@ -16,6 +16,11 @@
     <li>
       <a routerLink="/pharmacy_roshta" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">الروشتات</a>
     </li>
+    <li>
+      <button class="btn btn-danger ms-2" (click)="clearLocalStorage()">
+        تسجيل الخروج
+      </button>
+    </li>
   </ul>
 </nav>
 
@@ -24,6 +29,7 @@
     <div class="row justify-content-start align-items-center mb-3">
       <h3>صيدلية : {{ pharmacy_name }} </h3>
       <h5>بعنوان: {{ deliveryArea }}</h5>
+      <h5>العنوان بالتفصيل: {{ pharmacy_center }}</h5>
     </div>
     <hr>
 

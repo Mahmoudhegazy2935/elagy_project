@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navebar-admin',
@@ -14,6 +14,10 @@ export class NavebarAdminComponent {
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
-
-
+  constructor( private router: Router){}
+  clearLocalStorage(): void {
+    localStorage.clear(); // مسح كل البيانات
+    alert('تم تسجيل الخروج');
+    this.router.navigate(['/intro']); // تحويل لصفحة الانترو
+  }
 }

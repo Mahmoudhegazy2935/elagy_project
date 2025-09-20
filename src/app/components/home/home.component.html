@@ -16,6 +16,13 @@
         </div>
       </div>
 
+      
+    </div>
+  </div>
+
+
+
+    @if (!searchQuery) {
       <div class="roshta col-12 col-md-4 d-flex flex-column flex-md-row justify-content-between align-items-center mb-3 w-50 ">
         <div>
           <h3 style="color: #002E70;font-weight: bold;">اطلب بالروشتة</h3>
@@ -32,13 +39,6 @@
           alt="Prescription"
         />
       </div>
-    </div>
-  </div>
-
-
-
-    @if (!searchQuery) {
-
       <header class="midle">
         <div class="container mmm">
           <div class="row align-items-center">
@@ -82,44 +82,45 @@
 
       <section class="container my-5">
         <h2 class="mb-4">الأكثر استخداماً</h2>
-
+      
         <div class="position-relative">
-
           <!-- Left Arrow -->
           <button class="scroll-btn left" (click)="scrollLeft()">
             <i class="fas fa-chevron-left"></i>
           </button>
-
+      
           <!-- Scrollable Row -->
-           @if (!loading) {
-          <div #scrollContainer class="scroll-row d-flex overflow-auto">
-            @for (product of products.slice(0, 10); track $index) {
-
-              <div class="card mx-2" style="min-width: 220px; flex: 0 0 auto;">
-                <a [routerLink]="['/userhome/', product.id]">
-                  <div class="contImg">
-                    <img [src]="'https://elagy-apii.runasp.net/' + product.imagePath" class="card-img-top" height="150" alt="{{product.name}}">
+          @if (!loading) {
+            <div #scrollContainer class="scroll-row d-flex overflow-auto">
+              @for (product of products.slice(0, 10); track $index) {
+                <div class="card mx-2 product-card">
+                  <a [routerLink]="['/userhome/', product.id]">
+                    <div class="contImg">
+                      <img [src]="'https://elagy-apii.runasp.net/' + product.imagePath" class="card-img-top" height="150" alt="{{product.name}}">
+                    </div>
+                  </a>
+                  <div class="card-body text-center">
+                    <p class="card-text">{{product.name}}</p>
+                    <p>{{product.price}} جنيه</p>
+                    <button class="btn btn-danger btn-sm" (click)="showAlert();addToCart(product)">أضف الي السلة</button>
                   </div>
-                </a>
-                <div class="card-body text-center">
-                  <p class="card-text">{{product.name}}</p>
-                  <p>{{product.price}} جنيه</p>
-                  <button class="btn btn-danger btn-sm" (click)="showAlert();addToCart(product)">أضف الي السلة</button>
                 </div>
-              </div>
-            }
-          </div>}
+              }
+            </div>
+          }
           @if (loading) {
-          <div class="text-center w-100">
-            <app-spinner></app-spinner>
-          </div>}
-
+            <div class="text-center w-100">
+              <app-spinner></app-spinner>
+            </div>
+          }
+      
           <!-- Right Arrow -->
           <button class="scroll-btn right" (click)="scrollRight()">
             <i class="fas fa-chevron-right"></i>
           </button>
         </div>
       </section>
+      
 
 
     <footer class="bg-secondary text-white text-center py-4">

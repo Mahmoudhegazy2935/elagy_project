@@ -5,8 +5,8 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
 }
@@ -192,6 +192,7 @@ body {
     margin-bottom: 10px;
   }
 }
+
 /* Responsive for iPhone SE 375x667 */
 @media (max-width: 377px) {
   .fullscreen-bg {
@@ -259,5 +260,76 @@ body {
     width: 36px;
     height: 36px;
     margin-bottom: 8px;
+  }
+}
+
+/* Responsive for screens between 378px and 768px (ex: 411px) */
+@media (min-width: 378px) and (max-width: 768px) {
+  .fullscreen-bg {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .mm {
+    width: 100%;
+  }
+
+  .image-c {
+    width: 100%;
+    height: 280px;
+    border-bottom-right-radius: 120px;
+  }
+
+  .back-ground {
+    width: 100%;
+    height: 320px;
+    border-bottom-right-radius: 120px;
+  }
+
+  .text-ed1 {
+    font-size: 24px;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .logo {
+    font-size: 36px;
+    text-align: center;
+  }
+
+  .btn_color {
+    display: block;
+    margin: 20px auto;
+    width: 180px;
+    height: 50px;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .navbar ul li a {
+    font-size: 18px;
+    padding: 6px 10px;
+  }
+
+  .logo-image {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 10px;
   }
 }

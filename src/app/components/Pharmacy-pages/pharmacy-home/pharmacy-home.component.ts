@@ -220,7 +220,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { Observable, Subject, takeUntil, timer } from 'rxjs';
 import { Order } from '../../../models/order.model';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SpinnerComponent } from "../../spinner/spinner.component";
 
@@ -232,6 +232,7 @@ import { SpinnerComponent } from "../../spinner/spinner.component";
   styleUrl: './pharmacy-home.component.css'
 })
 export class PharmacyHomeComponent {
+  pharmacy_center: string | null = null; // المركز (متغير جديد)
   menuOpen = false;
   showDropdown = false;
   deliveryArea = localStorage.getItem('pharmacyaddress'); // e.g., 'نجع حمادي'
@@ -246,29 +247,86 @@ export class PharmacyHomeComponent {
   selectedStreet: string = '';
 
   locationsMap: { [key: string]: string[] } = {
-    'نجع حمادي': ['شارع أحمد شوقي', 'حي السلام', 'المنطقة الصناعية'],
-    'قنا': ['الشؤون', 'المساكن', 'البانزيون','السيد','حوض عشرة','المعبر'],
-    'دشنا': ['كوبري الجبانة', 'كوبري حلاوة','المركز'],
-    'اولاد عمرو': ['الشارع العام', 'حي المعلمين'],
-    'الوقف': ['حي النور', 'شارع 15 مايو']
+    'قنا': ['الشؤون', 'المساكن', 'دردشة','الجامعة','التأمين','البنك الاهلي']
   };
 
   get streetsForArea(): string[] {
     return this.deliveryArea ? this.locationsMap[this.deliveryArea] || [] : [];
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient , private router: Router) {}
 
+  // ngOnInit(): void {
+  //   this.loading=true;
+  //   timer(0, 10000)
+  //     .pipe(takeUntil(this.destroy$))
+  //     .subscribe(() => {
+  //       this.http.get<Order[]>('https://elagy-apii.runasp.net/api/Cart').subscribe(data => {
+  //         this.loading=false;
+  //         data.forEach(order => {
+  //           if (
+  //             order.speicalLocation?.replace(/\s+/g, '').trim() === this.deliveryArea?.replace(/\s+/g, '').trim() &&
+  //             order.status === 'قيد المعالجة' &&
+  //             this.isOlderThan3Hours(order.date)
+  //           ) {
+  //             this.http.put(`https://elagy-apii.runasp.net/api/Cart/${order.id}`, { status: 'نأسف لاتوجد استجابة' })
+  //               .subscribe(() => {
+  //                 console.log(`Order ${order.id} updated to نأسف لاتوجد استجابة`);
+  //               });
+  //           }
+  //         });
+
+  //         this.orders = data
+  // .filter(order =>
+  //   order.speicalLocation?.replace(/\s+/g, '').trim() === this.deliveryArea?.replace(/\s+/g, '').trim() &&
+  //   order.status === 'قيد المعالجة' &&
+  //   this.isLessThan3HoursOld(order.date)
+  // )
+  //           .map(order => {
+  //             const orderDate = new Date(order.date);
+  //             const now = new Date();
+  //             const diffInHours = (now.getTime() - orderDate.getTime()) / (1000 * 60 * 60);
+  //             const mainStreet = order.address?.split('-')[0].trim();
+  //             return {
+  //               ...order,
+  //               mainStreet,
+  //               isAboutToExpire: diffInHours >= 2.5 && diffInHours < 3
+  //             } as any;
+  //           });
+
+  //         this.acceptedOrders = data.filter(order =>
+  //           order.speicalLocation?.replace(/\s+/g, '').trim() === this.deliveryArea?.replace(/\s+/g, '').trim() &&
+  //           order.status.startsWith('تم القبول')&&
+  //           order.status.includes(this.pharmacy_name || '')
+  //         );
+
+  //         localStorage.setItem('acceptedOrders', JSON.stringify(this.acceptedOrders));
+  //       });
+  //     });
+
+  //   const storedOrders = localStorage.getItem('acceptedOrders');
+  //   this.acceptedOrders = storedOrders ? JSON.parse(storedOrders) : [];
+  // }
   ngOnInit(): void {
-    this.loading=true;
+    // ✅ تقسيم اسم الصيدلية المخزن في localStorage
+    const fullPharmacyName = localStorage.getItem('pharmacyName');
+    if (fullPharmacyName?.includes('-')) {
+      const parts = fullPharmacyName.split('-');
+      this.pharmacy_name = parts[0].trim();   // اسم الصيدلية
+      this.pharmacy_center = parts.slice(1).join('-').trim(); // المركز
+    } else {
+      this.pharmacy_name = fullPharmacyName;
+    }
+  
+    this.loading = true;
     timer(0, 10000)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.http.get<Order[]>('https://elagy-apii.runasp.net/api/Cart').subscribe(data => {
-          this.loading=false;
+          this.loading = false;
           data.forEach(order => {
             if (
-              order.speicalLocation === this.deliveryArea &&
+              order.speicalLocation?.replace(/\s+/g, '').trim() === this.deliveryArea?.replace(/\s+/g, '').trim() &&
               order.status === 'قيد المعالجة' &&
               this.isOlderThan3Hours(order.date)
             ) {
@@ -278,10 +336,10 @@ export class PharmacyHomeComponent {
                 });
             }
           });
-
+  
           this.orders = data
             .filter(order =>
-              order.speicalLocation === this.deliveryArea &&
+              order.speicalLocation?.replace(/\s+/g, '').trim() === this.deliveryArea?.replace(/\s+/g, '').trim() &&
               order.status === 'قيد المعالجة' &&
               this.isLessThan3HoursOld(order.date)
             )
@@ -296,20 +354,21 @@ export class PharmacyHomeComponent {
                 isAboutToExpire: diffInHours >= 2.5 && diffInHours < 3
               } as any;
             });
-
+  
           this.acceptedOrders = data.filter(order =>
-            order.speicalLocation === this.deliveryArea &&
-            order.status === 'تم القبول'
+            order.speicalLocation?.replace(/\s+/g, '').trim() === this.deliveryArea?.replace(/\s+/g, '').trim() &&
+            order.status.startsWith('تم القبول') &&
+            order.status.includes(this.pharmacy_name || '')
           );
-
+  
           localStorage.setItem('acceptedOrders', JSON.stringify(this.acceptedOrders));
         });
       });
-
+  
     const storedOrders = localStorage.getItem('acceptedOrders');
     this.acceptedOrders = storedOrders ? JSON.parse(storedOrders) : [];
   }
-
+  
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
@@ -325,7 +384,7 @@ export class PharmacyHomeComponent {
   }
 
   acceptOrder(orderId: number): void {
-    const updatedStatus = { status: `تم القبول - ${this.pharmacy_name}-العنوان : ${this.deliveryArea}` };
+    const updatedStatus = { status: `تم القبول - ${this.pharmacy_name}-العنوان : ${this.pharmacy_center}` };
 
     this.http.put(`https://elagy-apii.runasp.net/api/Cart/${orderId}`, updatedStatus).subscribe({
       next: () => {
@@ -362,7 +421,7 @@ export class PharmacyHomeComponent {
       this.loading=false;
       this.orders = data
         .filter(order =>
-          order.speicalLocation === this.deliveryArea &&
+          order.speicalLocation?.replace(/\s+/g, '').trim() === this.deliveryArea?.replace(/\s+/g, '').trim() &&
           order.status === 'قيد المعالجة' &&
           this.isLessThan3HoursOld(order.date)
         )
@@ -372,8 +431,9 @@ export class PharmacyHomeComponent {
         });
 
       this.acceptedOrders = data.filter(order =>
-        order.speicalLocation === this.deliveryArea &&
-        order.status === 'تم القبول'
+        order.speicalLocation?.replace(/\s+/g, '').trim() === this.deliveryArea?.replace(/\s+/g, '').trim() &&
+        order.status === 'تم القبول'&&
+        order.status.includes(this.pharmacy_name || '')
       );
 
       localStorage.setItem('acceptedOrders', JSON.stringify(this.acceptedOrders));
@@ -427,5 +487,10 @@ export class PharmacyHomeComponent {
     const now = new Date();
     const diffMs = now.getTime() - date.getTime();
     return diffMs >= 3 * 60 * 60 * 1000;
+  }
+  clearLocalStorage(): void {
+    localStorage.clear(); // مسح كل البيانات
+    alert('تم تسجيل الخروج');
+    this.router.navigate(['/intro']); // تحويل لصفحة الانترو
   }
 }

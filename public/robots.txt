@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://elagy.vercel.app/sitemap.xml

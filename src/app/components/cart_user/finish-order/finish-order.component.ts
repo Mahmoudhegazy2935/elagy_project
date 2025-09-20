@@ -221,7 +221,7 @@ export class FinishOrderComponent {
   phoneNumber: string = '';
   success: boolean = false;
   total: number = 0;
-  locations: string[] = ['نجع حمادي', 'قنا', 'دشنا', 'اولاد عمرو', 'الوقف'];
+  locations: string[] = [ 'قنا'];
 
   nearbyPharmacies: Pharmacy[] = [];
 
@@ -242,11 +242,8 @@ export class FinishOrderComponent {
   // تحدّث قائمة العناوين الإضافية بناءً على العنوان العام
   updateSecondLocationsList() {
     const locationsMap: { [key: string]: string[] } = {
-      'نجع حمادي': ['شارع أحمد شوقي', 'حي السلام', 'المنطقة الصناعية'],
-      'قنا': ['الشؤون', 'المساكن', 'البانزيون','السيد','حوض عشرة','المعبر'],
-      'دشنا': ['كوبري الجبانة', 'كوبري حلاوة','المركز'],
-      'اولاد عمرو': ['الشارع العام', 'حي المعلمين'],
-      'الوقف': ['حي النور', 'شارع 15 مايو']
+
+      'قنا': ['الشؤون', 'المساكن', 'دردشة','الجامعة','التأمين','البنك الاهلي']
     };
 
     this.secondLocationsList = locationsMap[this.speicalLocation] || [];

@@ -15,6 +15,11 @@
     <li><a routerLink="/PharmacyListComponent" routerLinkActive="active">صيدليات قيد المعالجة</a></li>
     <li><a routerLink="/orders_admin" routerLinkActive="active">الطلبات المنتهية</a></li>
     <li><a routerLink="/AddPharmacy" routerLinkActive="active">اضافة صيدلية</a></li>
+    <li>
+      <button class="btn btn-danger ms-2" (click)="clearLocalStorage()">
+        تسجيل الخروج
+      </button>
+    </li>
     <span class="divider"></span>
     <!-- <li><a style="font-size: 15px;" class="mt-5">مرحبا ,{{userName}}</a></li> -->
   </ul>

@@ -29,7 +29,7 @@ export class NbComponent {
   phoneNumber: string = '';     // رقم الهاتف
   medicineName: string = '';    // اسم العلاج
   success: boolean = false;
-  locations: string[] = ['نجع حمادي', 'قنا', 'دشنا', 'اولاد عمرو', 'الوقف'];
+  locations: string[] = [ 'قنا'];
   price: number = 0;
   secondLocationsList: string[] = [];
   secondLocation: string = '';
@@ -58,11 +58,8 @@ export class NbComponent {
 
   updateSecondLocationsList() {
     const locationsMap: { [key: string]: string[] } = {
-      'نجع حمادي': ['شارع أحمد شوقي', 'حي السلام', 'المنطقة الصناعية'],
-      'قنا': ['الشؤون', 'المساكن', 'البانزيون', 'السيد', 'حوض عشرة', 'المعبر'],
-      'دشنا': ['كوبري الجبانة', 'كوبري حلاوة', 'المركز'],
-      'اولاد عمرو': ['الشارع العام', 'حي المعلمين'],
-      'الوقف': ['حي النور', 'شارع 15 مايو']
+   
+      'قنا': ['الشؤون', 'المساكن', 'دردشة','الجامعة','التأمين','البنك الاهلي']
     };
 
     this.secondLocationsList = locationsMap[this.speicalLocation] || [];

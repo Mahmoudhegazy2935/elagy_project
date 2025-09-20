@@ -83,13 +83,14 @@ ngOnDestroy(): void {
     this.http.get<Roshta[]>('https://elagy-apii.runasp.net/api/Roshta').subscribe(data => {
         this.loading=false;
       this.roshtas = data.filter(roshta => {
-        const roshtaDate = new Date(roshta.date);
+        // const roshtaDate = new Date(roshta.date);
         return roshta.userName.trim() === this.userName.trim() &&
                roshta.address.trim() === this.userAddress.trim() &&
                roshta.phoneNumber.trim() === this.phoneNumber.trim() &&
-               roshta.speicalLocation.trim() === this.speicalLocation.trim() &&
-               roshtaDate.toDateString() === today.toDateString();
+               roshta.speicalLocation.trim() === this.speicalLocation.trim();
+              //  roshtaDate.toDateString() === today.toDateString();
       });
+      console.log('عدد الروشتات بعد الفلترة:', this.roshtas.length);
     });
   }
 
@@ -123,7 +124,12 @@ ngOnDestroy(): void {
       }
     });
   }
+  showNearby: boolean = false;
 
+  toggleNearby() {
+    this.showNearby = !this.showNearby;
+  }
+  
 
 }
 

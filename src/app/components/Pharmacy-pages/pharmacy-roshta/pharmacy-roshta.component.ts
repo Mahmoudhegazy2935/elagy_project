@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Roshta } from '../../../models/roshta';
 import Swal from 'sweetalert2';
 import { Subject, takeUntil, timer } from 'rxjs';
@@ -17,6 +17,7 @@ import { SpinnerComponent } from "../../spinner/spinner.component";
 })
 export class PharmacyRoshtaComponent { menuOpen = false;
   showDropdown = false;
+  pharmacy_center: string | null = null; // المركز (متغير جديد)
   deliveryArea = localStorage.getItem('pharmacyaddress'); 
   pharmacy_name = localStorage.getItem('pharmacyName');
   roshtas: Roshta[] = [];
@@ -30,19 +31,69 @@ export class PharmacyRoshtaComponent { menuOpen = false;
   private destroy$ = new Subject<void>();
 
   locationsMap: { [key: string]: string[] } = {
-    'نجع حمادي': ['شارع أحمد شوقي', 'حي السلام', 'المنطقة الصناعية'],
-    'قنا': ['الشؤون', 'المساكن', 'البانزيون', 'السيد', 'حوض عشرة', 'المعبر'],
-    'دشنا': ['كوبري الجبانة', 'كوبري حلاوة', 'المركز'],
-    'اولاد عمرو': ['الشارع العام', 'حي المعلمين'],
-    'الوقف': ['حي النور', 'شارع 15 مايو']
+    'قنا': ['الشؤون', 'المساكن', 'دردشة','الجامعة','التأمين','البنك الاهلي']
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private router: Router){}
 
+  // ngOnInit(): void {
+  //   this.loading = true;
+  //   this.streetsForArea = this.locationsMap[this.deliveryArea || ''] || [];
+
+  //   timer(0, 10000)
+  //     .pipe(takeUntil(this.destroy$))
+  //     .subscribe(() => {
+  //       this.http.get<Roshta[]>('https://elagy-apii.runasp.net/api/Roshta').subscribe(data => {
+  //         this.loading = false;
+  //         const now = new Date();
+  //         const updatedRoshtas: Roshta[] = [];
+
+  //         data.forEach(roshta => {
+  //           const roshtaDate = new Date(roshta.date);
+  //           const diffInMs = now.getTime() - roshtaDate.getTime();
+  //           const diffInHours = diffInMs / (1000 * 60 * 60);
+  //           const mainStreet = this.getMainStreet(roshta.address);
+
+  //           if (
+  //             roshta.speicalLocation === this.deliveryArea &&
+  //             roshta.status === 'قيد المعالجة' &&
+  //             (!this.selectedStreet || mainStreet === this.selectedStreet)
+  //           ) {
+  //             if (diffInHours > 3) {
+  //               const updated = { ...roshta, status: 'نأسف لاتوجد استجابة' };
+  //               this.http.put(`https://elagy-apii.runasp.net/api/Roshta/${roshta.id}`, { status: updated.status })
+  //                 .subscribe(() => {
+  //                   console.log(`Roshta ${roshta.id} updated due to timeout`);
+  //                   this.refreshRoshtas();
+  //                 });
+  //             } else {
+  //               (roshta as any).isAboutToExpire = diffInHours >= 2.5 && diffInHours < 3;
+  //               updatedRoshtas.push(roshta);
+  //             }
+  //           }
+  //         });
+
+  //         this.roshtas = updatedRoshtas;
+  //       });
+  //     });
+
+  //   const storedRoshtas = localStorage.getItem('acceptedRoshtas');
+  //   this.acceptedRoshtas = storedRoshtas ? JSON.parse(storedRoshtas) : [];
+  // }
   ngOnInit(): void {
+    // ✅ تقسيم اسم الصيدلية المخزن في localStorage
+    const fullPharmacyName = localStorage.getItem('pharmacyName');
+    if (fullPharmacyName?.includes('-')) {
+      const parts = fullPharmacyName.split('-');
+      this.pharmacy_name = parts[0].trim();   // اسم الصيدلية
+      this.pharmacy_center = parts.slice(1).join('-').trim(); // المركز
+    } else {
+      this.pharmacy_name = fullPharmacyName;
+    }
+  
     this.loading = true;
     this.streetsForArea = this.locationsMap[this.deliveryArea || ''] || [];
-
+  
     timer(0, 10000)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
@@ -50,13 +101,13 @@ export class PharmacyRoshtaComponent { menuOpen = false;
           this.loading = false;
           const now = new Date();
           const updatedRoshtas: Roshta[] = [];
-
+  
           data.forEach(roshta => {
             const roshtaDate = new Date(roshta.date);
             const diffInMs = now.getTime() - roshtaDate.getTime();
             const diffInHours = diffInMs / (1000 * 60 * 60);
             const mainStreet = this.getMainStreet(roshta.address);
-
+  
             if (
               roshta.speicalLocation === this.deliveryArea &&
               roshta.status === 'قيد المعالجة' &&
@@ -75,14 +126,15 @@ export class PharmacyRoshtaComponent { menuOpen = false;
               }
             }
           });
-
+  
           this.roshtas = updatedRoshtas;
         });
       });
-
+  
     const storedRoshtas = localStorage.getItem('acceptedRoshtas');
     this.acceptedRoshtas = storedRoshtas ? JSON.parse(storedRoshtas) : [];
   }
+  
 
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -105,7 +157,7 @@ export class PharmacyRoshtaComponent { menuOpen = false;
     }
 
     const updatedStatus = {
-      status: `تم القبول - ${this.pharmacy_name}-العنوان : ${this.deliveryArea}` ,
+      status: `تم القبول - ${this.pharmacy_name}-العنوان : ${this.pharmacy_center}` ,
       price: enteredPrice
     };
 
@@ -206,5 +258,10 @@ export class PharmacyRoshtaComponent { menuOpen = false;
   getFileName(path: string): string {
     const fileName = path.split('\\').pop()?.split('/').pop() || path;
     return fileName.split('-').pop() || fileName;
+  }
+  clearLocalStorage(): void {
+    localStorage.clear(); // مسح كل البيانات
+    alert('تم تسجيل الخروج');
+    this.router.navigate(['/intro']); // تحويل لصفحة الانترو
   }
 }

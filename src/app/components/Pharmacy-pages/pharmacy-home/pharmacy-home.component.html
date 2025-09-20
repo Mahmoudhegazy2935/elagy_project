@@ -11,6 +11,11 @@
   <ul [class.open]="menuOpen">
     <li><a routerLink="/pharmacy_home" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">الطلبات</a></li>
     <li><a routerLink="/pharmacy_roshta" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">الروشتات</a></li>
+    <li>
+      <button class="btn btn-danger ms-2" (click)="clearLocalStorage()">
+        تسجيل الخروج
+      </button>
+    </li>
   </ul>
 </nav>
 
@@ -19,6 +24,7 @@
     <div class="row justify-content-start align-items-center mb-3">
       <h3>صيدلية : {{ pharmacy_name }} </h3>
       <h5>بعنوان: {{ deliveryArea }}</h5>
+      <h5>العنوان بالتفصيل: {{ pharmacy_center }}</h5>
     </div>
 
     <hr>
@@ -66,7 +72,7 @@
               {{ expandedOrderIds.includes(order.id) ? 'إخفاء المنتجات' : 'عرض المنتجات' }}
             </button>
 
-            @if (order.status == "تم القبول") {
+            @if (order.status?.startsWith("تم القبول")) {
               <p class="mb-0 status-tag">📌 الحالة: <strong>{{ order.status }}</strong></p>
             } @else {
               <button class="btn btn-primary" (click)="acceptOrder(order.id)">✅ قبول الطلب</button>
